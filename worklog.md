@@ -1965,3 +1965,27 @@ Unresolved Issues / Risks:
 - Google Maps embed still uses generic Purulia coordinates
 - Need 4K Hero background image from user
 - Some unused component files still exist (CookieConsent.tsx, BeforeAfterComparison.tsx, etc.)
+
+---
+Task ID: R9
+Agent: Main Agent
+Task: Redesign Hero Section with split layout for better image visibility and text readability
+
+Work Log:
+- Replaced full-screen overlay hero with split layout design
+- DESKTOP (lg+): Left 50% = cream background with text content, Right 50% = full image NO overlay
+- MOBILE/TABLET: Top 45-50vh = image with light maroon overlay + centered title, Bottom = cream background content
+- Image served via raw <img> tag — no Next.js compression, original 11MB quality
+- Added subtle left-edge gradient fade on desktop so image blends naturally into cream
+- Text colors changed from white-on-dark to maroon-on-cream for maximum readability
+- Added trust badges (4.8 Rating, FSSAI Licensed, 5000+ Events) with gold icons
+- Removed FloatingParticles and parallax (no longer needed with split layout)
+- CTA buttons use maroon text/border on cream background (instead of gold on dark)
+- Logo + business name shown together as a branded header
+- Bengali tagline in gold on cream background — fully visible and readable
+
+Stage Summary:
+- Hero completely redesigned: image now clearly visible (no dark overlay on desktop)
+- Text fully readable on clean cream/white background
+- Premium, modern split-layout design
+- 0 lint errors, dev server running successfully
