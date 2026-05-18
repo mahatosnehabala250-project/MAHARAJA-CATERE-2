@@ -72,7 +72,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             transition={{ delay: 0.05, duration: 0.5, ease: 'easeOut' }}
             className="relative mb-6"
           >
-            <div className="w-[100px] h-[100px] sm:w-[110px] sm:h-[110px] rounded-2xl overflow-hidden shadow-lg ring-1 ring-black/5">
+            <div className="w-[100px] h-[100px] sm:w-[110px] sm:h-[110px] rounded-full overflow-hidden shadow-lg ring-2 ring-[#D4A017]">
               <Image
                 src="/images/logo.jpg"
                 alt="Maharaja Caterer"
