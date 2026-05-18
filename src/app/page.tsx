@@ -31,6 +31,9 @@ import StructuredData from '@/components/ui-custom/StructuredData'
 import VenuePartnersSection from '@/components/sections/VenuePartnersSection'
 import FloatingActionMenu from '@/components/ui-custom/FloatingActionMenu'
 import MenuDownloadCTA from '@/components/ui-custom/MenuDownloadCTA'
+import ChefSpecialSection from '@/components/sections/ChefSpecialSection'
+import EventCountdown from '@/components/ui-custom/EventCountdown'
+import TestimonialVideoSection from '@/components/sections/TestimonialVideoSection'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -56,13 +59,16 @@ export default function Home() {
           <ProcessSection />
           <MenuSection />
           <MenuDownloadCTA />
+          <ChefSpecialSection />
           <PricingSection />
           <EventCalculator />
+          <EventCountdown />
           <GallerySection />
           <SpecialOffersSection />
           <VenuePartnersSection />
           <CTABanner />
           <TestimonialsSection />
+          <TestimonialVideoSection />
           <StatsSection />
           <SectionDivider variant="maroon-peak" />
           <FAQSection />

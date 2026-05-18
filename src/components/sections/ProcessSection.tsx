@@ -106,12 +106,14 @@ export default function ProcessSection() {
           {/* Vertical connecting line */}
           <div className="absolute left-6 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-[2px]">
             <motion.div
-              className="w-full h-full bg-gradient-to-b from-royal-gold via-royal-gold/60 to-royal-gold/20"
+              className="w-full h-full bg-gradient-to-b from-royal-gold via-royal-gold-light to-royal-gold/20"
               initial={{ scaleY: 0 }}
               animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
               transition={{ duration: 1.5, ease: 'easeOut' }}
               style={{ transformOrigin: 'top' }}
             />
+            {/* Animated traveling dot */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-royal-gold shadow-[0_0_8px_rgba(212,160,23,0.6)] animate-dot-travel" style={{ animationDelay: '1.5s' }} />
           </div>
 
           {steps.map((step, index) => {
@@ -129,14 +131,16 @@ export default function ProcessSection() {
                 {/* Timeline node (circle on the line) */}
                 <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 z-20">
                   <div className="relative">
+                    {/* Glow behind icon */}
+                    <div className="absolute inset-0 w-12 h-12 rounded-full bg-royal-gold/20 blur-md" />
                     {/* Pulse ring */}
-                    <div className="absolute inset-0 w-12 h-12 rounded-full animate-step-pulse" />
+                    <div className="absolute -inset-2 w-16 h-16 rounded-full animate-step-pulse" />
                     {/* Icon circle */}
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center shadow-lg shadow-royal-gold/30 relative z-10">
                       <Icon className="w-5 h-5 text-royal-maroon" strokeWidth={1.8} />
                     </div>
                     {/* Step number badge */}
-                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-royal-maroon border-2 border-royal-gold flex items-center justify-center z-20">
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-royal-maroon border-2 border-royal-gold flex items-center justify-center z-20 animate-pulse-gold">
                       <span className="text-royal-gold text-[10px] font-bold font-[family-name:var(--font-lato)]">
                         {step.number}
                       </span>

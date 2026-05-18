@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -16,6 +16,7 @@ import {
   Facebook,
   Send,
   Loader2,
+  CheckCircle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -102,6 +103,7 @@ const eventTypes = [
 
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -113,6 +115,28 @@ export default function ContactSection() {
       message: '',
     },
   })
+
+  // Track form progress for gold progress bar
+  const formValues = form.watch()
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const fields = ['name', 'email', 'message'] as const
+    const optionalFields = ['phone', 'eventType'] as const
+    let filled = 0
+    let total = fields.length
+
+    fields.forEach((field) => {
+      if (formValues[field] && formValues[field].trim().length > 0) filled++
+    })
+    optionalFields.forEach((field) => {
+      if (formValues[field] && String(formValues[field]).trim().length > 0) {
+        filled++
+        total++
+      }
+    })
+    setProgress(total > 0 ? (filled / total) * 100 : 0)
+  }, [formValues])
 
   async function onSubmit(data: ContactFormValues) {
     setIsSubmitting(true)
@@ -132,6 +156,8 @@ export default function ContactSection() {
           'Thank you for reaching out! We will get back to you shortly.',
       })
       form.reset()
+      setIsSubmitted(true)
+      setTimeout(() => setIsSubmitted(false), 4000)
     } catch {
       toast.error('Failed to Send', {
         description:
@@ -181,10 +207,42 @@ export default function ContactSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-royal-gold/20 shadow-lg">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-royal-gold/20 shadow-lg relative overflow-hidden">
+              {/* Gold progress bar at top of form */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-royal-gold/10">
+                <div
+                  className="h-full bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light transition-all duration-500 ease-out rounded-r-full"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+
               <h3 className="text-xl md:text-2xl font-semibold text-royal-maroon mb-6 font-[var(--font-playfair)]">
                 Send Us a Message
               </h3>
+
+              {/* Success Animation */}
+              <AnimatePresence>
+                {isSubmitted && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    className="absolute inset-0 z-20 bg-white/90 backdrop-blur-sm flex items-center justify-center rounded-2xl"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                      className="flex flex-col items-center gap-3"
+                    >
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center shadow-lg shadow-royal-gold/30">
+                        <CheckCircle className="w-10 h-10 text-white" />
+                      </div>
+                      <p className="text-royal-maroon font-semibold text-lg font-[var(--font-playfair)]">Message Sent!</p>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <Form {...form}>
                 <form
@@ -196,14 +254,16 @@ export default function ContactSection() {
                     control={form.control}
                     name="name"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-royal-maroon font-medium">
+                      <FormItem className="relative">
+                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
+                        }`}>
                           Name <span className="text-royal-red">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Your full name"
-                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
+                            placeholder=" "
+                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
                         </FormControl>
@@ -217,15 +277,17 @@ export default function ContactSection() {
                     control={form.control}
                     name="email"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-royal-maroon font-medium">
+                      <FormItem className="relative">
+                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
+                        }`}>
                           Email <span className="text-royal-red">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="your@email.com"
-                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
+                            placeholder=" "
+                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
                         </FormControl>
@@ -239,8 +301,10 @@ export default function ContactSection() {
                     control={form.control}
                     name="phone"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-royal-maroon font-medium">
+                      <FormItem className="relative">
+                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
+                        }`}>
                           Phone{' '}
                           <span className="text-muted-foreground text-xs">
                             (optional)
@@ -249,8 +313,8 @@ export default function ContactSection() {
                         <FormControl>
                           <Input
                             type="tel"
-                            placeholder="Your phone number"
-                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
+                            placeholder=" "
+                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
                         </FormControl>
@@ -295,14 +359,16 @@ export default function ContactSection() {
                     control={form.control}
                     name="message"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-royal-maroon font-medium">
+                      <FormItem className="relative">
+                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
+                        }`}>
                           Message <span className="text-royal-red">*</span>
                         </FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="Tell us about your event..."
-                            className="min-h-[120px] border-royal-gold/30 bg-white/50 resize-none transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
+                            placeholder=" "
+                            className="min-h-[120px] border-royal-gold/30 bg-white/50 resize-none transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
                         </FormControl>
@@ -411,8 +477,8 @@ export default function ContactSection() {
             </div>
 
             {/* Google Map */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-royal-gold/20 shadow-lg overflow-hidden">
-              <div className="rounded-lg overflow-hidden">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-royal-gold/30 shadow-lg overflow-hidden">
+              <div className="rounded-xl overflow-hidden border-2 border-royal-gold/20">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29179.47498524618!2d86.35!3d23.33!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6e3f8e0b0b0b1%3A0x4b0b0b0b0b0b0b0b!2sPurulia%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                   width="100%"

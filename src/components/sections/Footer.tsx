@@ -31,7 +31,11 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1a0f00] text-royal-cream/80 mt-auto">
+    <footer className="bg-[#1a0f00] text-royal-cream/80 mt-auto relative">
+      {/* Gold gradient top border */}
+      <div className="h-[3px] bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light" />
+      {/* Decorative mandala pattern overlay */}
+      <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" style={{ top: '3px' }} />
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -170,7 +174,7 @@ export default function Footer() {
           <p className="text-sm text-royal-cream/40 text-center font-[var(--font-lato)]">
             Prop. Ujjal Chakraborty (Dolon)
           </p>
-          <p className="text-xs text-royal-cream/50 text-center font-[var(--font-lato)]">
+          <p className="text-xs text-royal-cream/50 text-center font-[var(--font-lato)] animate-gentle-bounce">
             Made with ❤️ in Purulia
           </p>
 
@@ -180,7 +184,7 @@ export default function Footer() {
               href="https://www.facebook.com/profile.php?id=100064833288803"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
               aria-label="Facebook"
             >
               <Facebook className="size-4" />
@@ -189,21 +193,21 @@ export default function Footer() {
               href="https://wa.me/918945005456"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:text-green-500 hover:border-green-500/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-green-500 hover:border-green-500/50 transition-all duration-300"
               aria-label="WhatsApp"
             >
               <MessageCircle className="size-4" />
             </a>
             <a
               href="tel:+918945005456"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
               aria-label="Phone"
             >
               <Phone className="size-4" />
             </a>
             <a
               href="mailto:maharajaCaterer104@gmail.com"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
               aria-label="Email"
             >
               <Mail className="size-4" />

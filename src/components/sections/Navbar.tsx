@@ -138,8 +138,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-gradient-to-b from-royal-cream/98 via-royal-cream/95 to-royal-cream/90 backdrop-blur-md shadow-lg shadow-royal-gold/10'
-            : 'bg-transparent'
+            ? 'bg-gradient-to-b from-royal-cream/98 via-royal-cream/95 to-royal-cream/90 backdrop-blur-lg shadow-lg shadow-royal-gold/10'
+            : 'bg-transparent backdrop-blur-none'
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -150,7 +150,7 @@ export default function Navbar() {
               onClick={(e) => scrollToSection(e, '#hero')}
               className="flex items-center gap-2 sm:gap-3 group"
             >
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-royal-gold shadow-md group-hover:shadow-royal-gold/40 transition-shadow duration-300 flex-shrink-0">
+              <div className={`relative w-12 h-12 rounded-full overflow-hidden border-2 border-royal-gold shadow-md group-hover:shadow-royal-gold/40 transition-all duration-300 flex-shrink-0 ${isScrolled ? 'drop-shadow-[0_0_8px_rgba(212,160,23,0.4)]' : ''}`}>
                 <Image
                   src="/images/logo.jpg"
                   alt="Maharaja Caterer Logo"
@@ -188,21 +188,15 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className={`relative px-3 xl:px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 rounded-md group ${
+                    className={`relative px-3 xl:px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 rounded-md hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-royal-gold after:transition-all after:duration-300 ${
                       isActive
-                        ? 'text-royal-gold'
+                        ? 'text-royal-gold after:w-full'
                         : isScrolled
-                        ? 'text-royal-maroon/80 hover:text-royal-maroon'
-                        : 'text-royal-cream/80 hover:text-royal-gold'
+                        ? 'text-royal-maroon/80 hover:text-royal-maroon after:w-0 hover:after:w-full'
+                        : 'text-royal-cream/80 hover:text-royal-gold after:w-0 hover:after:w-full'
                     }`}
                   >
                     {link.label}
-                    {/* Active indicator */}
-                    <span
-                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-royal-gold rounded-full transition-all duration-300 ${
-                        isActive ? 'w-6' : 'w-0 group-hover:w-4'
-                      }`}
-                    />
                   </a>
                 );
               })}

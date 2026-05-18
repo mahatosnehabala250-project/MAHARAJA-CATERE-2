@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Utensils, Fish, Leaf, Flame, Soup, IceCream, Drumstick, Cake, Wheat, Sandwich, Cookie } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { LucideIcon } from 'lucide-react'
@@ -103,8 +104,10 @@ function MenuItemCard({ item, index }: { item: MenuItem; index: number }) {
   return (
     <motion.div
       variants={itemVariants}
-      className="group relative bg-card/80 backdrop-blur-sm border border-royal-gold/20 rounded-xl p-5 hover:border-royal-gold/50 transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/10 hover:-translate-y-1"
+      className="group relative bg-card/80 backdrop-blur-sm border border-royal-gold/20 rounded-xl p-5 hover:border-royal-gold/50 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/10 hover:-translate-y-1 overflow-hidden"
     >
+      {/* Gold left border accent on hover */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-royal-gold via-royal-gold-light to-royal-gold rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-royal-maroon/10 flex items-center justify-center group-hover:bg-royal-maroon/20 transition-colors duration-300">
           <Icon className="w-5 h-5 text-royal-maroon" />
@@ -121,6 +124,8 @@ function MenuItemCard({ item, index }: { item: MenuItem; index: number }) {
 }
 
 export default function MenuSection() {
+  const [activeTab, setActiveTab] = useState('bengali')
+
   return (
     <section id="menu" className="section-dark-royal relative py-20 md:py-28 overflow-hidden">
       {/* Decorative pattern overlay */}
@@ -169,35 +174,44 @@ export default function MenuSection() {
         </motion.div>
 
         {/* Menu Tabs */}
-        <Tabs defaultValue="bengali" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex justify-center mb-8 md:mb-10">
-            <TabsList className="flex flex-wrap justify-center gap-1 bg-royal-maroon/20 border border-royal-gold/20 p-1.5 rounded-xl h-auto">
+            <TabsList className="flex flex-wrap justify-center gap-1 bg-royal-maroon/20 border border-royal-gold/20 p-1.5 rounded-xl h-auto relative">
               {menuCategories.map((category) => (
                 <TabsTrigger
                   key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-royal-maroon data-[state=active]:text-royal-gold data-[state=active]:shadow-md text-royal-cream/70 px-3 py-2 text-xs sm:text-sm md:text-base rounded-lg transition-all duration-300 hover:text-royal-cream"
+                  className="data-[state=active]:bg-royal-maroon data-[state=active]:text-royal-gold data-[state=active]:shadow-md text-royal-cream/70 px-3 py-2 text-xs sm:text-sm md:text-base rounded-lg transition-all duration-300 hover:text-royal-cream relative"
                 >
                   {category.label}
                 </TabsTrigger>
               ))}
+              {/* Gold underline slider indicator */}
+              <motion.div
+                className="absolute bottom-0 h-[2px] bg-royal-gold rounded-full"
+                layoutId="tab-underline"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
             </TabsList>
           </div>
 
-          {menuCategories.map((category) => (
-            <TabsContent key={category.id} value={category.id}>
+          <AnimatePresence mode="wait">
+            {menuCategories.filter((category) => category.id === activeTab).map((category) => (
               <motion.div
+                key={category.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
                 variants={containerVariants}
-                initial="hidden"
-                animate="visible"
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
               >
                 {category.items.map((item, index) => (
                   <MenuItemCard key={item.name} item={item} index={index} />
                 ))}
               </motion.div>
-            </TabsContent>
-          ))}
+            ))}
+          </AnimatePresence>
         </Tabs>
       </div>
     </section>

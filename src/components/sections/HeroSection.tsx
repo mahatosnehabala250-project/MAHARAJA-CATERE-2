@@ -1,10 +1,13 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { motion, useAnimation, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useMemo, useCallback, useState } from 'react'
+import { useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Star, Calendar, UtensilsCrossed, Clock } from 'lucide-react'
+
+const FloatingParticles = dynamic(() => import('@/components/ui-custom/FloatingParticles'), { ssr: false })
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -60,75 +63,6 @@ const logoPulse = {
     ],
     transition: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
   },
-}
-
-/* ------------------------------------------------------------------ */
-/*  Floating particles                                                 */
-/* ------------------------------------------------------------------ */
-
-interface Particle {
-  id: number
-  x: number
-  y: number
-  size: number
-  duration: number
-  delay: number
-}
-
-function FloatingParticles() {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const particles = useMemo<Particle[]>(() => {
-    if (!mounted) return []
-    const arr: Particle[] = []
-    for (let i = 0; i < 30; i++) {
-      arr.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 4 + 2,
-        duration: Math.random() * 6 + 4,
-        delay: Math.random() * 5,
-      })
-    }
-    return arr
-  }, [mounted])
-
-  if (!mounted) return null
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {particles.map((p) => (
-        <motion.span
-          key={p.id}
-          className="absolute rounded-full"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            background: ROYAL_GOLD,
-            opacity: 0,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0, 0.7, 0],
-            scale: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-      ))}
-    </div>
-  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -357,6 +291,19 @@ export default function HeroSection() {
           Purulia&apos;s Finest Catering &amp; Event Service
         </motion.h2>
 
+        {/* Gold divider line between heading and tagline */}
+        <motion.div
+          custom={3.5}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mb-5 flex items-center justify-center gap-3"
+        >
+          <span className="block h-px w-10 sm:w-16" style={{ background: `linear-gradient(to right, transparent, ${ROYAL_GOLD})` }} />
+          <span className="block h-1.5 w-1.5 rotate-45" style={{ backgroundColor: ROYAL_GOLD }} />
+          <span className="block h-px w-10 sm:w-16" style={{ background: `linear-gradient(to left, transparent, ${ROYAL_GOLD})` }} />
+        </motion.div>
+
         {/* Tagline */}
         <motion.p
           custom={4}
@@ -364,7 +311,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           className="mb-2 text-lg italic tracking-wide sm:text-xl"
-          style={{ color: ROYAL_CREAM, opacity: 0.9 }}
+          style={{ color: ROYAL_CREAM, opacity: 1, textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(212,160,23,0.3)' }}
         >
           Where Every Feast Becomes a Royal Celebration
         </motion.p>
@@ -375,8 +322,8 @@ export default function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-10 text-lg sm:text-xl"
-          style={{ color: ROYAL_GOLD, opacity: 1, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}
+          className="mb-10 text-xl sm:text-2xl"
+          style={{ color: ROYAL_GOLD, opacity: 1, textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(212,160,23,0.3)' }}
         >
           সকলের মনপরাজিত হবে!
         </motion.p>
@@ -392,7 +339,7 @@ export default function HeroSection() {
           <Link
             href="#contact"
             onClick={handleBookEvent}
-            className="animate-pulse-glow group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-9 py-4 text-base font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-lg"
+            className="animate-pulse-glow group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-10 py-5 text-lg font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-xl"
             style={{
               backgroundColor: ROYAL_MAROON,
               color: ROYAL_GOLD,
@@ -414,7 +361,7 @@ export default function HeroSection() {
           <Link
             href="#menu"
             onClick={handleExploreMenu}
-            className="inline-flex items-center justify-center gap-2 rounded-lg px-9 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-105 hover:bg-royal-gold/10 sm:text-lg"
+            className="inline-flex items-center justify-center gap-2 rounded-lg px-8 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-105 hover:bg-royal-gold/10 sm:text-lg"
             style={{
               color: ROYAL_GOLD,
               border: `2px solid ${ROYAL_GOLD}`,

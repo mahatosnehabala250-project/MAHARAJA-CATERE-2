@@ -41,7 +41,7 @@ export default function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="fixed bottom-24 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm z-[998]"
+          className="fixed bottom-28 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm z-[998]"
         >
           <div className="relative bg-[#1a0f00]/95 backdrop-blur-md border border-royal-gold/30 rounded-xl shadow-2xl shadow-black/20 p-4 sm:p-5">
             {/* Close button */}
@@ -69,13 +69,13 @@ export default function CookieConsent() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleDecline}
-                    className="px-4 py-2 rounded-full border border-royal-cream/20 text-royal-cream/70 font-medium text-xs transition-all duration-300 hover:border-royal-cream/40 hover:text-royal-cream font-[family-name:var(--font-lato)]"
+                    className="min-w-[80px] min-h-[44px] px-5 py-2.5 rounded-full border border-royal-cream/20 text-royal-cream/70 font-medium text-xs transition-all duration-300 hover:border-royal-cream/40 hover:text-royal-cream font-[family-name:var(--font-lato)]"
                   >
                     Decline
                   </button>
                   <button
                     onClick={handleAccept}
-                    className="px-4 py-2 rounded-full text-white font-medium text-xs transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/20 font-[family-name:var(--font-lato)]"
+                    className="min-w-[80px] min-h-[44px] px-5 py-2.5 rounded-full text-white font-medium text-xs transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/20 font-[family-name:var(--font-lato)]"
                     style={{ background: 'linear-gradient(135deg, #B8860B, #D4A017, #FFD700)' }}
                   >
                     Accept

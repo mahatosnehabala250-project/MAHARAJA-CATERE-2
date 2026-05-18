@@ -156,6 +156,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 alt="Maharaja Caterer Logo"
                 fill
                 className="object-cover"
+                sizes="90px"
                 priority
               />
             </motion.div>
