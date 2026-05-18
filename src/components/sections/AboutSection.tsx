@@ -106,9 +106,14 @@ export default function AboutSection() {
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] leading-tight drop-shadow-md">
               A Legacy of Royal Flavors
             </h2>
+            {/* Gold gradient accent line under heading */}
+            <div className="flex items-center gap-2 pt-2">
+              <div className="h-1 w-12 bg-gradient-to-r from-royal-gold to-royal-gold/0 rounded-full" />
+              <div className="h-0.5 w-6 bg-royal-gold/30 rounded-full" />
+            </div>
 
             {/* Description paragraphs */}
             <div className="space-y-4 text-muted-foreground leading-relaxed font-[family-name:var(--font-lato)]">

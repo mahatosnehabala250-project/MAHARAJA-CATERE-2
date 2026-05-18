@@ -157,12 +157,20 @@ export default function PricingSection() {
             <motion.div
               key={pkg.name}
               variants={cardVariants}
-              className={`relative rounded-2xl bg-royal-cream/95 dark:bg-[#2D1B00]/90 border-2 ${pkg.isPopular ? 'border-royal-gold shadow-2xl lg:scale-105 z-10' : pkg.accentBorder + ' shadow-lg'} overflow-hidden transition-shadow duration-300 hover:shadow-xl`}
+              className={`relative rounded-2xl bg-royal-cream/95 dark:bg-[#2D1B00]/90 border-2 ${pkg.isPopular ? 'border-royal-gold shadow-2xl lg:scale-105 z-10 animate-gold-border-glow' : pkg.accentBorder + ' shadow-lg'} overflow-hidden transition-all duration-300 hover:shadow-xl ${pkg.isPopular ? 'hover:scale-[1.02] hover:shadow-2xl hover:shadow-royal-gold/20' : 'hover:scale-[1.02] hover:shadow-2xl hover:shadow-royal-gold/10'}`}
             >
               {/* Popular badge */}
               {pkg.isPopular && (
-                <div className="absolute top-0 right-0 bg-royal-gold text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-xl font-[family-name:var(--font-lato)]">
-                  Most Popular
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-xl font-[family-name:var(--font-lato)] z-20">
+                  MOST POPULAR
+                </div>
+              )}
+
+              {/* Gold shimmer sweep overlay on hover for popular card */}
+              {pkg.isPopular && (
+                <div className="absolute inset-0 rounded-2xl pointer-events-none z-10 overflow-hidden">
+                  <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 animate-gold-shimmer-sweep opacity-30" />
                 </div>
               )}
 

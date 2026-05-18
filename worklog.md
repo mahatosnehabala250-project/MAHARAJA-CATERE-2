@@ -562,3 +562,164 @@ StructuredData → Loading → Navbar → ReadingProgressBar → Hero → Sectio
 - Add ARIA labels audit across all interactive elements
 - Test and refine mobile responsiveness across all sections
 - Add Google Analytics or similar tracking integration
+
+---
+
+## Task ID: R5-2
+**Agent:** Styling Improvement Agent
+**Task:** Premium styling improvements across 6 areas — animations, testimonials, pricing, contact, process, gallery
+
+### Work Log
+
+#### Improvement 1: Enhanced globals.css with more premium animations
+- **File**: `src/app/globals.css`
+- Added `@keyframes tilt-in` — 3D perspective tilt entrance (from `rotateX(8deg) translateY(20px)` to `rotateX(0deg) translateY(0)`)
+- Added `.animate-tilt-in` utility class (0.7s ease-out forwards)
+- Added `@keyframes reveal-up` — clip-path reveal from bottom (`inset(100% 0 0 0)` to `inset(0 0 0 0)`)
+- Added `.animate-reveal-up` utility class (0.8s cubic-bezier)
+- Added `@keyframes gentle-bounce` — very subtle bounce (translateY(0) → translateY(-3px) → back)
+- Added `.animate-gentle-bounce` utility class (2s ease-in-out infinite)
+- Added `.card-premium` utility — premium card class with gold border gradient pseudo-element, subtle shadow, hover lift effect (translateY(-4px) with gold box-shadow)
+- Added `@keyframes gold-border-glow` — animated gold border glow pulsing
+- Added `.animate-gold-border-glow` utility class (2.5s ease-in-out infinite)
+- Added `@keyframes gold-shimmer-sweep` — shimmer sweep animation for pricing card
+- Added `.animate-gold-shimmer-sweep` utility class
+- Added `@keyframes step-pulse` — pulsing ring animation for process step icons
+- Added `.animate-step-pulse` utility class (2.5s ease-in-out infinite)
+
+#### Improvement 2: Enhanced TestimonialsSection with premium cards
+- **File**: `src/components/sections/TestimonialsSection.tsx`
+- Added subtle gold left border (4px) to each testimonial card: `border-l-4 border-l-royal-gold`
+- Changed card background to full gradient: `bg-gradient-to-br from-royal-cream to-white` (removed /95 opacity)
+- Added hover transform: `hover:-translate-y-1 hover:shadow-xl hover:shadow-royal-gold/10`
+- Made star rating display more prominent with gold background pill: wrapped stars in `bg-royal-gold/10 px-2 py-0.5 rounded-full`
+- Added `transition-all duration-300` to cards (was partially present)
+
+#### Improvement 3: Enhanced PricingSection with premium card styling
+- **File**: `src/components/sections/PricingSection.tsx`
+- Added animated gold border glow on featured/popular card: `animate-gold-border-glow`
+- Changed "Most Popular" badge to "MOST POPULAR" with gold gradient background: `bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light`
+- Added subtle scale on hover for all cards: `hover:scale-[1.02]`
+- Added premium shadow on hover: `hover:shadow-2xl hover:shadow-royal-gold/20` (popular) and `hover:shadow-royal-gold/10` (others)
+- Added gold shimmer sweep overlay on the popular card using `.animate-gold-shimmer-sweep`
+- Changed transition from `transition-shadow` to `transition-all duration-300`
+
+#### Improvement 4: Enhanced ContactSection form styling
+- **File**: `src/components/sections/ContactSection.tsx`
+- Styled all form inputs (Name, Email, Phone, Textarea) with gold focus ring: `focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold`
+- Added `transition-all duration-300` to all form elements
+- Added gold-accented placeholder styling: `placeholder:text-royal-gold/40`
+- Styled SelectTrigger with same gold focus ring pattern
+- Enhanced submit button with improved gold gradient hover: `hover:via-royal-gold-light hover:to-royal-gold`
+- Added `hover:shadow-royal-gold/30` to submit button shadow
+- Added subtle scale feedback: `hover:scale-[1.01] active:scale-[0.99]`
+
+#### Improvement 5: Enhanced ProcessSection with connected timeline
+- **File**: `src/components/sections/ProcessSection.tsx`
+- Complete redesign from horizontal 4-column layout to vertical connected timeline
+- Added vertical connecting gold line between all process steps with animated reveal (`scaleY` animation)
+- Added subtle pulse animation (`animate-step-pulse`) to each step icon circle
+- Added left gold border accent on each step card: `border-l-4 border-l-royal-gold`
+- Added alternating alignment on desktop: odd steps left, even steps right (`lg:flex-row-reverse`)
+- Step cards have `bg-royal-cream/10 backdrop-blur-sm` with hover transitions
+- Removed old `TimelineConnector` component in favor of integrated vertical line
+- Added `group-hover` effects on step titles for gold color transition
+
+#### Improvement 6: Enhanced GallerySection with better hover effects
+- **File**: `src/components/sections/GallerySection.tsx`
+- Changed image zoom transition from `duration-500` to `duration-700 ease-out` for smoother zoom
+- Replaced hover overlay from maroon gradient with ZoomIn icon to gradient darkening from bottom with gold "View" text
+- New overlay: `bg-gradient-to-t from-black/80 via-black/30 to-transparent` with gold "View" uppercase text and white title
+- Added `transition-opacity duration-500` for smoother overlay appearance
+- Removed unused `ZoomIn` import from lucide-react
+
+### Verification
+- `bun run lint` passes with zero errors
+- All changes follow existing code style and royal color scheme
+- No new component files created — all modifications to existing files only
+
+---
+
+## Task ID: R5-3
+**Agent:** Feature Addition Agent
+**Task:** Add VenuePartnersSection, FloatingActionMenu, MenuDownloadCTA, and Enhanced LoadingScreen
+
+### Work Log
+
+#### Feature 1: VenuePartnersSection (`src/components/sections/VenuePartnersSection.tsx`)
+- 'use client' component with section id="venues"
+- section-royal background with mandala-bg overlay
+- Section header: "Our Trusted Venue Partners" with gold gradient text, ornament divider, and subtitle
+- 6 venue partner cards in responsive grid (2 cols mobile, 3 cols md, 6 cols lg):
+  1. Purulia Town Hall — Building icon, Banquet Hall
+  2. Raja Bagan — Castle icon, Open Lawn
+  3. Hotel Rajwada — Landmark icon, Hotel Resort
+  4. Sreema Bhawan — Home icon, Community Hall
+  5. Mukherjee Garden — Tent icon, Garden Venue
+  6. Puranidanga Community Hall — Church icon, Community Center
+- Each card has: decorative icon in gold circle, venue name (Playfair), venue type badge, gold border with hover intensification, hover scale/glow
+- Framer-motion staggered reveal animation (containerVariants + cardVariants)
+- "Partner With Us" CTA button at bottom with gold gradient and pulse-glow animation, linking to #contact
+- Decorative SVG corner elements and radial glows matching existing style
+
+#### Feature 2: FloatingActionMenu (`src/components/ui-custom/FloatingActionMenu.tsx`)
+- 'use client' expandable FAB positioned fixed at bottom-left
+- Hidden on mobile (`hidden md:block`), z-index 997
+- Main button: Gold gradient circular button with Plus icon that rotates 45° when open
+- 4 action buttons stacked vertically when expanded:
+  1. Phone (maroon) → tel:+918945005456
+  2. WhatsApp (green) → https://wa.me/918945005456 (opens in new tab)
+  3. Mail (gold) → mailto:maharajaCaterer104@gmail.com
+  4. Calendar (cream) → #contact
+- Each action button has a tooltip label on hover (maroon bg with arrow)
+- Framer-motion spring animation for expansion
+- Auto-close after 5 seconds of no interaction (using useRef for timer)
+- Reset timer on hover (mouseEnter on action buttons)
+- Does NOT conflict with WhatsApp float button (bottom-right vs bottom-left)
+
+#### Feature 3: MenuDownloadCTA (`src/components/ui-custom/MenuDownloadCTA.tsx`)
+- 'use client' compact CTA card component
+- Displayed after MenuSection to encourage downloading full menu
+- Content: FileDown icon, "Download Our Complete Menu" title, description with "100+ items" mention
+- Two CTA buttons:
+  1. "Download PDF" — gold gradient primary button (href="#contact")
+  2. "View Online" — outline button (href="#menu")
+- Background: royal-cream with gold border and decorative corner accents
+- Subtle float animation (y-axis bob via framer-motion)
+- Gold shimmer overlay for visual interest
+- Responsive: stacks vertically on mobile, horizontal on sm+
+- Compact design: py-6 px-8 (sm: py-8 px-10)
+
+#### Feature 4: Enhanced LoadingScreen (`src/components/ui-custom/LoadingScreen.tsx`)
+- Replaced the entire component with an enhanced premium version
+- Added Crown icon from lucide-react with gentle-bounce animation above logo
+- Logo slightly smaller (90px instead of 100px) with same rotating ring
+- "Maharaja Caterer" text now uses gold gradient with smoother fade-in
+- Removed AnimatedDots component (simplified to static "Loading Royal Experience" text)
+- Progress bar: thinner (3px instead of 4px=h-1), gold gradient with shimmer overlay
+- Total loading time reduced to 2.5 seconds (from 2.2+0.3+0.6=3.1s)
+- More elegant fade-out exit animation (opacity + slight scale)
+- Particles use mounted state pattern to avoid hydration mismatch
+- Reduced particle count from 30 to 24 for better performance
+- Removed progress percentage text size reduced (10px on mobile)
+
+#### Page Integration (`src/app/page.tsx`)
+- Imported VenuePartnersSection, FloatingActionMenu, MenuDownloadCTA
+- Added `<MenuDownloadCTA />` right after MenuSection
+- Added `<VenuePartnersSection />` between SpecialOffersSection and CTABanner
+- Added `<FloatingActionMenu />` alongside WhatsAppFloat and ScrollToTop
+
+### Updated Page Section Order
+StructuredData → Loading → Navbar → ReadingProgressBar → Hero → SectionDivider(gold-wave) → SocialProof → MaharajaFigures → About → TrustSection → EventTypeChips → Services → Process → Menu → **MenuDownloadCTA** → Pricing → EventCalculator → Gallery → SpecialOffers → **VenuePartnersSection** → CTABanner → Testimonials → Stats → SectionDivider(maroon-peak) → FAQ → SectionDivider(double-line) → Contact → Footer
++ WhatsAppFloat + ScrollToTop + **FloatingActionMenu** + CookieConsent (fixed position)
+
+### Component Count
+- Sections: AboutSection, CTABanner, ContactSection, FAQSection, Footer, GallerySection, HeroSection, MenuSection, Navbar, PricingSection, ProcessSection, ServicesSection, SpecialOffersSection, StatsSection, TestimonialsSection, TrustSection, VenuePartnersSection (17)
+- Custom UI: CookieConsent, DarkModeToggle, EventCalculator, EventTypeChips, FloatingActionMenu, LoadingScreen, MaharajaFigures, MenuDownloadCTA, ReadingProgressBar, ScrollToTop, SectionDivider, SocialProofBanner, StructuredData, WhatsAppFloat (14)
+- Total: 31 components
+
+### Verification
+- `bun run lint` passes with zero errors and zero warnings
+- Dev server compiling successfully and returning 200
+- All 4 components follow existing code style (TypeScript, Tailwind CSS, framer-motion, royal color scheme, Playfair/Lato fonts)
+- No hydration issues (particles use mounted state pattern)

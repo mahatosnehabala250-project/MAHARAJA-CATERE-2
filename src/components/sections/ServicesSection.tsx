@@ -122,7 +122,7 @@ function ServiceCard({
   return (
     <motion.div
       variants={cardVariants}
-      className="group card-royal-hover rounded-xl bg-white/90 dark:bg-[#2D1B00]/80 border border-royal-gold/15 overflow-hidden hover:border-royal-gold/50"
+      className="group card-royal-hover rounded-xl bg-white/90 dark:bg-[#2D1B00]/80 border border-royal-gold/15 overflow-hidden hover:border-royal-gold/50 min-h-[400px] sm:min-h-[440px] flex flex-col"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -165,7 +165,7 @@ function ServiceCard({
       </div>
 
       {/* Card content */}
-      <div className="p-6 space-y-3 relative">
+      <div className="p-6 space-y-3 relative flex-1 flex flex-col">
         <h3 className="text-xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)]">
           {service.title}
         </h3>
@@ -174,7 +174,7 @@ function ServiceCard({
         </p>
         <a
           href="#contact"
-          className="inline-flex items-center gap-2 text-royal-gold-dark font-semibold text-sm font-[family-name:var(--font-lato)] group/link transition-all duration-300 hover:text-royal-gold hover:gap-3 relative"
+          className="inline-flex items-center gap-2 text-royal-gold-dark font-semibold text-sm font-[family-name:var(--font-lato)] group/link transition-all duration-300 hover:text-royal-gold hover:gap-3 relative mt-auto"
         >
           <span className="relative">
             Learn More

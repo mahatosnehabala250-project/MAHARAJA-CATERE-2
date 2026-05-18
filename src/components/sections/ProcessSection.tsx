@@ -47,7 +47,7 @@ const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.25,
     },
   },
 };
@@ -60,35 +60,6 @@ const stepVariants = {
     transition: { duration: 0.6, ease: 'easeOut' },
   },
 };
-
-function TimelineConnector({ isInView, isLast }: { isInView: boolean; isLast: boolean }) {
-  if (isLast) return null;
-
-  return (
-    <>
-      {/* Horizontal connector (desktop) */}
-      <div className="hidden lg:block absolute top-[3.5rem] left-[calc(50%+3rem)] w-[calc(100%-6rem)] h-[2px]">
-        <motion.div
-          className="h-full bg-gradient-to-r from-royal-gold to-royal-gold/40"
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-          style={{ transformOrigin: 'left' }}
-        />
-      </div>
-      {/* Vertical connector (mobile) */}
-      <div className="lg:hidden absolute top-[4.5rem] left-1/2 -translate-x-1/2 w-[2px] h-[2rem]">
-        <motion.div
-          className="w-full h-full bg-gradient-to-b from-royal-gold to-royal-gold/40"
-          initial={{ scaleY: 0 }}
-          animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-          style={{ transformOrigin: 'top' }}
-        />
-      </div>
-    </>
-  );
-}
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -125,56 +96,67 @@ export default function ProcessSection() {
           </div>
         </motion.div>
 
-        {/* Steps timeline */}
+        {/* Steps timeline - vertical with alternating alignment on desktop */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-0"
+          className="relative max-w-4xl mx-auto"
         >
+          {/* Vertical connecting line */}
+          <div className="absolute left-6 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-[2px]">
+            <motion.div
+              className="w-full h-full bg-gradient-to-b from-royal-gold via-royal-gold/60 to-royal-gold/20"
+              initial={{ scaleY: 0 }}
+              animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+              transition={{ duration: 1.5, ease: 'easeOut' }}
+              style={{ transformOrigin: 'top' }}
+            />
+          </div>
+
           {steps.map((step, index) => {
             const Icon = step.icon;
-            const isLast = index === steps.length - 1;
+            const isEven = index % 2 === 1;
 
             return (
               <motion.div
                 key={step.number}
                 variants={stepVariants}
-                className="relative w-full lg:w-1/4 flex flex-col items-center text-center px-4 sm:px-6 pb-8 lg:pb-0"
+                className={`relative flex items-start mb-12 last:mb-0 ${
+                  isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'
+                } flex-row`}
               >
-                {/* Step icon circle */}
-                <div className="relative mb-6">
-                  {/* Outer ring glow */}
-                  <motion.div
-                    className="absolute inset-0 w-[5.5rem] h-[5.5rem] rounded-full border-2 border-royal-gold/20 -m-1"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
-                  />
-                  {/* Icon circle */}
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center shadow-lg shadow-royal-gold/20 relative z-10">
-                    <Icon className="w-8 h-8 text-royal-maroon" strokeWidth={1.8} />
-                  </div>
-                  {/* Step number badge */}
-                  <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-royal-maroon border-2 border-royal-gold flex items-center justify-center z-20">
-                    <span className="text-royal-gold text-xs font-bold font-[family-name:var(--font-lato)]">
-                      {step.number}
-                    </span>
+                {/* Timeline node (circle on the line) */}
+                <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 z-20">
+                  <div className="relative">
+                    {/* Pulse ring */}
+                    <div className="absolute inset-0 w-12 h-12 rounded-full animate-step-pulse" />
+                    {/* Icon circle */}
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center shadow-lg shadow-royal-gold/30 relative z-10">
+                      <Icon className="w-5 h-5 text-royal-maroon" strokeWidth={1.8} />
+                    </div>
+                    {/* Step number badge */}
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-royal-maroon border-2 border-royal-gold flex items-center justify-center z-20">
+                      <span className="text-royal-gold text-[10px] font-bold font-[family-name:var(--font-lato)]">
+                        {step.number}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Step title */}
-                <h3 className="text-xl sm:text-2xl font-bold text-royal-gold font-[family-name:var(--font-playfair)] mb-3">
-                  {step.title}
-                </h3>
-
-                {/* Step description */}
-                <p className="text-royal-cream/70 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed max-w-[280px]">
-                  {step.description}
-                </p>
-
-                {/* Timeline connector */}
-                <TimelineConnector isInView={isInView} isLast={isLast} />
+                {/* Step card */}
+                <div className={`ml-16 lg:ml-0 lg:w-[calc(50%-2.5rem)] ${
+                  isEven ? 'lg:mr-auto lg:pr-0 lg:pl-0' : 'lg:ml-auto lg:pl-0 lg:pr-0'
+                } ${isEven ? 'lg:text-left' : 'lg:text-left'}`}>
+                  <div className="bg-royal-cream/10 backdrop-blur-sm rounded-xl p-5 md:p-6 border-l-4 border-l-royal-gold border border-royal-gold/20 hover:border-royal-gold/40 hover:bg-royal-cream/15 transition-all duration-300 group">
+                    <h3 className="text-xl sm:text-2xl font-bold text-royal-gold font-[family-name:var(--font-playfair)] mb-3 group-hover:text-royal-gold-light transition-colors">
+                      {step.title}
+                    </h3>
+                    <p className="text-royal-cream/70 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

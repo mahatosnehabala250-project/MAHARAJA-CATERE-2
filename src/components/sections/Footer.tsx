@@ -170,7 +170,7 @@ export default function Footer() {
           <p className="text-sm text-royal-cream/40 text-center font-[var(--font-lato)]">
             Prop. Ujjal Chakraborty (Dolon)
           </p>
-          <p className="text-xs text-royal-cream/30 text-center font-[var(--font-lato)]">
+          <p className="text-xs text-royal-cream/50 text-center font-[var(--font-lato)]">
             Made with ❤️ in Purulia
           </p>
 

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
+import { Crown } from 'lucide-react'
 
 interface LoadingScreenProps {
   onComplete: () => void
@@ -18,8 +19,15 @@ interface Particle {
 }
 
 function GoldParticles() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const particles = useMemo<Particle[]>(() => {
-    return Array.from({ length: 30 }, (_, i) => ({
+    if (!mounted) return []
+    return Array.from({ length: 24 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -27,7 +35,9 @@ function GoldParticles() {
       duration: Math.random() * 4 + 3,
       delay: Math.random() * 2,
     }))
-  }, [])
+  }, [mounted])
+
+  if (!mounted) return null
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -59,27 +69,12 @@ function GoldParticles() {
   )
 }
 
-function AnimatedDots() {
-  const [dots, setDots] = useState('')
-
-  useEffect(() => {
-    let count = 0
-    const interval = setInterval(() => {
-      count = (count + 1) % 4
-      setDots('.'.repeat(count))
-    }, 400)
-    return () => clearInterval(interval)
-  }, [])
-
-  return <span className="inline-block w-6 text-left">{dots}</span>
-}
-
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
-    const duration = 2200
+    const duration = 2500
     const interval = 30
     const steps = duration / interval
     const increment = 100 / steps
@@ -90,11 +85,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       if (current >= 100) {
         current = 100
         clearInterval(timer)
-        // Wait a moment then fade out
+        // Brief pause then fade out
         setTimeout(() => {
           setIsVisible(false)
-          setTimeout(() => onComplete(), 600)
-        }, 300)
+          setTimeout(() => onComplete(), 500)
+        }, 200)
       }
       setProgress(Math.min(current, 100))
     }, interval)
@@ -107,8 +102,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       {isVisible && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
           style={{ backgroundColor: '#1a0f00' }}
         >
@@ -123,11 +118,26 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             }}
           />
 
+          {/* Crown icon with gentle bounce */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="mb-4"
+          >
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <Crown className="w-8 h-8 text-royal-gold" />
+            </motion.div>
+          </motion.div>
+
           {/* Logo */}
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
             className="relative"
           >
             <motion.div
@@ -139,7 +149,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 ],
               }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-[100px] h-[100px] rounded-full border-[3px] border-royal-gold overflow-hidden relative"
+              className="w-[90px] h-[90px] rounded-full border-[3px] border-royal-gold overflow-hidden relative"
             >
               <Image
                 src="/images/logo.jpg"
@@ -158,53 +168,59 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             />
           </motion.div>
 
-          {/* Title */}
+          {/* Title with gold gradient fade-in */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-gold-gradient text-3xl md:text-4xl font-bold mt-6 tracking-wide"
-            style={{ fontFamily: 'var(--font-playfair)' }}
+            transition={{ delay: 0.5, duration: 0.7, ease: 'easeOut' }}
+            className="text-gold-gradient text-2xl sm:text-3xl md:text-4xl font-bold mt-5 tracking-wide font-[family-name:var(--font-playfair)]"
           >
             Maharaja Caterer
           </motion.h1>
 
-          {/* Subtitle with animated dots */}
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            className="text-royal-cream/80 mt-3 text-sm md:text-base tracking-widest uppercase"
-            style={{ fontFamily: 'var(--font-lato)' }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="text-royal-cream/70 mt-2.5 text-xs sm:text-sm tracking-widest uppercase font-[family-name:var(--font-lato)]"
           >
-            Loading Royal Experience<AnimatedDots />
+            Loading Royal Experience
           </motion.p>
 
-          {/* Progress Bar */}
+          {/* Elegant progress bar — thinner with gold gradient and shimmer */}
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ delay: 0.9, duration: 0.4 }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 w-64 md:w-80 h-1 rounded-full overflow-hidden"
-            style={{ backgroundColor: 'rgba(212,160,23,0.15)' }}
+            transition={{ delay: 1, duration: 0.4 }}
+            className="absolute bottom-14 left-1/2 -translate-x-1/2 w-56 sm:w-64 md:w-80 h-[3px] rounded-full overflow-hidden"
+            style={{ backgroundColor: 'rgba(212,160,23,0.1)' }}
           >
-            <motion.div
-              className="h-full rounded-full"
+            <div
+              className="h-full rounded-full relative"
               style={{
                 width: `${progress}%`,
-                background: 'linear-gradient(90deg, #B8860B, #D4A017, #FFD700, #D4A017)',
+                background: 'linear-gradient(90deg, #B8860B, #D4A017, #FFD700, #D4A017, #B8860B)',
+                transition: 'width 0.1s ease-out',
               }}
-              transition={{ duration: 0.1 }}
-            />
+            >
+              {/* Shimmer effect on progress bar */}
+              <div
+                className="absolute inset-0 animate-shimmer"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
+                  backgroundSize: '200% 100%',
+                }}
+              />
+            </div>
           </motion.div>
 
           {/* Progress percentage */}
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="absolute bottom-5 text-royal-gold/50 text-xs tracking-wider"
-            style={{ fontFamily: 'var(--font-lato)' }}
+            transition={{ delay: 1.1 }}
+            className="absolute bottom-7 text-royal-gold/40 text-[10px] sm:text-xs tracking-wider font-[family-name:var(--font-lato)]"
           >
             {Math.round(progress)}%
           </motion.span>

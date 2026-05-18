@@ -62,7 +62,7 @@ function getInitials(name: string) {
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5">
+    <div className="flex gap-0.5 bg-royal-gold/10 px-2 py-0.5 rounded-full">
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
@@ -160,7 +160,7 @@ export default function TestimonialsSection() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="h-full"
                   >
-                    <div className="bg-gradient-to-br from-royal-cream/95 to-white rounded-xl p-6 border-2 border-royal-gold/30 hover:border-royal-gold/60 transition-all duration-300 card-royal-hover h-full flex flex-col">
+                    <div className="bg-gradient-to-br from-royal-cream to-white rounded-xl p-6 border-l-4 border-l-royal-gold border-y-2 border-r-2 border-y-royal-gold/30 border-r-royal-gold/30 hover:border-royal-gold/60 hover:-translate-y-1 hover:shadow-xl hover:shadow-royal-gold/10 transition-all duration-300 h-full flex flex-col">
                       {/* Quote icon */}
                       <Quote className="size-12 text-royal-gold/50 mb-3 fill-royal-gold/30" />
 

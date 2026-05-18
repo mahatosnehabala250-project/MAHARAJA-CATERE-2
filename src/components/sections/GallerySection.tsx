@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -70,7 +70,7 @@ function GalleryCard({
             src={image.src}
             alt={image.alt}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             loading="lazy"
           />
@@ -81,10 +81,12 @@ function GalleryCard({
           <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-royal-gold/20 to-transparent skew-x-12" />
         </div>
 
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-royal-maroon/90 via-royal-maroon/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-4">
-          <ZoomIn className="w-8 h-8 text-royal-gold mb-2 drop-shadow-lg" />
-          <h3 className="text-royal-cream font-bold text-lg text-center drop-shadow-lg">
+        {/* Hover overlay with gradient darkening from bottom and gold "View" text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+          <span className="text-royal-gold font-semibold text-sm uppercase tracking-widest mb-2 font-[family-name:var(--font-lato)] drop-shadow-lg">
+            View
+          </span>
+          <h3 className="text-white font-bold text-lg text-center drop-shadow-lg font-[family-name:var(--font-playfair)]">
             {image.title}
           </h3>
         </div>

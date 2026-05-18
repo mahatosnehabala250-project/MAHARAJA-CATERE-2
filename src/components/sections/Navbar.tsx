@@ -242,14 +242,14 @@ export default function Navbar() {
                 href="https://wa.me/918945005456"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-royal-maroon text-royal-gold hover:bg-royal-maroon-light transition-colors duration-300"
+                className="p-2.5 rounded-full bg-royal-maroon text-royal-gold hover:bg-royal-maroon-light transition-colors duration-300"
                 aria-label="WhatsApp Maharaja Caterer"
               >
                 <MessageCircle className="w-5 h-5" />
               </a>
               <a
                 href="tel:+918945005456"
-                className="p-2 rounded-full border border-royal-gold/40 text-royal-maroon hover:bg-royal-gold/10 transition-colors duration-300"
+                className="p-2.5 rounded-full border border-royal-gold/40 text-royal-maroon hover:bg-royal-gold/10 transition-colors duration-300"
                 aria-label="Call Maharaja Caterer"
               >
                 <Phone className="w-5 h-5 text-royal-gold" />
@@ -324,7 +324,7 @@ export default function Navbar() {
                   </div>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-1.5 rounded-lg text-royal-maroon hover:bg-royal-gold/10 transition-colors"
+                    className="p-2 rounded-lg text-royal-maroon hover:bg-royal-gold/10 transition-colors"
                     aria-label="Close menu"
                   >
                     <X className="w-5 h-5" />

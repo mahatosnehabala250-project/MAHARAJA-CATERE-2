@@ -203,7 +203,7 @@ export default function ContactSection() {
                         <FormControl>
                           <Input
                             placeholder="Your full name"
-                            className="border-royal-gold/30 focus:border-royal-gold bg-white/50"
+                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
                             {...field}
                           />
                         </FormControl>
@@ -225,7 +225,7 @@ export default function ContactSection() {
                           <Input
                             type="email"
                             placeholder="your@email.com"
-                            className="border-royal-gold/30 focus:border-royal-gold bg-white/50"
+                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
                             {...field}
                           />
                         </FormControl>
@@ -250,7 +250,7 @@ export default function ContactSection() {
                           <Input
                             type="tel"
                             placeholder="Your phone number"
-                            className="border-royal-gold/30 focus:border-royal-gold bg-white/50"
+                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
                             {...field}
                           />
                         </FormControl>
@@ -273,7 +273,7 @@ export default function ContactSection() {
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="w-full border-royal-gold/30 focus:border-royal-gold bg-white/50">
+                            <SelectTrigger className="w-full border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold">
                               <SelectValue placeholder="Select event type" />
                             </SelectTrigger>
                           </FormControl>
@@ -302,7 +302,7 @@ export default function ContactSection() {
                         <FormControl>
                           <Textarea
                             placeholder="Tell us about your event..."
-                            className="min-h-[120px] border-royal-gold/30 focus:border-royal-gold bg-white/50 resize-none"
+                            className="min-h-[120px] border-royal-gold/30 bg-white/50 resize-none transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-royal-gold/40"
                             {...field}
                           />
                         </FormControl>
@@ -315,7 +315,7 @@ export default function ContactSection() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light hover:from-royal-gold hover:to-royal-gold-dark text-white font-semibold py-3 h-12 text-base shadow-lg hover:shadow-xl transition-all duration-300 group"
+                    className="w-full bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light hover:from-royal-gold hover:via-royal-gold-light hover:to-royal-gold text-white font-semibold py-3 h-12 text-base shadow-lg hover:shadow-xl hover:shadow-royal-gold/30 transition-all duration-300 group hover:scale-[1.01] active:scale-[0.99]"
                   >
                     {isSubmitting ? (
                       <Loader2 className="size-5 animate-spin mr-2" />

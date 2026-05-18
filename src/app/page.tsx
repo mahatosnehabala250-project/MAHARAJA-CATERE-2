@@ -28,6 +28,9 @@ import SectionDivider from '@/components/ui-custom/SectionDivider'
 import TrustSection from '@/components/sections/TrustSection'
 import EventCalculator from '@/components/ui-custom/EventCalculator'
 import StructuredData from '@/components/ui-custom/StructuredData'
+import VenuePartnersSection from '@/components/sections/VenuePartnersSection'
+import FloatingActionMenu from '@/components/ui-custom/FloatingActionMenu'
+import MenuDownloadCTA from '@/components/ui-custom/MenuDownloadCTA'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -52,10 +55,12 @@ export default function Home() {
           <ServicesSection />
           <ProcessSection />
           <MenuSection />
+          <MenuDownloadCTA />
           <PricingSection />
           <EventCalculator />
           <GallerySection />
           <SpecialOffersSection />
+          <VenuePartnersSection />
           <CTABanner />
           <TestimonialsSection />
           <StatsSection />
@@ -67,6 +72,7 @@ export default function Home() {
         <Footer />
         <WhatsAppFloat />
         <ScrollToTop />
+        <FloatingActionMenu />
       </div>
       <CookieConsent />
     </>
