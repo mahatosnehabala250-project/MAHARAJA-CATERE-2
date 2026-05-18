@@ -21,6 +21,10 @@ import FAQSection from '@/components/sections/FAQSection'
 import ProcessSection from '@/components/sections/ProcessSection'
 import LoadingScreen from '@/components/ui-custom/LoadingScreen'
 import ScrollToTop from '@/components/ui-custom/ScrollToTop'
+import ReadingProgressBar from '@/components/ui-custom/ReadingProgressBar'
+import SpecialOffersSection from '@/components/sections/SpecialOffersSection'
+import CookieConsent from '@/components/ui-custom/CookieConsent'
+import SectionDivider from '@/components/ui-custom/SectionDivider'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -31,9 +35,11 @@ export default function Home() {
         <LoadingScreen onComplete={() => setLoadingComplete(true)} />
       )}
       <div className="min-h-screen flex flex-col">
+        <ReadingProgressBar />
         <Navbar />
         <main className="flex-1">
           <HeroSection />
+          <SectionDivider variant="gold-wave" />
           <SocialProofBanner />
           <MaharajaFigures />
           <AboutSection />
@@ -43,16 +49,20 @@ export default function Home() {
           <MenuSection />
           <PricingSection />
           <GallerySection />
+          <SpecialOffersSection />
           <CTABanner />
           <TestimonialsSection />
           <StatsSection />
+          <SectionDivider variant="maroon-peak" />
           <FAQSection />
+          <SectionDivider variant="double-line" />
           <ContactSection />
         </main>
         <Footer />
         <WhatsAppFloat />
         <ScrollToTop />
       </div>
+      <CookieConsent />
     </>
   )
 }

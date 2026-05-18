@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 
 const quickLinks = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Menu', href: '#menu' },
@@ -165,10 +165,13 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-5">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-royal-cream/40 text-center md:text-left font-[var(--font-lato)]">
-            © 2024 Maharaja Caterer Purulia. All Rights Reserved.
+            © 2025 Maharaja Caterer Purulia. All Rights Reserved.
           </p>
           <p className="text-sm text-royal-cream/40 text-center font-[var(--font-lato)]">
             Prop. Ujjal Chakraborty (Dolon)
+          </p>
+          <p className="text-xs text-royal-cream/30 text-center font-[var(--font-lato)]">
+            Made with ❤️ in Purulia
           </p>
 
           {/* Social Icons */}

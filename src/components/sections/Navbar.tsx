@@ -8,7 +8,7 @@ import DarkModeToggle from '@/components/ui-custom/DarkModeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Menu', href: '#menu' },
@@ -20,7 +20,7 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('hero');
 
   // Handle scroll detection
   useEffect(() => {
@@ -138,17 +138,17 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-royal-cream/95 backdrop-blur-md shadow-lg shadow-royal-gold/10'
+            ? 'bg-gradient-to-b from-royal-cream/98 via-royal-cream/95 to-royal-cream/90 backdrop-blur-md shadow-lg shadow-royal-gold/10'
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             {/* Logo & Business Name */}
             <Link
-              href="#home"
-              onClick={(e) => scrollToSection(e, '#home')}
-              className="flex items-center gap-3 group"
+              href="#hero"
+              onClick={(e) => scrollToSection(e, '#hero')}
+              className="flex items-center gap-2 sm:gap-3 group"
             >
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-royal-gold shadow-md group-hover:shadow-royal-gold/40 transition-shadow duration-300 flex-shrink-0">
                 <Image
@@ -272,6 +272,12 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+        {/* Subtle gold line at bottom when scrolled */}
+        <div
+          className={`h-px bg-gradient-to-r from-transparent via-royal-gold/60 to-transparent transition-opacity duration-500 ${
+            isScrolled ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
       </nav>
 
       {/* Mobile Menu Overlay */}

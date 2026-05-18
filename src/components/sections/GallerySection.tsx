@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { X, ZoomIn } from 'lucide-react'
 import {
@@ -62,11 +63,13 @@ function GalleryCard({
       transition={{ duration: 0.2 }}
     >
       <div className="relative overflow-hidden rounded-xl border-2 border-royal-gold/30 group-hover:border-royal-gold/70 transition-all duration-300 shadow-md group-hover:shadow-xl group-hover:shadow-royal-gold/20">
-        <div className={`${image.aspectClass} w-full`}>
-          <img
+        <div className={`${image.aspectClass} w-full relative`}>
+          <Image
             src={image.src}
             alt={image.alt}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             loading="lazy"
           />
         </div>

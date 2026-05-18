@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useAnimation } from 'framer-motion'
-import { useEffect, useMemo, useCallback } from 'react'
+import { useEffect, useMemo, useCallback, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Star, Calendar, UtensilsCrossed, Clock } from 'lucide-react'
@@ -76,6 +76,12 @@ interface Particle {
 }
 
 function FloatingParticles() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const particles = useMemo<Particle[]>(() => {
     const arr: Particle[] = []
     for (let i = 0; i < 30; i++) {
@@ -90,6 +96,8 @@ function FloatingParticles() {
     }
     return arr
   }, [])
+
+  if (!mounted) return null
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

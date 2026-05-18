@@ -72,9 +72,9 @@ function AnimatedNumber({
   }, [isInView, value, isDecimal])
 
   return (
-    <span ref={ref} className="text-3xl md:text-4xl lg:text-5xl font-bold tabular-nums">
+    <span ref={ref} className="text-4xl md:text-5xl lg:text-6xl font-extrabold tabular-nums">
       {isDecimal ? count.toFixed(1) : count}
-      <span className="text-2xl md:text-3xl lg:text-4xl">{suffix}</span>
+      <span className="text-3xl md:text-4xl lg:text-5xl">{suffix}</span>
     </span>
   )
 }
@@ -103,16 +103,16 @@ export default function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="text-center group"
+              className="text-center group rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-royal-gold/30 p-5 md:p-6 hover:scale-105 transition-transform duration-300 hover:border-royal-gold/60 hover:shadow-lg hover:shadow-royal-gold/20"
             >
               <div className="flex flex-col items-center gap-2 md:gap-3">
                 {/* Icon */}
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-royal-maroon/20 flex items-center justify-center group-hover:bg-royal-maroon/30 transition-colors duration-300">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-royal-maroon/15 flex items-center justify-center group-hover:bg-royal-maroon/25 transition-colors duration-300">
                   <stat.icon className="size-6 md:size-7 text-royal-maroon" />
                 </div>
 
                 {/* Animated Number */}
-                <div className="text-royal-maroon font-[var(--font-playfair)]">
+                <div className="text-royal-maroon font-[var(--font-playfair)] group-hover:drop-shadow-[0_0_8px_rgba(212,160,23,0.4)] transition-all duration-300">
                   <AnimatedNumber
                     value={stat.value}
                     suffix={stat.suffix}

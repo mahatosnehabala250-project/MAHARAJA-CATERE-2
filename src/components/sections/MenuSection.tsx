@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Utensils, Fish, Leaf, Flame, Soup, IceCream, Drumstick, Cake, Wheat, Sandwich, Cookie } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -151,13 +152,15 @@ export default function MenuSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6 }}
-          className="mb-12 md:mb-16 rounded-2xl overflow-hidden border border-royal-gold/30 relative max-h-64 md:max-h-80"
+          className="mb-12 md:mb-16 rounded-2xl overflow-hidden border border-royal-gold/30 relative h-64 md:h-80"
         >
           <div className="absolute inset-0 bg-gradient-to-t from-[#2D1B00] via-transparent to-transparent z-10" />
-          <img
+          <Image
             src="/images/food-1.png"
             alt="Signature dishes from Maharaja Caterer"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 768px"
           />
           <div className="absolute bottom-6 left-6 z-20">
             <p className="text-royal-gold font-semibold text-lg md:text-xl">Signature Dishes</p>

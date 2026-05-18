@@ -225,6 +225,15 @@
   animation: pulse-glow 2.5s ease-in-out infinite;
 }
 
+@keyframes pulse-glow-green {
+  0%, 100% { box-shadow: 0 0 8px rgba(37, 211, 102, 0.3), 0 4px 14px rgba(37, 211, 102, 0.2); }
+  50% { box-shadow: 0 0 24px rgba(37, 211, 102, 0.6), 0 0 48px rgba(37, 211, 102, 0.2), 0 4px 20px rgba(37, 211, 102, 0.3); }
+}
+
+.animate-pulse-glow-green {
+  animation: pulse-glow-green 2.5s ease-in-out infinite;
+}
+
 .animate-slide-up {
   animation: slideInUp 0.6s ease-out forwards;
 }

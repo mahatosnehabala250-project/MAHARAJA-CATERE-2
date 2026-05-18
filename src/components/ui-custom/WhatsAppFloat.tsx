@@ -55,10 +55,6 @@ export default function WhatsAppFloat() {
             <MessageCircle className="w-7 h-7" />
             {/* Pulse ring */}
             <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
-            {/* Badge */}
-            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-royal-maroon text-[10px] font-bold text-white ring-2 ring-white">
-              1
-            </span>
           </a>
         </motion.div>
       )}
