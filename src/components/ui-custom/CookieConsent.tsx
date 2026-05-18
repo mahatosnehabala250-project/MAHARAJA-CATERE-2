@@ -41,9 +41,9 @@ export default function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="fixed bottom-28 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm z-[998]"
+          className="fixed bottom-0 left-0 right-0 z-[998] sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm sm:rounded-xl"
         >
-          <div className="relative bg-[#1a0f00]/95 backdrop-blur-md border border-royal-gold/30 rounded-xl shadow-2xl shadow-black/20 p-4 sm:p-5">
+          <div className="relative bg-[#1a0f00]/95 backdrop-blur-md border border-royal-gold/30 rounded-none sm:rounded-xl shadow-2xl shadow-black/20 p-3 sm:p-5">
             {/* Close button */}
             <button
               onClick={handleDismiss}
@@ -53,15 +53,15 @@ export default function CookieConsent() {
               <X className="w-4 h-4 text-royal-cream/60" />
             </button>
 
-            <div className="flex items-start gap-3">
+            <div className="flex items-center gap-3 sm:items-start">
               {/* Cookie icon */}
-              <div className="shrink-0 w-8 h-8 rounded-full bg-royal-gold/15 flex items-center justify-center mt-0.5">
+              <div className="shrink-0 w-8 h-8 rounded-full bg-royal-gold/15 flex items-center justify-center">
                 <Cookie className="w-4 h-4 text-royal-gold" />
               </div>
 
               <div className="flex-1 min-w-0">
                 {/* Text */}
-                <p className="text-xs text-royal-cream/80 font-[family-name:var(--font-lato)] leading-relaxed mb-3">
+                <p className="text-xs text-royal-cream/80 font-[family-name:var(--font-lato)] leading-relaxed mb-2 sm:mb-3">
                   We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
                 </p>
 

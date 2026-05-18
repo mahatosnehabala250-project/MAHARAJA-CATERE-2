@@ -188,12 +188,12 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className={`relative px-3 xl:px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 rounded-md hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-royal-gold after:transition-all after:duration-300 ${
+                    className={`relative px-3 xl:px-4 py-2 text-sm font-medium tracking-wide transition-all duration-200 rounded-md hover:bg-royal-gold/10 hover:rounded-md hover:scale-105 hover:drop-shadow-[0_0_4px_rgba(212,160,23,0.3)] after:absolute after:bottom-0 after:left-0 after:bg-royal-gold after:transition-all after:duration-300 ${
                       isActive
-                        ? 'text-royal-gold after:w-full'
+                        ? 'text-royal-gold after:w-full after:h-[3px]'
                         : isScrolled
-                        ? 'text-royal-maroon/80 hover:text-royal-maroon after:w-0 hover:after:w-full'
-                        : 'text-royal-cream/80 hover:text-royal-gold after:w-0 hover:after:w-full'
+                        ? 'text-royal-maroon/80 hover:text-royal-maroon after:w-0 after:h-0.5 hover:after:w-full'
+                        : 'text-royal-cream/80 hover:text-royal-gold after:w-0 after:h-0.5 hover:after:w-full'
                     }`}
                   >
                     {link.label}
@@ -206,7 +206,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-2">
               <a
                 href="tel:+918945005456"
-                className={`flex items-center gap-2 px-3 py-2 rounded-full border transition-all duration-300 text-sm ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-full border transition-all duration-200 text-sm hover:scale-105 hover:drop-shadow-[0_0_4px_rgba(212,160,23,0.3)] ${
                   isScrolled
                     ? 'border-royal-gold/30 text-royal-maroon hover:bg-royal-gold/10 hover:border-royal-gold/60'
                     : 'border-royal-cream/30 text-royal-cream hover:bg-royal-cream/10 hover:border-royal-gold/60'
@@ -220,7 +220,7 @@ export default function Navbar() {
                 href="https://wa.me/918945005456"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-royal-maroon/90 text-royal-gold hover:bg-royal-maroon transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-royal-maroon/20 text-sm backdrop-blur-sm"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-royal-maroon/90 text-royal-gold hover:bg-royal-maroon transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-royal-maroon/20 text-sm backdrop-blur-sm hover:scale-105 hover:drop-shadow-[0_0_4px_rgba(212,160,23,0.3)]"
                 aria-label="WhatsApp Maharaja Caterer"
               >
                 <MessageCircle className="w-4 h-4" />
@@ -230,27 +230,27 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex lg:hidden items-center gap-1">
               <DarkModeToggle />
               <a
                 href="https://wa.me/918945005456"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-full bg-royal-maroon text-royal-gold hover:bg-royal-maroon-light transition-colors duration-300"
+                className="p-3 rounded-full bg-royal-maroon text-royal-gold hover:bg-royal-maroon-light transition-colors duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="WhatsApp Maharaja Caterer"
               >
                 <MessageCircle className="w-5 h-5" />
               </a>
               <a
                 href="tel:+918945005456"
-                className="p-2.5 rounded-full border border-royal-gold/40 text-royal-maroon hover:bg-royal-gold/10 transition-colors duration-300"
+                className="p-3 rounded-full border border-royal-gold/40 text-royal-maroon hover:bg-royal-gold/10 transition-colors duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Call Maharaja Caterer"
               >
                 <Phone className="w-5 h-5 text-royal-gold" />
               </a>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`p-2 rounded-lg transition-colors duration-300 ${
+                className={`p-3 rounded-lg transition-colors duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center ${
                   isScrolled
                     ? 'text-royal-maroon hover:bg-royal-gold/10'
                     : 'text-royal-cream hover:bg-royal-cream/10'
@@ -342,13 +342,13 @@ export default function Navbar() {
                           animate="open"
                           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
                             isActive
-                              ? 'bg-royal-maroon text-royal-gold shadow-sm'
-                              : 'text-royal-maroon/80 hover:bg-royal-gold/10 hover:text-royal-maroon'
+                              ? 'bg-royal-maroon text-royal-gold shadow-sm drop-shadow-[0_0_4px_rgba(212,160,23,0.3)]'
+                              : 'text-royal-maroon/80 hover:bg-royal-gold/10 hover:text-royal-maroon hover:scale-105 hover:drop-shadow-[0_0_4px_rgba(212,160,23,0.3)]'
                           }`}
                         >
                           <span
-                            className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                              isActive ? 'bg-royal-gold' : 'bg-royal-gold/40'
+                            className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-200 ${
+                              isActive ? 'bg-royal-gold shadow-[0_0_6px_rgba(212,160,23,0.6)]' : 'bg-royal-gold/40'
                             }`}
                           />
                           {link.label}

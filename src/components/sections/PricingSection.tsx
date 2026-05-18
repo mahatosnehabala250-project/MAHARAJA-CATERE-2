@@ -157,12 +157,46 @@ export default function PricingSection() {
             <motion.div
               key={pkg.name}
               variants={cardVariants}
-              className={`relative rounded-2xl bg-royal-cream/95 dark:bg-[#2D1B00]/90 border-2 ${pkg.isPopular ? 'border-royal-gold shadow-2xl lg:scale-105 z-10 animate-gold-border-glow' : pkg.accentBorder + ' shadow-lg'} overflow-hidden transition-all duration-300 hover:shadow-xl ${pkg.isPopular ? 'hover:scale-[1.02] hover:shadow-2xl hover:shadow-royal-gold/20' : 'hover:scale-[1.02] hover:shadow-2xl hover:shadow-royal-gold/10'}`}
+              className={`relative rounded-2xl bg-royal-cream/95 dark:bg-[#2D1B00]/90 border-2 ${pkg.isPopular ? 'border-royal-gold shadow-2xl lg:scale-105 z-10 animate-gold-border-glow' : pkg.accentBorder + ' shadow-lg'} overflow-hidden transition-all duration-300 hover:shadow-2xl ${pkg.isPopular ? 'hover:scale-[1.02] hover:shadow-2xl hover:shadow-royal-gold/20' : 'hover:scale-[1.02] hover:shadow-2xl hover:shadow-royal-gold/10'} bg-noise`}
             >
-              {/* Popular badge */}
+              {/* Gold corner ornament SVGs for popular card */}
               {pkg.isPopular && (
-                <div className="absolute top-0 right-0 bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-xl font-[family-name:var(--font-lato)] z-20">
+                <>
+                  <svg className="absolute top-0 left-0 w-16 h-16 z-20 pointer-events-none" viewBox="0 0 64 64" fill="none">
+                    <path d="M0 0 L24 0 Q0 0 0 24 Z" fill="#D4A017" opacity="0.3" />
+                    <path d="M0 0 L16 0 Q0 0 0 16 Z" fill="#D4A017" opacity="0.5" />
+                    <circle cx="6" cy="6" r="2" fill="#FFD700" opacity="0.8" />
+                  </svg>
+                  <svg className="absolute top-0 right-0 w-16 h-16 z-20 pointer-events-none rotate-90" viewBox="0 0 64 64" fill="none">
+                    <path d="M0 0 L24 0 Q0 0 0 24 Z" fill="#D4A017" opacity="0.3" />
+                    <path d="M0 0 L16 0 Q0 0 0 16 Z" fill="#D4A017" opacity="0.5" />
+                    <circle cx="6" cy="6" r="2" fill="#FFD700" opacity="0.8" />
+                  </svg>
+                  <svg className="absolute bottom-0 left-0 w-16 h-16 z-20 pointer-events-none -rotate-90" viewBox="0 0 64 64" fill="none">
+                    <path d="M0 0 L24 0 Q0 0 0 24 Z" fill="#D4A017" opacity="0.3" />
+                    <path d="M0 0 L16 0 Q0 0 0 16 Z" fill="#D4A017" opacity="0.5" />
+                    <circle cx="6" cy="6" r="2" fill="#FFD700" opacity="0.8" />
+                  </svg>
+                  <svg className="absolute bottom-0 right-0 w-16 h-16 z-20 pointer-events-none rotate-180" viewBox="0 0 64 64" fill="none">
+                    <path d="M0 0 L24 0 Q0 0 0 24 Z" fill="#D4A017" opacity="0.3" />
+                    <path d="M0 0 L16 0 Q0 0 0 16 Z" fill="#D4A017" opacity="0.5" />
+                    <circle cx="6" cy="6" r="2" fill="#FFD700" opacity="0.8" />
+                  </svg>
+                </>
+              )}
+
+              {/* Popular badge with shimmer animation */}
+              {pkg.isPopular && (
+                <div className="absolute top-0 right-0 animate-badge-shimmer text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-xl font-[family-name:var(--font-lato)] z-20">
                   MOST POPULAR
+                </div>
+              )}
+
+              {/* Best Value badge on Royal package */}
+              {pkg.name === 'Royal Package' && (
+                <div className="absolute top-0 right-0 bg-royal-maroon text-royal-gold-light text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-bl-lg font-[family-name:var(--font-lato)] z-20 flex items-center gap-1">
+                  <Crown className="w-3 h-3" />
+                  Best Value
                 </div>
               )}
 
@@ -188,7 +222,7 @@ export default function PricingSection() {
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)]">
                     {pkg.name}
-                    {pkg.isPopular && <span className="ml-1.5 text-royal-gold">⭐</span>}
+                    {pkg.isPopular && <span className="ml-1.5 text-royal-gold animate-gentle-bounce inline-block">⭐</span>}
                   </h3>
                 </div>
 

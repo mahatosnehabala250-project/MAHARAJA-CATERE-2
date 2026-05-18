@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useSpring, useTransform } from 'framer-motion'
 import { Calendar, Award, Star, UtensilsCrossed } from 'lucide-react'
 
 const stats = [
@@ -41,39 +41,36 @@ function AnimatedNumber({
   suffix: string
   isDecimal?: boolean
 }) {
-  const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true })
+  const [displayValue, setDisplayValue] = useState(0)
+
+  const spring = useSpring(0, {
+    stiffness: 40,
+    damping: 25,
+    mass: 1,
+  })
+
+  const rounded = useTransform(spring, (latest) =>
+    isDecimal ? parseFloat(latest.toFixed(1)) : Math.floor(latest)
+  )
 
   useEffect(() => {
-    if (!isInView) return
-
-    const duration = 2000
-    const startTime = Date.now()
-
-    const animate = () => {
-      const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
-
-      // Easing function - ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3)
-
-      const currentCount = eased * value
-      setCount(isDecimal ? parseFloat(currentCount.toFixed(1)) : Math.floor(currentCount))
-
-      if (progress < 1) {
-        requestAnimationFrame(animate)
-      } else {
-        setCount(value)
-      }
+    if (isInView) {
+      spring.set(value)
     }
+  }, [isInView, spring, value])
 
-    requestAnimationFrame(animate)
-  }, [isInView, value, isDecimal])
+  useEffect(() => {
+    const unsubscribe = rounded.on('change', (v) => {
+      setDisplayValue(v)
+    })
+    return unsubscribe
+  }, [rounded])
 
   return (
     <span ref={ref} className="text-4xl md:text-5xl lg:text-6xl font-extrabold tabular-nums">
-      {isDecimal ? count.toFixed(1) : count}
+      {isDecimal ? displayValue.toFixed(1) : displayValue}
       <span className="text-3xl md:text-4xl lg:text-5xl">{suffix}</span>
     </span>
   )
@@ -103,12 +100,15 @@ export default function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="text-center group rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-royal-gold/30 p-5 md:p-6 hover:scale-105 transition-transform duration-300 hover:border-royal-gold/60 hover:shadow-lg hover:shadow-royal-gold/20"
+              className="relative text-center group rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-royal-gold/30 p-5 md:p-6 hover:scale-105 transition-transform duration-300 hover:border-royal-gold/60 hover:shadow-lg hover:shadow-royal-gold/20 overflow-hidden"
             >
-              <div className="flex flex-col items-center gap-2 md:gap-3">
-                {/* Icon */}
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-royal-maroon/15 flex items-center justify-center group-hover:bg-royal-maroon/25 transition-colors duration-300">
-                  <stat.icon className="size-6 md:size-7 text-royal-maroon" />
+              {/* Subtle gold gradient background overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-royal-gold/5 via-transparent to-royal-gold/10 pointer-events-none" />
+
+              <div className="relative flex flex-col items-center gap-2 md:gap-3">
+                {/* Icon - larger and more prominent */}
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-royal-maroon/15 flex items-center justify-center group-hover:bg-royal-maroon/25 transition-colors duration-300 shadow-md shadow-royal-gold/10">
+                  <stat.icon className="size-7 md:size-8 text-royal-maroon" />
                 </div>
 
                 {/* Animated Number */}
@@ -125,6 +125,11 @@ export default function StatsSection() {
                   {stat.label}
                 </p>
               </div>
+
+              {/* Gold divider line between stats on desktop */}
+              {index < stats.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-3 md:-right-4 w-6 h-px bg-gradient-to-r from-royal-maroon/30 to-royal-maroon/10" />
+              )}
             </motion.div>
           ))}
         </div>

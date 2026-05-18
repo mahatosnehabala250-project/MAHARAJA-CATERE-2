@@ -34,6 +34,9 @@ import MenuDownloadCTA from '@/components/ui-custom/MenuDownloadCTA'
 import ChefSpecialSection from '@/components/sections/ChefSpecialSection'
 import EventCountdown from '@/components/ui-custom/EventCountdown'
 import TestimonialVideoSection from '@/components/sections/TestimonialVideoSection'
+import ImageCarousel from '@/components/ui-custom/ImageCarousel'
+import BeforeAfterComparison from '@/components/sections/BeforeAfterComparison'
+import InteractiveMapSection from '@/components/sections/InteractiveMapSection'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -49,6 +52,7 @@ export default function Home() {
         <Navbar />
         <main className="flex-1">
           <HeroSection />
+          <ImageCarousel />
           <SectionDivider variant="gold-wave" />
           <SocialProofBanner />
           <MaharajaFigures />
@@ -64,6 +68,7 @@ export default function Home() {
           <EventCalculator />
           <EventCountdown />
           <GallerySection />
+          <BeforeAfterComparison />
           <SpecialOffersSection />
           <VenuePartnersSection />
           <CTABanner />
@@ -73,6 +78,7 @@ export default function Home() {
           <SectionDivider variant="maroon-peak" />
           <FAQSection />
           <SectionDivider variant="double-line" />
+          <InteractiveMapSection />
           <ContactSection />
         </main>
         <Footer />

@@ -74,7 +74,7 @@ export default function AboutSection() {
               <div className="absolute -inset-1.5 border border-royal-gold/60 rounded-lg" />
 
               {/* Image */}
-              <div className="relative rounded-lg overflow-hidden aspect-[4/3]">
+              <div className="relative rounded-lg overflow-hidden aspect-[4/3] border-2 border-royal-gold/40 shadow-lg shadow-royal-gold/20">
                 <Image
                   src="/images/about-bg.png"
                   alt="Maharaja Caterer - About Us"

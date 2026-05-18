@@ -17,7 +17,7 @@ export default function DarkModeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-10 h-10 rounded-full" />
+      <div className="min-w-[44px] min-h-[44px] rounded-full" />
     );
   }
 
@@ -30,7 +30,7 @@ export default function DarkModeToggle() {
   return (
     <motion.button
       onClick={handleToggle}
-      className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300 shadow-md hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-royal-gold focus-visible:ring-offset-2 ${
+      className={`min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center transition-colors duration-300 shadow-md hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-royal-gold focus-visible:ring-offset-2 ${
         isDark
           ? 'bg-royal-gold text-royal-maroon hover:bg-royal-gold-light'
           : 'bg-royal-maroon text-royal-gold hover:bg-royal-maroon-light'

@@ -12,6 +12,7 @@ const testimonials = [
     name: 'Rajesh Kumar',
     rating: 5,
     eventType: 'Wedding',
+    location: 'Purulia Town',
     comment:
       'The food was absolutely incredible! Every dish was fresh, flavorful, and beautifully presented. Our wedding guests couldn\'t stop complimenting the biryani and the dessert spread.',
   },
@@ -19,6 +20,7 @@ const testimonials = [
     name: 'Priya Sharma',
     rating: 5,
     eventType: 'Birthday',
+    location: 'Ranchi',
     comment:
       'Maharaja Caterer made my daughter\'s birthday so special! The team was punctual, friendly, and the food was delicious. The kids loved the variety!',
   },
@@ -26,6 +28,7 @@ const testimonials = [
     name: 'Amit Das',
     rating: 5,
     eventType: 'Reception',
+    location: 'Durgapur',
     comment:
       'Outstanding service and mouth-watering food. The tandoori items were the star of our reception. Highly recommend for any event!',
   },
@@ -33,6 +36,7 @@ const testimonials = [
     name: 'Sunita Mahato',
     rating: 4,
     eventType: 'Family Function',
+    location: 'Purulia',
     comment:
       'Very good quality food and the staff behavior was excellent. They took care of everything from starters to desserts. Will definitely book again.',
   },
@@ -40,6 +44,7 @@ const testimonials = [
     name: 'Debashis Roy',
     rating: 5,
     eventType: 'Wedding',
+    location: 'Kolkata',
     comment:
       'From the first meeting to the last plate served, Maharaja Caterer exceeded all expectations. The presentation was royal indeed!',
   },
@@ -47,6 +52,7 @@ const testimonials = [
     name: 'Anita Chakraborty',
     rating: 5,
     eventType: 'Birthday',
+    location: 'Asansol',
     comment:
       'Fresh food, colorful presentation, and the team coordination was perfect. My mother\'s 60th birthday celebration was unforgettable thanks to them!',
   },
@@ -160,12 +166,27 @@ export default function TestimonialsSection() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="h-full"
                   >
-                    <div className="bg-gradient-to-br from-royal-cream to-white rounded-xl p-6 border-l-4 border-l-royal-gold border-y-2 border-r-2 border-y-royal-gold/30 border-r-royal-gold/30 hover:border-royal-gold/60 hover:-translate-y-1 hover:shadow-xl hover:shadow-royal-gold/10 transition-all duration-300 h-full flex flex-col">
+                    {/* Parallax scroll wrapper */}
+                    <motion.div
+                      whileHover={{ y: -4 }}
+                      transition={{ duration: 0.3 }}
+                      className="h-full"
+                    >
+                    <div className="relative bg-gradient-to-br from-royal-cream to-white rounded-xl p-6 border-l-4 border-l-royal-gold border-y-2 border-r-2 border-y-royal-gold/30 border-r-royal-gold/30 hover:border-royal-gold/60 hover:-translate-y-1 hover:shadow-xl hover:shadow-royal-gold/10 transition-all duration-300 h-full flex flex-col overflow-hidden group/card">
+                      {/* Decorative quotation mark SVG watermark */}
+                      <svg className="absolute top-2 right-2 w-20 h-20 opacity-[0.07] group-hover/card:opacity-[0.12] transition-opacity duration-300 pointer-events-none" viewBox="0 0 100 100" fill="#D4A017" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 45 C25 30 35 20 50 15 L50 25 C40 28 35 35 35 45 L45 45 L45 60 L25 60 Z" />
+                        <path d="M55 45 C55 30 65 20 80 15 L80 25 C70 28 65 35 65 45 L75 45 L75 60 L55 60 Z" />
+                      </svg>
+
+                      {/* Gradient border on hover */}
+                      <div className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 border-2 border-royal-gold/40" />
+
                       {/* Quote icon */}
                       <Quote className="size-12 text-royal-gold/50 mb-3 fill-royal-gold/30" />
 
                       {/* Comment */}
-                      <p className="text-royal-maroon/80 text-sm leading-relaxed mb-4 flex-1 font-[var(--font-lato)]">
+                      <p className="text-royal-maroon/80 text-sm leading-relaxed mb-4 flex-1 font-[var(--font-lato)] relative z-10">
                         &ldquo;{testimonial.comment}&rdquo;
                       </p>
 
@@ -193,12 +214,17 @@ export default function TestimonialsSection() {
                               {testimonial.eventType}
                             </Badge>
                           </div>
+                          {/* Location and event type */}
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <span className="text-xs text-royal-maroon/50 font-[var(--font-lato)]">📍 {testimonial.location}</span>
+                          </div>
                           <div className="mt-1">
                             <StarRating rating={testimonial.rating} />
                           </div>
                         </div>
                       </div>
                     </div>
+                    </motion.div>
                   </motion.div>
                 </div>
               ))}

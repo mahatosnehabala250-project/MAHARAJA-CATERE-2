@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const eventTypes = [
@@ -37,13 +37,25 @@ const chipVariants = {
 export default function EventTypeChips() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
+  const [ripples, setRipples] = useState<Record<string, { x: number; y: number }>>({});
 
-  const handleClick = () => {
+  const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>, label: string) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setRipples((prev) => ({ ...prev, [label]: { x, y } }));
+    setTimeout(() => {
+      setRipples((prev) => {
+        const next = { ...prev };
+        delete next[label];
+        return next;
+      });
+    }, 600);
     const el = document.getElementById('contact');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   return (
     <section
@@ -92,10 +104,22 @@ export default function EventTypeChips() {
             <motion.button
               key={type.label}
               variants={chipVariants}
-              onClick={handleClick}
-              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-royal-gold/40 bg-white/80 text-royal-maroon font-semibold text-sm font-[family-name:var(--font-lato)] cursor-pointer transition-all duration-300 hover:bg-royal-maroon hover:text-royal-gold-light hover:border-royal-gold hover:scale-105 hover:shadow-lg hover:shadow-royal-gold/15 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-royal-gold focus-visible:ring-offset-2 focus-visible:ring-offset-royal-cream"
+              onClick={(e) => handleClick(e, type.label)}
+              className="relative flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-royal-gold/40 bg-white/80 text-royal-maroon font-semibold text-sm font-[family-name:var(--font-lato)] cursor-pointer transition-all duration-300 hover:bg-royal-maroon hover:text-royal-gold-light hover:border-royal-gold hover:scale-110 hover:-translate-y-1 hover:shadow-lg hover:shadow-royal-gold/30 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-royal-gold focus-visible:ring-offset-2 focus-visible:ring-offset-royal-cream group overflow-hidden"
             >
-              <span className="text-base">{type.emoji}</span>
+              {/* Ripple effect */}
+              {ripples[type.label] && (
+                <span
+                  className="absolute rounded-full bg-royal-gold/30 animate-ripple pointer-events-none"
+                  style={{
+                    left: ripples[type.label].x - 5,
+                    top: ripples[type.label].y - 5,
+                    width: 10,
+                    height: 10,
+                  }}
+                />
+              )}
+              <span className="text-base transition-transform duration-300 group-hover:scale-125">{type.emoji}</span>
               <span>{type.label}</span>
             </motion.button>
           ))}

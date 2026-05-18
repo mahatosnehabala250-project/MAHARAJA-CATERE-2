@@ -114,7 +114,7 @@ function MenuItemCard({ item, index }: { item: MenuItem; index: number }) {
         </div>
         <div className="flex-1 min-w-0">
           <h4 className="font-bold text-royal-maroon text-base leading-snug">{item.name}</h4>
-          <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{item.description}</p>
+          <p className="text-royal-maroon/70 text-sm sm:text-base mt-1 leading-relaxed">{item.description}</p>
         </div>
       </div>
       {/* Gold accent line at bottom */}
@@ -204,7 +204,7 @@ export default function MenuSection() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
                 variants={containerVariants}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6"
               >
                 {category.items.map((item, index) => (
                   <MenuItemCard key={item.name} item={item} index={index} />
