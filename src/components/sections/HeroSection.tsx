@@ -1,11 +1,11 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { motion, useAnimation, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useCallback } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Star, Calendar, UtensilsCrossed, Clock, ChevronRight } from 'lucide-react'
+import { Calendar, UtensilsCrossed, ChevronRight, Phone } from 'lucide-react'
 
 const FloatingParticles = dynamic(() => import('@/components/ui-custom/FloatingParticles'), { ssr: false })
 
@@ -17,152 +17,26 @@ const ROYAL_GOLD = '#D4A017'
 const ROYAL_MAROON = '#800020'
 const ROYAL_CREAM = '#FFF8E7'
 
-const STATS = [
-  { label: 'Events', value: '5000+', icon: Calendar },
-  { label: 'Years', value: '15+', icon: Clock },
-  { label: 'Rating', value: '4.8★', icon: Star },
-  { label: 'Menu Items', value: '100+', icon: UtensilsCrossed },
-] as const
-
 /* ------------------------------------------------------------------ */
 /*  Framer-motion variants                                             */
 /* ------------------------------------------------------------------ */
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.15 * i, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  }),
-}
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: (i: number) => ({
-    opacity: 1,
-    transition: { delay: 0.12 * i, duration: 0.6, ease: 'easeOut' },
+    transition: { delay: 0.12 * i, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   }),
 }
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.7 },
+  hidden: { opacity: 0, scale: 0.8 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: 0.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
   },
-}
-
-const logoPulse = {
-  animate: {
-    boxShadow: [
-      '0 0 8px rgba(212,160,23,0.3)',
-      '0 0 24px rgba(212,160,23,0.6), 0 0 48px rgba(212,160,23,0.25)',
-      '0 0 8px rgba(212,160,23,0.3)',
-    ],
-    transition: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
-  },
-}
-
-/* ------------------------------------------------------------------ */
-/*  Mandala corner ornament                                            */
-/* ------------------------------------------------------------------ */
-
-function MandalaCorner({ position }: { position: 'tl' | 'tr' | 'bl' | 'br' }) {
-  const posClasses: Record<string, string> = {
-    tl: 'top-6 left-6 rotate-0',
-    tr: 'top-6 right-6 rotate-90',
-    bl: 'bottom-6 left-6 -rotate-90',
-    br: 'bottom-6 right-6 rotate-180',
-  }
-
-  return (
-    <div
-      className={`pointer-events-none absolute ${posClasses[position]} hidden md:block`}
-      aria-hidden="true"
-    >
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-        {/* Outer arc */}
-        <path
-          d="M0 0 L30 0 C30 16.5 16.5 30 0 30 Z"
-          stroke={ROYAL_GOLD}
-          strokeWidth="1"
-          fill="none"
-          opacity="0.4"
-        />
-        {/* Inner arc */}
-        <path
-          d="M0 0 L20 0 C20 11 11 20 0 20 Z"
-          stroke={ROYAL_GOLD}
-          strokeWidth="0.8"
-          fill="none"
-          opacity="0.3"
-        />
-        {/* Decorative dots */}
-        <circle cx="8" cy="8" r="2" fill={ROYAL_GOLD} opacity="0.25" />
-        <circle cx="16" cy="3" r="1.5" fill={ROYAL_GOLD} opacity="0.2" />
-        <circle cx="3" cy="16" r="1.5" fill={ROYAL_GOLD} opacity="0.2" />
-        {/* Petal-like curves */}
-        <path
-          d="M5 0 Q10 5 0 10"
-          stroke={ROYAL_GOLD}
-          strokeWidth="0.6"
-          fill="none"
-          opacity="0.2"
-        />
-        <path
-          d="M10 0 Q15 5 0 15"
-          stroke={ROYAL_GOLD}
-          strokeWidth="0.5"
-          fill="none"
-          opacity="0.15"
-        />
-      </svg>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/*  Stat item                                                          */
-/* ------------------------------------------------------------------ */
-
-function StatItem({
-  icon: Icon,
-  value,
-  label,
-  index,
-}: {
-  icon: React.ComponentType<{ className?: string; size?: number }>
-  value: string
-  label: string
-  index: number
-}) {
-  return (
-    <motion.div
-      custom={index}
-      variants={fadeUp}
-      initial="hidden"
-      animate="visible"
-      className="flex items-center gap-2 text-center sm:gap-3"
-    >
-      <Icon size={18} className="shrink-0" style={{ color: ROYAL_GOLD }} />
-      <div className="flex flex-col">
-        <span
-          className="text-lg font-bold leading-tight sm:text-xl"
-          style={{ color: ROYAL_GOLD }}
-        >
-          {value}
-        </span>
-        <span
-          className="text-xs font-medium uppercase tracking-wider"
-          style={{ color: ROYAL_CREAM, opacity: 0.8 }}
-        >
-          {label}
-        </span>
-      </div>
-    </motion.div>
-  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -170,13 +44,8 @@ function StatItem({
 /* ------------------------------------------------------------------ */
 
 export default function HeroSection() {
-  const controls = useAnimation()
   const { scrollY } = useScroll()
-  const bgY = useTransform(scrollY, [0, 500], [0, 150])
-
-  useEffect(() => {
-    controls.start('visible')
-  }, [controls])
+  const bgY = useTransform(scrollY, [0, 500], [0, 120])
 
   const handleExploreMenu = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -204,27 +73,27 @@ export default function HeroSection() {
       {/* ---- Background image with parallax ---- */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <Image
-          src="/images/hero-bg.png"
+          src="/images/hero-bg-new.png"
           alt="Maharaja Caterer — royal feast setting"
           fill
           priority
           className="object-cover"
           sizes="100vw"
         />
-        {/* Dark overlay gradient — dramatic cinematic look */}
+        {/* Cinematic dark overlay — clean gradient */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(26,15,0,0.80) 0%, rgba(45,27,0,0.70) 35%, rgba(128,0,32,0.50) 60%, rgba(60,0,15,0.75) 80%, rgba(26,15,0,0.95) 100%)',
+              'linear-gradient(to bottom, rgba(26,15,0,0.65) 0%, rgba(45,27,0,0.55) 30%, rgba(128,0,32,0.40) 55%, rgba(60,0,15,0.65) 80%, rgba(26,15,0,0.92) 100%)',
           }}
         />
-        {/* Vignette effect — darker corners for cinematic feel */}
+        {/* Subtle vignette — darker edges */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.35) 100%)',
+              'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.30) 100%)',
           }}
         />
       </motion.div>
@@ -232,26 +101,19 @@ export default function HeroSection() {
       {/* ---- Floating particles ---- */}
       <FloatingParticles />
 
-      {/* ---- Mandala corners ---- */}
-      <MandalaCorner position="tl" />
-      <MandalaCorner position="tr" />
-      <MandalaCorner position="bl" />
-      <MandalaCorner position="br" />
+      {/* ---- Content — clean centered layout ---- */}
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center px-4 pt-16 pb-28 text-center sm:px-6 lg:px-8">
 
-      {/* ---- Content ---- */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 pt-20 pb-36 text-center sm:px-6 lg:px-8">
         {/* Logo */}
         <motion.div
           variants={scaleIn}
           initial="hidden"
           animate="visible"
-          className="mb-6"
+          className="mb-5"
         >
-          <motion.div
-            variants={logoPulse}
-            animate="animate"
-            className="relative h-20 w-20 overflow-hidden rounded-full border-2 sm:h-24 sm:w-24"
-            style={{ borderColor: ROYAL_GOLD }}
+          <div
+            className="relative h-16 w-16 overflow-hidden rounded-full border-2 shadow-lg sm:h-20 sm:w-20"
+            style={{ borderColor: ROYAL_GOLD, boxShadow: '0 0 20px rgba(212,160,23,0.3)' }}
           >
             <Image
               src="/images/logo.jpg"
@@ -259,22 +121,32 @@ export default function HeroSection() {
               fill
               priority
               className="object-cover"
-              sizes="96px"
+              sizes="80px"
             />
-          </motion.div>
+          </div>
         </motion.div>
 
-        {/* Welcome text */}
-        <motion.p
+        {/* Welcome badge */}
+        <motion.div
           custom={1}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] sm:text-base"
-          style={{ color: ROYAL_GOLD }}
+          className="mb-4"
         >
-          ✦ Welcome to ✦
-        </motion.p>
+          <span
+            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] sm:text-sm"
+            style={{
+              color: ROYAL_GOLD,
+              backgroundColor: 'rgba(212,160,23,0.12)',
+              border: '1px solid rgba(212,160,23,0.25)',
+            }}
+          >
+            <span className="h-1 w-1 rounded-full" style={{ backgroundColor: ROYAL_GOLD }} />
+            Premium Catering Since 2009
+            <span className="h-1 w-1 rounded-full" style={{ backgroundColor: ROYAL_GOLD }} />
+          </span>
+        </motion.div>
 
         {/* Main heading */}
         <motion.h1
@@ -282,34 +154,34 @@ export default function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="text-gold-gradient mb-4 text-5xl font-extrabold leading-tight tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          className="text-gold-gradient mb-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
         >
           Maharaja Caterer
         </motion.h1>
 
         {/* Sub heading */}
-        <motion.h2
+        <motion.p
           custom={3}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-4 text-xl font-medium sm:text-2xl md:text-3xl"
-          style={{ color: ROYAL_CREAM }}
+          className="mb-5 text-lg font-medium sm:text-xl md:text-2xl"
+          style={{ color: ROYAL_CREAM, textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
         >
           Purulia&apos;s Finest Catering &amp; Event Service
-        </motion.h2>
+        </motion.p>
 
-        {/* Gold divider line between heading and tagline */}
+        {/* Gold ornamental divider */}
         <motion.div
           custom={3.5}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-5 flex items-center justify-center gap-3"
+          className="mb-5 flex items-center justify-center gap-2"
         >
-          <span className="block h-px w-10 sm:w-16" style={{ background: `linear-gradient(to right, transparent, ${ROYAL_GOLD})` }} />
-          <span className="block h-1.5 w-1.5 rotate-45" style={{ backgroundColor: ROYAL_GOLD }} />
-          <span className="block h-px w-10 sm:w-16" style={{ background: `linear-gradient(to left, transparent, ${ROYAL_GOLD})` }} />
+          <span className="block h-px w-8 sm:w-12" style={{ background: `linear-gradient(to right, transparent, ${ROYAL_GOLD})` }} />
+          <span className="text-royal-gold text-sm">&#10022;</span>
+          <span className="block h-px w-8 sm:w-12" style={{ background: `linear-gradient(to left, transparent, ${ROYAL_GOLD})` }} />
         </motion.div>
 
         {/* Tagline */}
@@ -318,8 +190,8 @@ export default function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-2 text-lg italic tracking-wide sm:text-xl"
-          style={{ color: ROYAL_CREAM, opacity: 1, textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(212,160,23,0.3)' }}
+          className="mb-2 text-base italic tracking-wide sm:text-lg"
+          style={{ color: ROYAL_CREAM, opacity: 0.9, textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}
         >
           Where Every Feast Becomes a Royal Celebration
         </motion.p>
@@ -330,49 +202,39 @@ export default function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-10 text-xl sm:text-2xl"
-          style={{ color: ROYAL_GOLD, opacity: 1, textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(212,160,23,0.3)' }}
+          className="mb-8 text-lg sm:text-xl"
+          style={{ color: ROYAL_GOLD, textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0 15px rgba(212,160,23,0.2)' }}
         >
           সকলের মনপরাজিত হবে!
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — clean and prominent */}
         <motion.div
           custom={6}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="flex flex-col gap-4 sm:flex-row sm:gap-6"
+          className="flex flex-col gap-3 sm:flex-row sm:gap-4"
         >
           <Link
             href="#contact"
             onClick={handleBookEvent}
-            className="animate-pulse-glow group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-10 py-5 text-lg font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-xl"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-8 py-4 text-base font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-lg"
             style={{
               background: 'linear-gradient(135deg, #B8860B, #D4A017, #FFD700)',
               color: ROYAL_MAROON,
-              border: 'none',
               textShadow: '0 1px 2px rgba(255,255,255,0.2)',
             }}
           >
-            <span className="relative z-10 flex items-center gap-2">
-              <Calendar size={20} />
-              Book Your Event
-              <span className="ml-1 text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: ROYAL_MAROON, color: ROYAL_CREAM }}>
-                ✦ Popular
-              </span>
-            </span>
-            {/* Shimmer overlay */}
-            <span
-              className="animate-shimmer absolute inset-0 z-0"
-              style={{ opacity: 0.3 }}
-            />
+            <Calendar size={20} />
+            Book Your Event
+            <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
 
           <Link
             href="#menu"
             onClick={handleExploreMenu}
-            className="inline-flex items-center justify-center gap-2 rounded-lg px-8 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-105 hover:bg-royal-gold/10 sm:text-lg"
+            className="inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-105 hover:bg-white/10 sm:text-lg"
             style={{
               color: ROYAL_GOLD,
               border: `2px solid ${ROYAL_GOLD}`,
@@ -382,35 +244,39 @@ export default function HeroSection() {
           >
             <UtensilsCrossed size={20} />
             Explore Menu
-            <ChevronRight size={18} />
           </Link>
+        </motion.div>
+
+        {/* Quick contact line */}
+        <motion.div
+          custom={7}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mt-6 flex items-center gap-2"
+        >
+          <Phone size={14} style={{ color: ROYAL_GOLD }} />
+          <a
+            href="tel:+918945005456"
+            className="text-sm font-medium transition-colors hover:underline"
+            style={{ color: ROYAL_CREAM, opacity: 0.8 }}
+          >
+            +91 89450 05456
+          </a>
+          <span style={{ color: ROYAL_GOLD, opacity: 0.5 }}>|</span>
+          <span className="text-sm" style={{ color: ROYAL_GOLD, opacity: 0.8 }}>
+            5000+ Events • 15+ Years • 4.8★
+          </span>
         </motion.div>
       </div>
 
-      {/* ---- Stats bar ---- */}
-      <motion.div
-        custom={7}
-        variants={fadeIn}
-        initial="hidden"
-        animate="visible"
-        className="absolute bottom-0 left-0 right-0 z-10 w-full"
+      {/* ---- Bottom gradient fade ---- */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-10 h-32 pointer-events-none"
         style={{
-          background:
-            'linear-gradient(to top, rgba(26,15,0,0.9) 0%, rgba(26,15,0,0.6) 60%, transparent 100%)',
+          background: 'linear-gradient(to top, rgba(26,15,0,0.95) 0%, transparent 100%)',
         }}
-      >
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-6 px-4 pb-8 pt-14 sm:gap-10 md:gap-14">
-          {STATS.map((stat, i) => (
-            <StatItem
-              key={stat.label}
-              icon={stat.icon}
-              value={stat.value}
-              label={stat.label}
-              index={i}
-            />
-          ))}
-        </div>
-      </motion.div>
+      />
     </section>
   )
 }
