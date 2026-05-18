@@ -89,8 +89,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   }, [progress, springProgress])
 
   useEffect(() => {
-    const duration = 400
-    const interval = 10
+    const duration = 1200
+    const interval = 15
     const steps = duration / interval
     const increment = 100 / steps
     let current = 0
