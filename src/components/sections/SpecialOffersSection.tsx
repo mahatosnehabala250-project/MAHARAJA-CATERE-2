@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { Gift, Clock, Building2 } from 'lucide-react'
 
 interface Offer {
@@ -56,9 +56,6 @@ const cardVariants = {
 }
 
 export default function SpecialOffersSection() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' })
-
   // Countdown timer - 30 days from now
   const [timeLeft, setTimeLeft] = useState({ days: 30, hours: 0, minutes: 0, seconds: 0 })
 
@@ -89,8 +86,7 @@ export default function SpecialOffersSection() {
   return (
     <section
       id="offers"
-      className="relative py-20 md:py-28 section-dark-royal overflow-hidden"
-      ref={sectionRef}
+      className="relative py-20 md:py-28 section-dark-royal dark:from-[#2D1B00] overflow-hidden"
     >
       {/* Mandala pattern background */}
       <div className="absolute inset-0 mandala-bg opacity-40" />
@@ -125,12 +121,15 @@ export default function SpecialOffersSection() {
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-royal-gold/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-royal-gold/5 rounded-full blur-3xl" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         {/* Section heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center mb-14 md:mb-18"
         >
           <span className="text-royal-gold font-semibold uppercase tracking-widest text-sm font-[family-name:var(--font-lato)]">
@@ -150,7 +149,8 @@ export default function SpecialOffersSection() {
           {/* Countdown Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="inline-flex items-center gap-3 mt-6 px-5 py-2.5 rounded-full bg-royal-maroon/80 border border-royal-gold/30 backdrop-blur-sm"
           >
@@ -168,13 +168,14 @@ export default function SpecialOffersSection() {
               <span className="bg-royal-gold/20 px-2 py-1 rounded">{String(timeLeft.seconds).padStart(2, '0')}s</span>
             </span>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Offer cards */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
           {offers.map((offer) => (
@@ -220,7 +221,7 @@ export default function SpecialOffersSection() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

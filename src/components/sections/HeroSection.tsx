@@ -5,7 +5,7 @@ import { motion, useAnimation, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Star, Calendar, UtensilsCrossed, Clock } from 'lucide-react'
+import { Star, Calendar, UtensilsCrossed, Clock, ChevronRight } from 'lucide-react'
 
 const FloatingParticles = dynamic(() => import('@/components/ui-custom/FloatingParticles'), { ssr: false })
 
@@ -341,20 +341,23 @@ export default function HeroSection() {
             onClick={handleBookEvent}
             className="animate-pulse-glow group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-10 py-5 text-lg font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-xl"
             style={{
-              backgroundColor: ROYAL_MAROON,
-              color: ROYAL_GOLD,
-              border: `2px solid ${ROYAL_GOLD}`,
-              textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+              background: 'linear-gradient(135deg, #B8860B, #D4A017, #FFD700)',
+              color: ROYAL_MAROON,
+              border: 'none',
+              textShadow: '0 1px 2px rgba(255,255,255,0.2)',
             }}
           >
             <span className="relative z-10 flex items-center gap-2">
               <Calendar size={20} />
               Book Your Event
+              <span className="ml-1 text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: ROYAL_MAROON, color: ROYAL_CREAM }}>
+                ✦ Popular
+              </span>
             </span>
             {/* Shimmer overlay */}
             <span
               className="animate-shimmer absolute inset-0 z-0"
-              style={{ opacity: 0.6 }}
+              style={{ opacity: 0.3 }}
             />
           </Link>
 
@@ -371,6 +374,7 @@ export default function HeroSection() {
           >
             <UtensilsCrossed size={20} />
             Explore Menu
+            <ChevronRight size={18} />
           </Link>
         </motion.div>
       </div>

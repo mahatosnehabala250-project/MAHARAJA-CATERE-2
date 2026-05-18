@@ -10,7 +10,7 @@ export default function CTABanner() {
       <div className="h-1 bg-gradient-to-r from-transparent via-royal-gold to-transparent" />
 
       {/* Main Banner */}
-      <div className="relative bg-gradient-to-br from-royal-maroon via-[#5A0015] to-royal-maroon-light py-16 sm:py-20 lg:py-24">
+      <div className="relative bg-gradient-to-br from-royal-maroon dark:from-[#3D0010] via-[#5A0015] dark:via-[#5A0015] to-royal-maroon-light dark:to-[#3D0010] py-16 sm:py-20 lg:py-24">
         {/* Mandala Pattern Overlay */}
         <div className="absolute inset-0 mandala-bg opacity-40" />
 
@@ -59,8 +59,8 @@ export default function CTABanner() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Decorative top flourish with crown */}
             <div className="flex items-center justify-center gap-3 mb-6">

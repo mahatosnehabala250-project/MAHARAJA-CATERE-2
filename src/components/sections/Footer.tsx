@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import {
   MapPin,
@@ -9,6 +10,7 @@ import {
   Facebook,
   MessageCircle,
   ExternalLink,
+  Send,
 } from 'lucide-react'
 
 const quickLinks = [
@@ -30,10 +32,58 @@ const services = [
 ]
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email.trim()) {
+      setSubscribed(true)
+      setEmail('')
+      setTimeout(() => setSubscribed(false), 4000)
+    }
+  }
+
   return (
     <footer className="bg-[#1a0f00] text-royal-cream/80 mt-auto relative">
       {/* Gold gradient top border */}
       <div className="h-[3px] bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light" />
+
+      {/* Newsletter Section */}
+      <div className="relative bg-gradient-to-r from-royal-maroon via-[#5A0015] to-royal-maroon-light py-10 md:py-14 overflow-hidden">
+        {/* Mandala pattern */}
+        <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" />
+        <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gold-gradient font-[family-name:var(--font-playfair)] mb-2">
+            Stay Updated
+          </h3>
+          <p className="text-royal-cream/70 text-sm sm:text-base font-[family-name:var(--font-lato)] mb-6">
+            Get festive offers &amp; menu updates delivered to your inbox
+          </p>
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row items-center gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="w-full sm:flex-1 px-4 py-3 rounded-full bg-royal-cream/10 border border-royal-gold/30 text-royal-cream placeholder:text-royal-cream/40 focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold/60 transition-all duration-300 text-sm font-[family-name:var(--font-lato)]"
+            />
+            <button
+              type="submit"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#B8860B] via-royal-gold to-[#FFD700] text-royal-maroon font-bold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/30 hover:scale-105 font-[family-name:var(--font-lato)]"
+            >
+              <Send className="w-4 h-4" />
+              Subscribe
+            </button>
+          </form>
+          {subscribed && (
+            <p className="mt-3 text-royal-gold text-sm font-medium font-[family-name:var(--font-lato)] animate-fade-in">
+              ✨ Thank you for subscribing!
+            </p>
+          )}
+        </div>
+      </div>
       {/* Decorative mandala pattern overlay */}
       <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" style={{ top: '3px' }} />
       {/* Main Footer Content */}

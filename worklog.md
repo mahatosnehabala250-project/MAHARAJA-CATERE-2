@@ -1010,3 +1010,110 @@ StructuredData → Loading → Navbar → ReadingProgressBar → Hero → **Imag
 - Add Google Analytics or similar tracking integration
 - Test and refine dark mode across ALL sections including new ones
 - Add Open Graph / social sharing images
+
+---
+Task ID: R8-1
+Agent: Bug Fix & Feature Agent
+Task: Fix cookie consent, menu CTA, add SeasonalMenu, GuestReviews, SocialFeed
+
+Work Log:
+- Fixed CookieConsent.tsx: Changed mobile layout to slim top banner (fixed top-0) instead of bottom bar, added gold gradient top border on mobile, compact single-line layout with inline Accept/Decline buttons on mobile, kept desktop bottom-right card style, reduced delay from 5s to 2s, added shadow-lg
+- Fixed HeroSection.tsx: Changed "Book Your Event" button to primary style with solid gold gradient background and maroon text, added "✦ Popular" badge, made "Explore Menu" secondary with outline/ghost style, added ChevronRight icon after Explore Menu text
+- Created SeasonalMenuSection.tsx: Section with id="seasonal", section-royal bg with mandala-bg, 4 seasonal cards (Durga Puja, Summer Cooler, Winter Wedding, Diwali Dinner) in responsive grid, emoji icons, gold left border, availability badges, staggered animations, decorative SVG corners
+- Created GuestReviewsWidget.tsx: Fixed bottom-left desktop-only widget (hidden on mobile), auto-rotates 5 reviews every 5s with slide animation, star ratings, reviewer avatars, close button that stores dismissal in sessionStorage, z-index 996, "View All Reviews" link
+- Created SocialFeedSection.tsx: Section with id="social", section-dark-royal bg with mandala-bg, 6 Instagram-style gradient placeholder cards in responsive grid, heart/like overlay on hover, captions, Instagram CTA button with gold gradient, staggered animations
+- Integrated all 3 new components in page.tsx: SeasonalMenu between MenuDownloadCTA and ChefSpecialSection, SocialFeed between TestimonialVideoSection and StatsSection, GuestReviewsWidget after FloatingActionMenu
+- Fixed lint error in GuestReviewsWidget: Replaced useEffect+setState pattern with lazy state initializer (getInitialDismissed) to avoid react-hooks/set-state-in-effect rule
+
+Stage Summary:
+- Cookie consent no longer blocks content on mobile (now slim top banner)
+- Hero CTA hierarchy improved: Book Your Event is clearly primary (gold gradient), Explore Menu is secondary (outline)
+- 3 new components added: SeasonalMenuSection, GuestReviewsWidget, SocialFeedSection
+- All lint checks pass, dev server returning 200 consistently
+
+---
+Task ID: R8-2
+Agent: Styling Improvement Agent
+Task: Premium styling - scroll reveal, transitions, dark mode, footer, loading
+
+Work Log:
+- Created reusable useScrollReveal hook in src/hooks/useScrollReveal.ts with useInView (once: true, margin: -100px), containerVariants, itemVariants
+- Applied scroll-reveal whileInView animations to TrustSection (wrapped content in motion.div with fade-up), CTABanner (updated viewport/transition params), VenuePartnersSection (converted from animate-based to whileInView), SpecialOffersSection (converted from animate-based to whileInView)
+- Added section-transition-top and section-transition-bottom CSS classes to globals.css with cream/dark color variants for smooth gradient fades between sections
+- Enhanced Gallery lightbox with image counter badge (e.g., "3 / 9") at top-center, keyboard navigation (Left/Right arrows + Escape), backdrop blur animation layer, motion.img with scale transition on image change, gold hover effect on close button
+- Added dark mode variants to TrustSection (dark:bg-[#1a0f00]/40 section, dark:bg-[#2D1B00]/80 cards, dark:text-royal-cream text), CTABanner (dark:from-[#3D0010] gradient variants), StatsSection (dark:bg-[#1a0f00]/30 section, dark:bg-[#2D1B00]/70 cards), GallerySection (dark:bg-[#1a0f00]/40 section, dark:border-royal-gold/50 cards), SpecialOffersSection (dark:from-[#2D1B00]), VenuePartnersSection (dark:bg-[#1a0f00]/30 section, dark:bg-[#2D1B00]/80 cards)
+- Enhanced Footer with newsletter section: full-width maroon gradient row, "Stay Updated" heading, email input with gold focus ring, gold gradient Subscribe button with Send icon, responsive stacking, success message with auto-dismiss
+- Enhanced LoadingScreen with animated progress: moved progress indicator from absolute bottom to inline below subtitle, added framer-motion useSpring/useTransform for smooth percentage counter animation (0%→100%), kept existing rotating ring and logo pulse animations
+
+Stage Summary:
+- All 4 target sections now have consistent scroll-reveal whileInView animations
+- Gallery lightbox significantly improved: image counter, keyboard nav, backdrop blur, gold close button
+- Dark mode now works across 6 additional sections (Trust, CTABanner, Stats, Gallery, SpecialOffers, Venues)
+- Footer enhanced with newsletter email signup section
+- LoadingScreen progress indicator moved inline with animated spring-based percentage counter
+- Section transition CSS utilities added for smooth gradient fades
+- All lint checks pass (bun run lint: zero errors)
+
+---
+
+## Task ID: R8
+**Agent:** Cron Review Agent Round 8
+**Task:** Comprehensive QA, Bug Fixes, Premium Styling, and Feature Additions
+
+### Current Project Status Assessment
+- Fully functional premium website for Maharaja Caterer Purulia
+- 41 components total (23 sections + 18 custom UI)
+- 1 API route (contact form), 1 custom hook (useScrollReveal)
+- SEO structured data (JSON-LD) integrated
+- Dev server returning 200 consistently
+- All lint checks passing, zero console errors, zero hydration warnings
+- VLM overall rating: 8/10
+
+### QA Testing Results (Round 8)
+- Performed agent-browser testing on desktop (1920x1080) and mobile (375x812)
+- VLM analysis: 8/10 overall, best feature = immersive hero, improvement area = mobile spacing
+- Zero errors, zero warnings in browser console
+
+### Bug Fixes
+1. **Cookie consent intrusiveness** — Changed from bottom bar to slim top banner on mobile (`fixed top-0`), compact single-line layout, gold gradient border, reduced delay to 2s. Desktop keeps bottom-right card style.
+2. **Menu CTA hierarchy** — "Book Your Event" now clearly primary with solid gold gradient bg + "✦ Popular" badge. "Explore Menu" now clearly secondary with outline/ghost style + ChevronRight arrow icon.
+
+### Styling Improvements (Mandatory)
+1. **Scroll-reveal animations** — Created `useScrollReveal` hook (src/hooks/useScrollReveal.ts), applied whileInView fade-up to TrustSection, CTABanner, VenuePartnersSection, SpecialOffersSection
+2. **Section transitions** — Added `.section-transition-top`, `.section-transition-bottom` CSS classes with gradient fades between sections
+3. **Gallery lightbox** — Added image counter badge ("3/9"), keyboard navigation (Left/Right/Escape), backdrop blur animation, gold hover on close button
+4. **Dark mode** — Added dark: variants to TrustSection, CTABanner, StatsSection, GallerySection, SpecialOffersSection, VenuePartnersSection
+5. **Footer newsletter** — Added email signup row with "Stay Updated" heading, email input + Subscribe button, success message with auto-dismiss
+6. **LoadingScreen progress** — Animated percentage counter with framer-motion useSpring, progress bar with gold gradient below the counter
+
+### New Features (Mandatory)
+1. **SeasonalMenuSection** — 4 festive menu cards (Durga Puja, Summer Cooler, Winter Wedding, Diwali Dinner) with emoji, descriptions, availability badges, staggered reveal
+2. **GuestReviewsWidget** — Floating desktop widget (bottom-left), auto-rotates 5 mini-reviews every 5s, dismissible for session, "View All Reviews" link
+3. **SocialFeedSection** — 6 Instagram-style cards with heart/like overlays, captions, "Follow Us on Instagram" CTA, dark royal background
+
+### Component Count
+- Sections (23): AboutSection, BeforeAfterComparison, CTABanner, ChefSpecialSection, ContactSection, FAQSection, Footer, GallerySection, HeroSection, InteractiveMapSection, MenuSection, Navbar, PricingSection, ProcessSection, SeasonalMenuSection, ServicesSection, SocialFeedSection, SpecialOffersSection, StatsSection, TestimonialsSection, TestimonialVideoSection, TrustSection, VenuePartnersSection
+- Custom UI (18): CookieConsent, DarkModeToggle, EventCalculator, EventCountdown, EventTypeChips, FloatingActionMenu, FloatingParticles, GuestReviewsWidget, ImageCarousel, LoadingScreen, MaharajaFigures, MenuDownloadCTA, ReadingProgressBar, ScrollToTop, SectionDivider, SocialProofBanner, StructuredData, WhatsAppFloat
+- Total: 41 components + 1 hook
+
+### Page Section Order
+StructuredData → Loading → Navbar → ReadingProgressBar → Hero → ImageCarousel → SectionDivider(gold-wave) → SocialProof → MaharajaFigures → About → TrustSection → EventTypeChips → Services → Process → Menu → MenuDownloadCTA → **SeasonalMenuSection** → ChefSpecialSection → Pricing → EventCalculator → EventCountdown → Gallery → BeforeAfterComparison → SpecialOffers → VenuePartners → CTABanner → Testimonials → TestimonialVideoSection → **SocialFeedSection** → Stats → SectionDivider(maroon-peak) → FAQ → SectionDivider(double-line) → InteractiveMapSection → Contact → Footer
++ WhatsAppFloat + ScrollToTop + FloatingActionMenu + **GuestReviewsWidget** + CookieConsent (fixed position)
+
+### Unresolved Issues / Risks
+- Google Maps embed uses generic Purulia coordinates (needs exact business location)
+- Pricing is approximate, should be confirmed with business owner
+- Video testimonials show "Coming Soon" — need real video content
+- Chef's Special / BeforeAfter / SocialFeed images are gradient placeholders
+- Mobile spacing could still be optimized per VLM feedback
+- Performance could benefit from code splitting and dynamic imports
+
+### Priority Recommendations for Next Phase
+- Replace placeholder images with real food photography and venue photos
+- Add real YouTube video testimonial embeds
+- Performance optimization: dynamic imports for below-fold sections, image lazy loading
+- Mobile spacing audit and optimization
+- Add Open Graph / social sharing meta images
+- Add Google Analytics integration
+- ARIA labels audit across all interactive elements
+- Test dark mode across ALL sections including newest ones

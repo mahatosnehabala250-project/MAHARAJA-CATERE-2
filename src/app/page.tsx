@@ -37,6 +37,9 @@ import TestimonialVideoSection from '@/components/sections/TestimonialVideoSecti
 import ImageCarousel from '@/components/ui-custom/ImageCarousel'
 import BeforeAfterComparison from '@/components/sections/BeforeAfterComparison'
 import InteractiveMapSection from '@/components/sections/InteractiveMapSection'
+import SeasonalMenuSection from '@/components/sections/SeasonalMenuSection'
+import GuestReviewsWidget from '@/components/ui-custom/GuestReviewsWidget'
+import SocialFeedSection from '@/components/sections/SocialFeedSection'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -63,6 +66,7 @@ export default function Home() {
           <ProcessSection />
           <MenuSection />
           <MenuDownloadCTA />
+          <SeasonalMenuSection />
           <ChefSpecialSection />
           <PricingSection />
           <EventCalculator />
@@ -74,6 +78,7 @@ export default function Home() {
           <CTABanner />
           <TestimonialsSection />
           <TestimonialVideoSection />
+          <SocialFeedSection />
           <StatsSection />
           <SectionDivider variant="maroon-peak" />
           <FAQSection />
@@ -85,6 +90,7 @@ export default function Home() {
         <WhatsAppFloat />
         <ScrollToTop />
         <FloatingActionMenu />
+        <GuestReviewsWidget />
       </div>
       <CookieConsent />
     </>

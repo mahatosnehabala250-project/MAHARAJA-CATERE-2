@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -64,7 +64,7 @@ function GalleryCard({
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
     >
-      <div className="relative overflow-hidden rounded-xl border-2 border-royal-gold/30 group-hover:border-royal-gold/70 transition-all duration-300 shadow-md group-hover:shadow-xl group-hover:shadow-royal-gold/20">
+      <div className="relative overflow-hidden rounded-xl border-2 border-royal-gold/30 dark:border-royal-gold/50 dark:hover:shadow-[0_0_20px_rgba(212,160,23,0.3)] group-hover:border-royal-gold/70 transition-all duration-300 shadow-md group-hover:shadow-xl group-hover:shadow-royal-gold/20">
         <div className={`${image.aspectClass} w-full relative`}>
           <Image
             src={image.src}
@@ -111,8 +111,20 @@ export default function GallerySection() {
     setSelectedIndex((selectedIndex + 1) % galleryImages.length)
   }, [selectedIndex])
 
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goPrev()
+      else if (e.key === 'ArrowRight') goNext()
+      else if (e.key === 'Escape') setSelectedIndex(null)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, goPrev, goNext])
+
   return (
-    <section id="gallery" className="section-royal relative py-20 md:py-28 overflow-hidden">
+    <section id="gallery" className="section-royal dark:bg-[#1a0f00]/40 relative py-20 md:py-28 overflow-hidden">
       {/* Decorative pattern overlay */}
       <div className="mandala-bg absolute inset-0 opacity-20" />
 
@@ -157,19 +169,35 @@ export default function GallerySection() {
 
       {/* Lightbox Dialog */}
       <Dialog open={isOpen} onOpenChange={(open) => { if (!open) setSelectedIndex(null) }}>
-        <DialogContent className="max-w-4xl w-[calc(100%-2rem)] p-0 bg-black/98 backdrop-blur-xl border-royal-gold/30 overflow-hidden [&>button]:hidden">
+        <DialogContent className="max-w-4xl w-[calc(100%-2rem)] p-0 bg-black/98 border-royal-gold/30 overflow-hidden [&>button]:hidden backdrop-blur-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
           <DialogTitle className="sr-only">{selectedImage?.title ?? 'Gallery image'}</DialogTitle>
-          {selectedImage && (
+          {selectedImage && selectedIndex !== null && (
             <div className="relative">
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="w-full h-auto max-h-[80vh] object-contain"
-              />
-              {/* Close button */}
+              {/* Backdrop blur layer */}
+              <div className="absolute inset-0 backdrop-blur-xl bg-black/80" />
+
+              {/* Image */}
+              <div className="relative">
+                <motion.img
+                  key={selectedIndex}
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  className="w-full h-auto max-h-[80vh] object-contain"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                />
+              </div>
+
+              {/* Image Counter Badge */}
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-royal-gold/30 text-royal-cream text-sm font-medium tabular-nums font-[family-name:var(--font-lato)]">
+                {selectedIndex + 1} / {galleryImages.length}
+              </div>
+
+              {/* Close button with gold hover */}
               <button
                 onClick={() => setSelectedIndex(null)}
-                className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
+                className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-transparent hover:border-royal-gold/60 hover:bg-royal-gold/20 flex items-center justify-center text-royal-cream hover:text-royal-gold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
                 aria-label="Close lightbox"
               >
                 <X className="w-5 h-5" />
@@ -177,7 +205,7 @@ export default function GallerySection() {
               {/* Previous arrow */}
               <button
                 onClick={goPrev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-royal-gold/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm hover:bg-royal-gold/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -185,7 +213,7 @@ export default function GallerySection() {
               {/* Next arrow */}
               <button
                 onClick={goNext}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-royal-gold/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm hover:bg-royal-gold/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
                 aria-label="Next image"
               >
                 <ChevronRight className="w-5 h-5" />

@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 interface TrustBadge {
   id: string
@@ -69,14 +68,10 @@ const cardVariants = {
 }
 
 export default function TrustSection() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' })
-
   return (
     <section
       id="trust"
-      className="relative py-20 md:py-28 section-royal overflow-hidden"
-      ref={sectionRef}
+      className="relative py-20 md:py-28 section-royal dark:bg-[#1a0f00]/40 overflow-hidden"
     >
       {/* Mandala pattern background */}
       <div className="absolute inset-0 mandala-bg opacity-60" />
@@ -107,12 +102,15 @@ export default function TrustSection() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         {/* Section heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center mb-14 md:mb-18"
         >
           <span className="text-royal-gold font-semibold uppercase tracking-widest text-sm font-[family-name:var(--font-lato)]">
@@ -125,23 +123,24 @@ export default function TrustSection() {
           <div className="ornament-divider max-w-xs mx-auto">
             <span className="text-royal-gold text-lg">&#10022;</span>
           </div>
-          <p className="mt-6 text-muted-foreground text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
+          <p className="mt-6 text-muted-foreground dark:text-royal-cream/70 text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
             Trust, quality, and dedication — the pillars that make us Purulia&apos;s favourite caterer
           </p>
-        </motion.div>
+        </div>
 
         {/* Trust badges grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
           {trustBadges.map((badge) => (
             <motion.div
               key={badge.id}
               variants={cardVariants}
-              className="group relative bg-white rounded-2xl border border-royal-gold/20 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(212,160,23,0.2)] hover:border-royal-gold/50"
+              className="group relative bg-white dark:bg-[#2D1B00]/80 rounded-2xl border border-royal-gold/20 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(212,160,23,0.2)] hover:border-royal-gold/50"
             >
               {/* Gold left border accent */}
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-royal-gold/60 transition-all duration-300 group-hover:w-1.5 group-hover:bg-royal-gold" />
@@ -152,19 +151,19 @@ export default function TrustSection() {
                 <span className="text-4xl md:text-5xl mb-4 block">{badge.emoji}</span>
 
                 {/* Title */}
-                <h3 className="text-lg md:text-xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] mb-2">
+                <h3 className="text-lg md:text-xl font-bold text-royal-maroon dark:text-royal-gold font-[family-name:var(--font-playfair)] mb-2">
                   {badge.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm md:text-base font-[family-name:var(--font-lato)] leading-relaxed">
+                <p className="text-muted-foreground dark:text-royal-cream/60 text-sm md:text-base font-[family-name:var(--font-lato)] leading-relaxed">
                   {badge.description}
                 </p>
               </div>
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

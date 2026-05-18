@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Building, Castle, Landmark, Home, Tent, Church } from 'lucide-react'
 
 interface Venue {
@@ -70,14 +69,10 @@ const cardVariants = {
 }
 
 export default function VenuePartnersSection() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' })
-
   return (
     <section
       id="venues"
-      className="relative py-20 md:py-28 section-royal overflow-hidden"
-      ref={sectionRef}
+      className="relative py-20 md:py-28 section-royal dark:bg-[#1a0f00]/30 overflow-hidden"
     >
       {/* Mandala pattern background */}
       <div className="absolute inset-0 mandala-bg opacity-30" />
@@ -112,12 +107,15 @@ export default function VenuePartnersSection() {
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-royal-gold/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-royal-maroon/5 rounded-full blur-3xl" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         {/* Section heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center mb-14 md:mb-18"
         >
           <span className="text-royal-maroon font-semibold uppercase tracking-widest text-sm font-[family-name:var(--font-lato)]">
@@ -133,20 +131,21 @@ export default function VenuePartnersSection() {
           <p className="mt-6 text-muted-foreground text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
             We work with Purulia&apos;s finest venues to create perfect celebrations
           </p>
-        </motion.div>
+        </div>
 
         {/* Venue partner cards */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5"
         >
           {venues.map((venue) => (
             <motion.div
               key={venue.id}
               variants={cardVariants}
-              className="group relative rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-royal-gold/20 overflow-hidden transition-all duration-300 hover:border-royal-gold/60 hover:shadow-[0_0_25px_rgba(212,160,23,0.15)] hover:scale-105"
+              className="group relative rounded-2xl bg-white/80 dark:bg-[#2D1B00]/80 backdrop-blur-sm border-2 border-royal-gold/20 overflow-hidden transition-all duration-300 hover:border-royal-gold/60 hover:shadow-[0_0_25px_rgba(212,160,23,0.15)] hover:scale-105"
             >
               <div className="relative p-4 sm:p-5 flex flex-col items-center text-center">
                 {/* Decorative icon */}
@@ -171,8 +170,9 @@ export default function VenuePartnersSection() {
         {/* Partner With Us CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-12 md:mt-16"
         >
           <a
@@ -182,7 +182,7 @@ export default function VenuePartnersSection() {
             Partner With Us
           </a>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useSpring, useTransform } from 'framer-motion'
 import { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
 import { Crown } from 'lucide-react'
@@ -72,6 +72,22 @@ function GoldParticles() {
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
+
+  // Animated progress number using framer-motion spring
+  const springProgress = useSpring(0, { stiffness: 100, damping: 30 })
+  const displayPercent = useTransform(springProgress, (v) => Math.round(v))
+  const [animatedPercent, setAnimatedPercent] = useState(0)
+
+  useEffect(() => {
+    const unsubscribe = displayPercent.on('change', (v) => {
+      setAnimatedPercent(v)
+    })
+    return unsubscribe
+  }, [displayPercent])
+
+  useEffect(() => {
+    springProgress.set(progress)
+  }, [progress, springProgress])
 
   useEffect(() => {
     const duration = 2500
@@ -189,42 +205,44 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             Loading Royal Experience
           </motion.p>
 
-          {/* Elegant progress bar — thinner with gold gradient and shimmer */}
+          {/* Progress section below subtitle */}
           <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ delay: 1, duration: 0.4 }}
-            className="absolute bottom-14 left-1/2 -translate-x-1/2 w-56 sm:w-64 md:w-80 h-[3px] rounded-full overflow-hidden"
-            style={{ backgroundColor: 'rgba(212,160,23,0.1)' }}
-          >
-            <div
-              className="h-full rounded-full relative"
-              style={{
-                width: `${progress}%`,
-                background: 'linear-gradient(90deg, #B8860B, #D4A017, #FFD700, #D4A017, #B8860B)',
-                transition: 'width 0.1s ease-out',
-              }}
-            >
-              {/* Shimmer effect on progress bar */}
-              <div
-                className="absolute inset-0 animate-shimmer"
-                style={{
-                  background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
-                  backgroundSize: '200% 100%',
-                }}
-              />
-            </div>
-          </motion.div>
-
-          {/* Progress percentage */}
-          <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
-            className="absolute bottom-7 text-royal-gold/40 text-[10px] sm:text-xs tracking-wider font-[family-name:var(--font-lato)]"
+            transition={{ delay: 1, duration: 0.4 }}
+            className="mt-8 w-56 sm:w-64 md:w-80"
           >
-            {Math.round(progress)}%
-          </motion.span>
+            {/* Progress percentage with animated number */}
+            <div className="text-center mb-2">
+              <span className="text-royal-gold text-lg sm:text-xl font-bold tabular-nums font-[family-name:var(--font-lato)]">
+                {animatedPercent}%
+              </span>
+            </div>
+
+            {/* Gold progress bar */}
+            <div
+              className="h-[3px] rounded-full overflow-hidden"
+              style={{ backgroundColor: 'rgba(212,160,23,0.15)' }}
+            >
+              <div
+                className="h-full rounded-full relative"
+                style={{
+                  width: `${progress}%`,
+                  background: 'linear-gradient(90deg, #B8860B, #D4A017, #FFD700, #D4A017, #B8860B)',
+                  transition: 'width 0.1s ease-out',
+                }}
+              >
+                {/* Shimmer effect on progress bar */}
+                <div
+                  className="absolute inset-0 animate-shimmer"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
+                    backgroundSize: '200% 100%',
+                  }}
+                />
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

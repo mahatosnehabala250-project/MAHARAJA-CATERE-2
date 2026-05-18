@@ -14,7 +14,7 @@ export default function CookieConsent() {
     if (!consent) {
       const timer = setTimeout(() => {
         setIsVisible(true)
-      }, 5000)
+      }, 2000)
       return () => clearTimeout(timer)
     }
   }, [])
@@ -37,35 +37,58 @@ export default function CookieConsent() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: -60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
+          exit={{ y: -60, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="fixed bottom-0 left-0 right-0 z-[998] sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm sm:rounded-xl"
+          className="fixed top-0 left-0 right-0 z-[998] sm:fixed sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm sm:rounded-xl sm:top-auto"
         >
-          <div className="relative bg-[#1a0f00]/95 backdrop-blur-md border border-royal-gold/30 rounded-none sm:rounded-xl shadow-2xl shadow-black/20 p-3 sm:p-5">
-            {/* Close button */}
+          {/* Gold gradient top border on mobile */}
+          <div
+            className="h-0.5 sm:hidden"
+            style={{ background: 'linear-gradient(to right, #B8860B, #D4A017, #FFD700, #D4A017, #B8860B)' }}
+          />
+
+          <div className="relative bg-[#1a0f00]/95 backdrop-blur-md border border-royal-gold/30 rounded-none sm:rounded-xl shadow-lg p-3 sm:p-5">
+            {/* Close button — desktop only */}
             <button
               onClick={handleDismiss}
-              className="absolute top-2 right-2 w-8 h-8 rounded-full bg-royal-cream/10 hover:bg-royal-cream/20 flex items-center justify-center transition-colors"
+              className="hidden sm:flex absolute top-2 right-2 w-8 h-8 rounded-full bg-royal-cream/10 hover:bg-royal-cream/20 items-center justify-center transition-colors"
               aria-label="Dismiss"
             >
               <X className="w-4 h-4 text-royal-cream/60" />
             </button>
 
-            <div className="flex items-center gap-3 sm:items-start">
-              {/* Cookie icon */}
+            {/* Mobile: compact single line */}
+            <div className="flex sm:hidden items-center gap-2">
+              <Cookie className="w-4 h-4 text-royal-gold shrink-0" />
+              <p className="text-xs text-royal-cream/80 font-[family-name:var(--font-lato)] flex-1 min-w-0 truncate">
+                We use cookies to enhance your experience.
+              </p>
+              <button
+                onClick={handleDecline}
+                className="px-3 py-1.5 rounded-full border border-royal-cream/20 text-royal-cream/70 text-xs font-medium transition-all duration-300 hover:border-royal-cream/40 hover:text-royal-cream font-[family-name:var(--font-lato)] shrink-0"
+              >
+                Decline
+              </button>
+              <button
+                onClick={handleAccept}
+                className="px-3 py-1.5 rounded-full text-white text-xs font-medium transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/20 font-[family-name:var(--font-lato)] shrink-0"
+                style={{ background: 'linear-gradient(135deg, #B8860B, #D4A017, #FFD700)' }}
+              >
+                Accept
+              </button>
+            </div>
+
+            {/* Desktop: card style with icon and description */}
+            <div className="hidden sm:flex items-start gap-3">
               <div className="shrink-0 w-8 h-8 rounded-full bg-royal-gold/15 flex items-center justify-center">
                 <Cookie className="w-4 h-4 text-royal-gold" />
               </div>
-
               <div className="flex-1 min-w-0">
-                {/* Text */}
-                <p className="text-xs text-royal-cream/80 font-[family-name:var(--font-lato)] leading-relaxed mb-2 sm:mb-3">
+                <p className="text-xs text-royal-cream/80 font-[family-name:var(--font-lato)] leading-relaxed mb-3">
                   We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
                 </p>
-
-                {/* Buttons */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleDecline}

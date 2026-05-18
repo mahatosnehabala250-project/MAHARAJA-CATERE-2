@@ -78,7 +78,7 @@ function AnimatedNumber({
 
 export default function StatsSection() {
   return (
-    <section className="relative py-12 md:py-16 overflow-hidden">
+    <section className="relative py-12 md:py-16 overflow-hidden dark:bg-[#1a0f00]/30">
       {/* Gold gradient background */}
       <div className="absolute inset-0 bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light" />
 
@@ -100,7 +100,7 @@ export default function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="relative text-center group rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-royal-gold/30 p-5 md:p-6 hover:scale-105 transition-transform duration-300 hover:border-royal-gold/60 hover:shadow-lg hover:shadow-royal-gold/20 overflow-hidden"
+              className="relative text-center group rounded-2xl bg-white/80 dark:bg-[#2D1B00]/70 backdrop-blur-sm border-2 border-royal-gold/30 p-5 md:p-6 hover:scale-105 transition-transform duration-300 hover:border-royal-gold/60 hover:shadow-lg hover:shadow-royal-gold/20 overflow-hidden"
             >
               {/* Subtle gold gradient background overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-royal-gold/5 via-transparent to-royal-gold/10 pointer-events-none" />

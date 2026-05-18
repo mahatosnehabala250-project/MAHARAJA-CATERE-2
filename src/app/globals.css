@@ -698,3 +698,51 @@
 .animate-sparkle-button {
   animation: sparkle-button 1.5s ease-in-out infinite;
 }
+
+/* ===== R8-2 Section Transitions ===== */
+
+.section-transition-top {
+  position: relative;
+}
+
+.section-transition-top::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: -1px;
+  height: 4rem;
+  background: linear-gradient(to bottom, transparent, currentColor);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.section-transition-bottom {
+  position: relative;
+}
+
+.section-transition-bottom::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 4rem;
+  background: linear-gradient(to top, transparent, currentColor);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.section-transition-top-cream::before {
+  color: #FFF8E7;
+}
+
+.section-transition-top-dark::before {
+  color: #1a0f00;
+}
+
+.section-transition-bottom-cream::after {
+  color: #FFF8E7;
+}
+
+.section-transition-bottom-dark::after {
+  color: #1a0f00;
+}
