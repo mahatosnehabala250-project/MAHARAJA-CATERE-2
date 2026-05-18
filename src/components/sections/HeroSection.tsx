@@ -286,18 +286,18 @@ export default function HeroSection() {
       <MandalaCorner position="br" />
 
       {/* ---- Content ---- */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-4 pt-20 pb-36 text-center sm:px-6 lg:px-8">
         {/* Logo */}
         <motion.div
           variants={scaleIn}
           initial="hidden"
           animate="visible"
-          className="mb-8"
+          className="mb-6"
         >
           <motion.div
             variants={logoPulse}
             animate="animate"
-            className="relative h-24 w-24 overflow-hidden rounded-full border-2 sm:h-28 sm:w-28"
+            className="relative h-20 w-20 overflow-hidden rounded-full border-2 sm:h-24 sm:w-24"
             style={{ borderColor: ROYAL_GOLD }}
           >
             <Image
@@ -306,7 +306,7 @@ export default function HeroSection() {
               fill
               priority
               className="object-cover"
-              sizes="112px"
+              sizes="96px"
             />
           </motion.div>
         </motion.div>
@@ -364,8 +364,8 @@ export default function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-10 text-base sm:text-lg"
-          style={{ color: ROYAL_GOLD, opacity: 0.85 }}
+          className="mb-10 text-lg sm:text-xl"
+          style={{ color: ROYAL_GOLD, opacity: 1, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}
         >
           সকলের মনপরাজিত হবে!
         </motion.p>
@@ -381,15 +381,16 @@ export default function HeroSection() {
           <Link
             href="#contact"
             onClick={handleBookEvent}
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-8 py-3.5 text-base font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-lg"
+            className="animate-pulse-glow group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-9 py-4 text-base font-bold tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:text-lg"
             style={{
               backgroundColor: ROYAL_MAROON,
               color: ROYAL_GOLD,
               border: `2px solid ${ROYAL_GOLD}`,
+              textShadow: '0 1px 3px rgba(0,0,0,0.4)',
             }}
           >
             <span className="relative z-10 flex items-center gap-2">
-              <Calendar size={18} />
+              <Calendar size={20} />
               Book Your Event
             </span>
             {/* Shimmer overlay */}
@@ -402,14 +403,15 @@ export default function HeroSection() {
           <Link
             href="#menu"
             onClick={handleExploreMenu}
-            className="inline-flex items-center justify-center gap-2 rounded-lg px-8 py-3.5 text-base font-bold tracking-wide transition-all duration-300 hover:scale-105 hover:bg-royal-gold/10 sm:text-lg"
+            className="inline-flex items-center justify-center gap-2 rounded-lg px-9 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-105 hover:bg-royal-gold/10 sm:text-lg"
             style={{
               color: ROYAL_GOLD,
               border: `2px solid ${ROYAL_GOLD}`,
               backgroundColor: 'transparent',
+              textShadow: '0 1px 3px rgba(0,0,0,0.4)',
             }}
           >
-            <UtensilsCrossed size={18} />
+            <UtensilsCrossed size={20} />
             Explore Menu
           </Link>
         </motion.div>

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import DarkModeToggle from '@/components/ui-custom/DarkModeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
@@ -231,10 +232,12 @@ export default function Navbar() {
                 <MessageCircle className="w-4 h-4" />
                 <span className="font-medium">WhatsApp</span>
               </a>
+              <DarkModeToggle />
             </div>
 
             {/* Mobile Menu Button */}
             <div className="flex lg:hidden items-center gap-2">
+              <DarkModeToggle />
               <a
                 href="https://wa.me/918945005456"
                 target="_blank"
@@ -385,6 +388,9 @@ export default function Navbar() {
                       </span>
                     </div>
                   </a>
+                  <div className="flex items-center justify-center pt-2">
+                    <DarkModeToggle />
+                  </div>
                 </div>
               </div>
             </motion.div>
