@@ -162,14 +162,14 @@ export default function Navbar() {
               <div className="flex flex-col">
                 <span
                   className={`font-[family-name:var(--font-playfair)] text-lg sm:text-xl font-bold tracking-wide transition-colors duration-300 ${
-                    isScrolled ? 'text-royal-maroon' : 'text-royal-maroon'
+                    isScrolled ? 'text-royal-maroon' : 'text-royal-cream'
                   }`}
                 >
                   Maharaja Caterer
                 </span>
                 <span
                   className={`text-[10px] sm:text-xs tracking-[0.2em] uppercase font-medium transition-colors duration-300 ${
-                    isScrolled ? 'text-royal-gold-dark' : 'text-royal-gold'
+                    isScrolled ? 'text-royal-gold-dark' : 'text-royal-gold-light'
                   }`}
                 >
                   Premium Catering
@@ -192,7 +192,7 @@ export default function Navbar() {
                         ? 'text-royal-gold'
                         : isScrolled
                         ? 'text-royal-maroon/80 hover:text-royal-maroon'
-                        : 'text-royal-maroon/80 hover:text-royal-maroon'
+                        : 'text-royal-cream/80 hover:text-royal-gold'
                     }`}
                   >
                     {link.label}
@@ -211,7 +211,11 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-2">
               <a
                 href="tel:+918945005456"
-                className="flex items-center gap-2 px-3 py-2 rounded-full border border-royal-gold/30 text-royal-maroon hover:bg-royal-gold/10 hover:border-royal-gold/60 transition-all duration-300 text-sm"
+                className={`flex items-center gap-2 px-3 py-2 rounded-full border transition-all duration-300 text-sm ${
+                  isScrolled
+                    ? 'border-royal-gold/30 text-royal-maroon hover:bg-royal-gold/10 hover:border-royal-gold/60'
+                    : 'border-royal-cream/30 text-royal-cream hover:bg-royal-cream/10 hover:border-royal-gold/60'
+                }`}
                 aria-label="Call Maharaja Caterer"
               >
                 <Phone className="w-4 h-4 text-royal-gold" />
@@ -221,7 +225,7 @@ export default function Navbar() {
                 href="https://wa.me/918945005456"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-royal-maroon text-royal-gold hover:bg-royal-maroon-light transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-royal-maroon/20 text-sm"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-royal-maroon/90 text-royal-gold hover:bg-royal-maroon transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-royal-maroon/20 text-sm backdrop-blur-sm"
                 aria-label="WhatsApp Maharaja Caterer"
               >
                 <MessageCircle className="w-4 h-4" />
@@ -252,7 +256,7 @@ export default function Navbar() {
                 className={`p-2 rounded-lg transition-colors duration-300 ${
                   isScrolled
                     ? 'text-royal-maroon hover:bg-royal-gold/10'
-                    : 'text-royal-maroon hover:bg-royal-gold/10'
+                    : 'text-royal-cream hover:bg-royal-cream/10'
                 }`}
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >

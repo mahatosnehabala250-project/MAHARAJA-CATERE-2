@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Navbar from '@/components/sections/Navbar'
 import HeroSection from '@/components/sections/HeroSection'
 import AboutSection from '@/components/sections/AboutSection'
@@ -12,24 +13,42 @@ import ContactSection from '@/components/sections/ContactSection'
 import Footer from '@/components/sections/Footer'
 import WhatsAppFloat from '@/components/ui-custom/WhatsAppFloat'
 import MaharajaFigures from '@/components/ui-custom/MaharajaFigures'
+import SocialProofBanner from '@/components/ui-custom/SocialProofBanner'
+import PricingSection from '@/components/sections/PricingSection'
+import FAQSection from '@/components/sections/FAQSection'
+import ProcessSection from '@/components/sections/ProcessSection'
+import LoadingScreen from '@/components/ui-custom/LoadingScreen'
+import ScrollToTop from '@/components/ui-custom/ScrollToTop'
 
 export default function Home() {
+  const [loadingComplete, setLoadingComplete] = useState(false)
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">
-        <HeroSection />
-        <MaharajaFigures />
-        <AboutSection />
-        <ServicesSection />
-        <MenuSection />
-        <GallerySection />
-        <TestimonialsSection />
-        <StatsSection />
-        <ContactSection />
-      </main>
-      <Footer />
-      <WhatsAppFloat />
-    </div>
+    <>
+      {!loadingComplete && (
+        <LoadingScreen onComplete={() => setLoadingComplete(true)} />
+      )}
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1">
+          <HeroSection />
+          <SocialProofBanner />
+          <MaharajaFigures />
+          <AboutSection />
+          <ServicesSection />
+          <ProcessSection />
+          <MenuSection />
+          <PricingSection />
+          <GallerySection />
+          <TestimonialsSection />
+          <StatsSection />
+          <FAQSection />
+          <ContactSection />
+        </main>
+        <Footer />
+        <WhatsAppFloat />
+        <ScrollToTop />
+      </div>
+    </>
   )
 }

@@ -197,6 +197,11 @@
   50% { opacity: 1; transform: scale(1); }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 .animate-shimmer {
   background: linear-gradient(90deg, transparent 0%, rgba(212, 160, 23, 0.1) 50%, transparent 100%);
   background-size: 200% 100%;
@@ -243,6 +248,10 @@
 
 .animate-sparkle {
   animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
 
 /* Maharaja Gold Gradient Text */
