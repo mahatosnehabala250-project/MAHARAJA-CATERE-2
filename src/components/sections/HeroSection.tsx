@@ -179,7 +179,7 @@ export default function HeroSection() {
               className="mb-8 text-base font-[family-name:var(--font-playfair)] font-semibold"
               style={{ color: ROYAL_GOLD }}
             >
-              সকলের মনপরাজিত হবে!
+              স্বাদে রাজা, সেবায় অপরাজেয়!
             </motion.p>
 
             {/* SB7: CTA — Direct Call to Action */}
@@ -336,7 +336,7 @@ export default function HeroSection() {
 
           {/* Bengali tagline */}
           <p className="text-lg font-[family-name:var(--font-playfair)] font-semibold mb-2" style={{ color: ROYAL_GOLD }}>
-            সকলের মনপরাজিত হবে!
+            স্বাদে রাজা, সেবায় অপরাজেয়!
           </p>
 
           {/* Badge */}

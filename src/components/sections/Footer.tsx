@@ -41,7 +41,7 @@ export default function Footer() {
             </p>
 
             <p className="text-[#D4A017]/80 text-sm font-[family-name:var(--font-lato)] mb-5">
-              সকলের মনপরাজিত হবে!
+              স্বাদে রাজা, সেবায় অপরাজেয়!
             </p>
 
             <p className="text-[#AAAAAA] text-sm leading-relaxed font-[family-name:var(--font-lato)] max-w-sm">
