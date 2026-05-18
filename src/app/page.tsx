@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import Navbar from '@/components/sections/Navbar'
 import HeroSection from '@/components/sections/HeroSection'
 import ProblemSection from '@/components/sections/ProblemSection'
@@ -16,20 +15,14 @@ import FAQSection from '@/components/sections/FAQSection'
 import ContactSection from '@/components/sections/ContactSection'
 import Footer from '@/components/sections/Footer'
 import WhatsAppFloat from '@/components/ui-custom/WhatsAppFloat'
-import LoadingScreen from '@/components/ui-custom/LoadingScreen'
 import ScrollToTop from '@/components/ui-custom/ScrollToTop'
 import ReadingProgressBar from '@/components/ui-custom/ReadingProgressBar'
 import StructuredData from '@/components/ui-custom/StructuredData'
 
 export default function Home() {
-  const [loadingComplete, setLoadingComplete] = useState(false)
-
   return (
     <>
       <StructuredData />
-      {!loadingComplete && (
-        <LoadingScreen onComplete={() => setLoadingComplete(true)} />
-      )}
       <div className="min-h-screen flex flex-col bg-white">
         <ReadingProgressBar />
         <Navbar />
