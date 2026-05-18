@@ -58,7 +58,7 @@ export default function CTABanner() {
             </div>
 
             {/* Small text */}
-            <p className="mt-6 sm:mt-8 text-royal-cream/60 text-xs sm:text-sm tracking-wide">
+            <p className="mt-6 sm:mt-8 text-royal-cream/80 text-xs sm:text-sm tracking-wide">
               Free consultation &bull; No obligation &bull; Quick response guaranteed
             </p>
           </motion.div>

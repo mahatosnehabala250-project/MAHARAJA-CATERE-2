@@ -60,7 +60,7 @@ export default function StatsSection() {
                 </div>
 
                 {/* Value — always shows final number, opacity transitions in */}
-                <div className="text-royal-maroon font-[var(--font-playfair)]">
+                <div className="text-[#1a0f00] font-[var(--font-playfair)]">
                   <span className="text-4xl md:text-5xl lg:text-6xl font-extrabold tabular-nums">
                     {stat.value}
                   </span>
@@ -70,7 +70,7 @@ export default function StatsSection() {
                 </div>
 
                 {/* Label */}
-                <p className="text-royal-maroon/80 text-sm md:text-base font-medium font-[var(--font-lato)]">
+                <p className="text-[#2D1B00] text-sm md:text-base font-semibold font-[var(--font-lato)]">
                   {stat.label}
                 </p>
               </div>

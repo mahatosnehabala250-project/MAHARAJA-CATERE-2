@@ -156,7 +156,7 @@ export default function ProcessSection() {
                     <h3 className="text-xl sm:text-2xl font-bold text-royal-gold font-[family-name:var(--font-playfair)] mb-3 group-hover:text-royal-gold-light transition-colors">
                       {step.title}
                     </h3>
-                    <p className="text-royal-cream/70 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed">
+                    <p className="text-royal-cream/90 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed">
                       {step.description}
                     </p>
                   </div>

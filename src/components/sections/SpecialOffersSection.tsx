@@ -76,7 +76,7 @@ export default function SpecialOffersSection() {
           <div className="ornament-divider max-w-xs mx-auto">
             <span className="text-royal-gold text-lg">&#10022;</span>
           </div>
-          <p className="mt-6 text-royal-cream/80 text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
+          <p className="mt-6 text-royal-cream text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
             Make your celebration even more special with these exclusive deals
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function SpecialOffersSection() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm font-[family-name:var(--font-lato)] mb-5">
+                <p className="text-royal-maroon/80 text-sm font-[family-name:var(--font-lato)] mb-5">
                   {offer.description}
                 </p>
 

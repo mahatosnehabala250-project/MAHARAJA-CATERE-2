@@ -1854,3 +1854,69 @@ StructuredData → Loading → Navbar → ReadingProgressBar → Hero → Sectio
 - Google Maps uses generic coordinates
 - Instagram/Social feed was removed (was fake data)
 - Some removed components still exist as files but aren't imported
+
+---
+
+## Task ID: R8-READABILITY
+**Agent:** Readability Fix Agent
+**Task:** Fix ALL readability/contrast issues across the website — dark grey + pink/maroon color combinations causing poor readability
+
+### User Complaint
+"dark grey and pink combination ki wajah se clearly par nhi pa rahi hoon" — Cannot read text properly due to dark grey + pink/maroon color combinations with poor contrast
+
+### Work Log
+
+#### FIX 1: HeroSection (`src/components/sections/HeroSection.tsx`)
+- **Overlay gradient**: Changed from brown/maroon mixed gradient `rgba(26,15,0,0.65) → rgba(45,27,0,0.55) → rgba(128,0,32,0.40) → rgba(60,0,15,0.65) → rgba(26,15,0,0.92)` to clean pure black overlay `rgba(0,0,0,0.55) → rgba(0,0,0,0.45) → rgba(0,0,0,0.50) → rgba(0,0,0,0.85)` — provides maximum text readability
+- **Vignette**: Changed from `rgba(0,0,0,0.30)` to `rgba(0,0,0,0.25)` — cleaner dark edges
+- **Bottom gradient**: Changed from `rgba(26,15,0,0.95)` to `rgba(0,0,0,0.80)` — clean black fade
+- **Sub heading**: Changed color from `ROYAL_CREAM` to `#FFFFFF` (pure white)
+- **Tagline**: Changed color from `ROYAL_CREAM` to `#FFFFFF`, opacity from 0.9 to 0.95
+- **Bengali tagline**: Kept `ROYAL_GOLD` but increased text-shadow to `0 2px 10px rgba(0,0,0,0.8)` (was `0 2px 8px rgba(0,0,0,0.7)`)
+- **Phone number**: Changed color from `ROYAL_CREAM` opacity 0.8 to `#FFFFFF` opacity 0.9
+
+#### FIX 2: CTABanner (`src/components/sections/CTABanner.tsx`)
+- **Small text**: Changed from `text-royal-cream/60` to `text-royal-cream/80` — better contrast on dark maroon background
+
+#### FIX 3: SpecialOffersSection (`src/components/sections/SpecialOffersSection.tsx`)
+- **Section subtitle**: Changed from `text-royal-cream/80` to `text-royal-cream` (full opacity) — better readability on dark background
+- **Card description**: Changed from `text-muted-foreground` to `text-royal-maroon/80` — explicit dark color on cream card background instead of relying on variable muted color
+
+#### FIX 4: NewsletterSection (`src/components/sections/NewsletterSection.tsx`)
+- **Section subtitle**: Changed from `text-royal-cream/80` to `text-royal-cream` (full opacity) — better on dark background
+- **Email input**: Changed `bg-royal-cream/10` → `bg-royal-cream/15`, `border-royal-gold/30` → `border-royal-gold/40`, `text-royal-cream` → `text-white`, `placeholder:text-royal-cream/40` → `placeholder:text-royal-cream/50`, focus ring `royal-gold/40` → `royal-gold/50` — input text now clearly white and visible
+- **Disclaimer**: Changed from `text-royal-cream/50` to `text-royal-cream/70` — more readable
+
+#### FIX 5: StatsSection (`src/components/sections/StatsSection.tsx`)
+- **Stat numbers**: Changed from `text-royal-maroon` to `text-[#1a0f00]` — darker, near-black for maximum contrast on gold background with white cards
+- **Stat labels**: Changed from `text-royal-maroon/80 font-medium` to `text-[#2D1B00] font-semibold` — darker and bolder for better readability
+
+#### FIX 6: Footer (`src/components/sections/Footer.tsx`)
+- **Newsletter subtitle**: Changed from `text-royal-cream/70` to `text-royal-cream/85`
+- **Newsletter input**: Changed `bg-royal-cream/10` → `bg-royal-cream/15`, `border-royal-gold/30` → `border-royal-gold/40`, `text-royal-cream` → `text-white`, `placeholder:text-royal-cream/40` → `placeholder:text-royal-cream/50`
+- **Location text**: Changed from `text-royal-cream/50` to `text-royal-cream/70`
+- **Description text**: Changed from `text-royal-cream/60` to `text-royal-cream/80`
+- **FSSAI "Licensed" text**: Changed from `text-royal-cream/40` to `text-royal-cream/70`
+- **Quick links text**: Changed from `text-royal-cream/60` to `text-royal-cream/80`, bullet dots from `bg-royal-gold/40` to `bg-royal-gold/60`
+- **Contact info text**: Changed all `text-royal-cream/60` to `text-royal-cream/80` (address, phone, WhatsApp, email, hours)
+- **Bottom bar copyright/proprietor**: Changed from `text-royal-cream/40` to `text-royal-cream/60`
+- **"Made with ❤️"**: Changed from `text-royal-cream/50` to `text-royal-cream/70`
+
+#### FIX 7: VenuePartnersSection (`src/components/sections/VenuePartnersSection.tsx`)
+- **Section subtitle**: Changed from `text-muted-foreground` to `text-royal-maroon/80` — explicit color instead of variable
+- **Venue type badges**: Changed from `text-muted-foreground` to `text-royal-maroon/70` — explicit dark color for readability on cream background
+
+#### FIX 8: ProcessSection (`src/components/sections/ProcessSection.tsx`)
+- **Step card description**: Changed from `text-royal-cream/70` to `text-royal-cream/90` — significantly better contrast on dark (section-dark-royal) background
+
+### General Rules Applied
+- **Dark backgrounds** (section-dark-royal, maroon, dark grey): Text is white (#FFFFFF), bright gold, or royal-cream at high opacity (≥80%)
+- **Light backgrounds** (cream, white, gold): Text is dark maroon (#800020), dark brown (#2D1B00), or near-black (#1a0f00)
+- No grey, muted, or pink text on dark backgrounds
+- No light/muted text on light backgrounds
+- Removed all `text-muted-foreground` usage in favor of explicit, contrast-safe colors
+
+### Verification
+- `bun run lint` passes with zero errors
+- All 8 component files modified with readability improvements
+- No new files created

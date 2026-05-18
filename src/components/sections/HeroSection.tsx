@@ -85,7 +85,7 @@ export default function HeroSection() {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(26,15,0,0.65) 0%, rgba(45,27,0,0.55) 30%, rgba(128,0,32,0.40) 55%, rgba(60,0,15,0.65) 80%, rgba(26,15,0,0.92) 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.50) 70%, rgba(0,0,0,0.85) 100%)',
           }}
         />
         {/* Subtle vignette — darker edges */}
@@ -93,7 +93,7 @@ export default function HeroSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.30) 100%)',
+              'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.25) 100%)',
           }}
         />
       </motion.div>
@@ -166,7 +166,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           className="mb-5 text-lg font-medium sm:text-xl md:text-2xl"
-          style={{ color: ROYAL_CREAM, textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
+          style={{ color: '#FFFFFF', textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
         >
           Purulia&apos;s Finest Catering &amp; Event Service
         </motion.p>
@@ -191,7 +191,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           className="mb-2 text-base italic tracking-wide sm:text-lg"
-          style={{ color: ROYAL_CREAM, opacity: 0.9, textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}
+          style={{ color: '#FFFFFF', opacity: 0.95, textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}
         >
           Where Every Feast Becomes a Royal Celebration
         </motion.p>
@@ -203,7 +203,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           className="mb-8 text-lg sm:text-xl"
-          style={{ color: ROYAL_GOLD, textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0 15px rgba(212,160,23,0.2)' }}
+          style={{ color: ROYAL_GOLD, textShadow: '0 2px 10px rgba(0,0,0,0.8), 0 0 15px rgba(212,160,23,0.2)' }}
         >
           সকলের মনপরাজিত হবে!
         </motion.p>
@@ -259,7 +259,7 @@ export default function HeroSection() {
           <a
             href="tel:+918945005456"
             className="text-sm font-medium transition-colors hover:underline"
-            style={{ color: ROYAL_CREAM, opacity: 0.8 }}
+            style={{ color: '#FFFFFF', opacity: 0.9 }}
           >
             +91 89450 05456
           </a>
@@ -274,7 +274,7 @@ export default function HeroSection() {
       <div
         className="absolute bottom-0 left-0 right-0 z-10 h-32 pointer-events-none"
         style={{
-          background: 'linear-gradient(to top, rgba(26,15,0,0.95) 0%, transparent 100%)',
+          background: 'linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 100%)',
         }}
       />
     </section>

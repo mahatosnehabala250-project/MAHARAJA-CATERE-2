@@ -128,7 +128,7 @@ export default function VenuePartnersSection() {
           <div className="ornament-divider max-w-xs mx-auto">
             <span className="text-royal-gold text-lg">&#10022;</span>
           </div>
-          <p className="mt-6 text-muted-foreground text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
+          <p className="mt-6 text-royal-maroon/80 text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
             We work with Purulia&apos;s finest venues to create perfect celebrations
           </p>
         </div>
@@ -159,7 +159,7 @@ export default function VenuePartnersSection() {
                 </h3>
 
                 {/* Venue type */}
-                <span className="text-xs sm:text-sm text-muted-foreground font-[family-name:var(--font-lato)] bg-royal-gold/5 px-2.5 py-0.5 rounded-full">
+                <span className="text-xs sm:text-sm text-royal-maroon/70 font-[family-name:var(--font-lato)] bg-royal-gold/5 px-2.5 py-0.5 rounded-full">
                   {venue.type}
                 </span>
               </div>

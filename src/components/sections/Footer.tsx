@@ -67,7 +67,7 @@ export default function Footer() {
           <h3 className="text-2xl sm:text-3xl font-bold text-gold-gradient font-[family-name:var(--font-playfair)] mb-2">
             Stay Updated
           </h3>
-          <p className="text-royal-cream/70 text-sm sm:text-base font-[family-name:var(--font-lato)] mb-6">
+          <p className="text-royal-cream/85 text-sm sm:text-base font-[family-name:var(--font-lato)] mb-6">
             Get festive offers &amp; menu updates delivered to your inbox
           </p>
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row items-center gap-3">
@@ -77,7 +77,7 @@ export default function Footer() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="w-full sm:flex-1 px-4 py-3 rounded-full bg-royal-cream/10 border border-royal-gold/30 text-royal-cream placeholder:text-royal-cream/40 focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold/60 transition-all duration-300 text-sm font-[family-name:var(--font-lato)]"
+              className="w-full sm:flex-1 px-4 py-3 rounded-full bg-royal-cream/15 border border-royal-gold/40 text-white placeholder:text-royal-cream/50 focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold/60 transition-all duration-300 text-sm font-[family-name:var(--font-lato)]"
             />
             <button
               type="submit"
@@ -117,17 +117,17 @@ export default function Footer() {
                 <h3 className="text-lg font-bold text-gold-gradient font-[var(--font-playfair)]">
                   Maharaja Caterer
                 </h3>
-                <p className="text-royal-cream/50 text-xs">Purulia, West Bengal</p>
+                <p className="text-royal-cream/70 text-xs">Purulia, West Bengal</p>
               </div>
             </div>
-            <p className="text-sm leading-relaxed mb-4 text-royal-cream/60 font-[var(--font-lato)]">
+            <p className="text-sm leading-relaxed mb-4 text-royal-cream/80 font-[var(--font-lato)]">
               Purulia&apos;s finest catering and event planning service. We bring
               royal flavors and impeccable service to make every celebration
               unforgettable.
             </p>
             <div className="flex items-center gap-2 bg-royal-cream/5 rounded-lg px-3 py-2 border border-royal-gold/10 w-fit">
               <span className="text-royal-gold text-xs font-semibold">FSSAI</span>
-              <span className="text-royal-cream/40 text-xs">Licensed</span>
+              <span className="text-royal-cream/70 text-xs">Licensed</span>
             </div>
           </div>
 
@@ -141,9 +141,9 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-royal-cream/60 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
+                    className="text-sm text-royal-cream/80 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/40 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/60 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
                     {link.label}
                   </a>
                 </li>
@@ -161,9 +161,9 @@ export default function Footer() {
                 <li key={service}>
                   <a
                     href="#services"
-                    className="text-sm text-royal-cream/60 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
+                    className="text-sm text-royal-cream/80 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/40 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/60 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
                     {service}
                   </a>
                 </li>
@@ -179,7 +179,7 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-2.5">
                 <MapPin className="size-4 text-royal-gold shrink-0 mt-0.5" />
-                <p className="text-sm text-royal-cream/60 font-[var(--font-lato)]">
+                <p className="text-sm text-royal-cream/80 font-[var(--font-lato)]">
                   Near Fan House, Nadiha, Chowk Bazar, Purulia, West Bengal 723101
                 </p>
               </div>
@@ -187,7 +187,7 @@ export default function Footer() {
                 <Phone className="size-4 text-royal-gold shrink-0" />
                 <a
                   href="tel:+918945005456"
-                  className="text-sm text-royal-cream/60 hover:text-royal-gold transition-colors font-[var(--font-lato)]"
+                  className="text-sm text-royal-cream/80 hover:text-royal-gold transition-colors font-[var(--font-lato)]"
                 >
                   089450 05456 / 8293829200
                 </a>
@@ -198,7 +198,7 @@ export default function Footer() {
                   href="https://wa.me/918945005456"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-royal-cream/60 hover:text-royal-gold transition-colors font-[var(--font-lato)] flex items-center gap-1"
+                  className="text-sm text-royal-cream/80 hover:text-royal-gold transition-colors font-[var(--font-lato)] flex items-center gap-1"
                 >
                   8945005456
                   <ExternalLink className="size-3" />
@@ -208,14 +208,14 @@ export default function Footer() {
                 <Mail className="size-4 text-royal-gold shrink-0" />
                 <a
                   href="mailto:maharajaCaterer104@gmail.com"
-                  className="text-sm text-royal-cream/60 hover:text-royal-gold transition-colors break-all font-[var(--font-lato)]"
+                  className="text-sm text-royal-cream/80 hover:text-royal-gold transition-colors break-all font-[var(--font-lato)]"
                 >
                   maharajaCaterer104@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Clock className="size-4 text-royal-gold shrink-0" />
-                <p className="text-sm text-royal-cream/60 font-[var(--font-lato)]">
+                <p className="text-sm text-royal-cream/80 font-[var(--font-lato)]">
                   9:00 AM - 10:00 PM Daily
                 </p>
               </div>
@@ -250,13 +250,13 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="container mx-auto px-4 py-5">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-royal-cream/40 text-center md:text-left font-[var(--font-lato)]">
+          <p className="text-sm text-royal-cream/60 text-center md:text-left font-[var(--font-lato)]">
             © 2025 Maharaja Caterer Purulia. All Rights Reserved.
           </p>
-          <p className="text-sm text-royal-cream/40 text-center font-[var(--font-lato)]">
+          <p className="text-sm text-royal-cream/60 text-center font-[var(--font-lato)]">
             Prop. Ujjal Chakraborty (Dolon)
           </p>
-          <p className="text-xs text-royal-cream/50 text-center font-[var(--font-lato)] animate-float-rotate">
+          <p className="text-xs text-royal-cream/70 text-center font-[var(--font-lato)] animate-float-rotate">
             Made with ❤️ in Purulia
           </p>
 

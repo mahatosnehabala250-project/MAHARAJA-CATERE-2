@@ -115,7 +115,7 @@ export default function AboutSection() {
                 <User className="w-4 h-4 text-royal-maroon" />
                 <span className="font-semibold">Prop. Ujjal Chakraborty (Dolon)</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground font-[family-name:var(--font-lato)]">
+              <div className="flex items-center gap-2 text-sm text-royal-maroon/70 font-[family-name:var(--font-lato)]">
                 <ShieldCheck className="w-4 h-4 text-royal-gold" />
                 <span>Lic. No. 12817016000590</span>
               </div>
