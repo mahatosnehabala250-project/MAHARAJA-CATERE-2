@@ -74,7 +74,7 @@ export default function HeroSection() {
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         {/* Raw img tag — original quality, no Next.js compression */}
         <img
-          src="/images/hero-bg-new.png"
+          src="/images/hero-bg-new.jpg"
           alt="Maharaja Caterer — royal feast setting"
           className="absolute inset-0 w-full h-full object-cover"
         />
