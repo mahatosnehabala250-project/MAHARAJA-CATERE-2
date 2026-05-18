@@ -69,7 +69,7 @@ function AnimatedNumber({
   }, [rounded])
 
   return (
-    <span ref={ref} className="text-4xl md:text-5xl lg:text-6xl font-extrabold tabular-nums">
+    <span ref={ref} className={`text-4xl md:text-5xl lg:text-6xl font-extrabold tabular-nums transition-opacity duration-500 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
       {isDecimal ? displayValue.toFixed(1) : displayValue}
       <span className="text-3xl md:text-4xl lg:text-5xl">{suffix}</span>
     </span>

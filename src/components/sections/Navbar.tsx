@@ -138,7 +138,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-gradient-to-b from-royal-cream/98 via-royal-cream/95 to-royal-cream/90 backdrop-blur-lg shadow-lg shadow-royal-gold/10'
+            ? 'bg-royal-cream/85 backdrop-blur-xl shadow-lg shadow-royal-gold/5'
             : 'bg-transparent backdrop-blur-none'
         }`}
       >

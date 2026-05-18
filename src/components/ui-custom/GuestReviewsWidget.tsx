@@ -51,7 +51,7 @@ export default function GuestReviewsWidget() {
   const review = reviews[currentIndex]
 
   return (
-    <div className="hidden lg:block fixed bottom-6 left-6 z-[996]">
+    <div className="hidden md:block fixed bottom-6 left-6 z-[996]">
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}

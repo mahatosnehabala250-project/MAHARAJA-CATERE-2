@@ -211,12 +211,20 @@ export default function HeroSection() {
           className="object-cover"
           sizes="100vw"
         />
-        {/* Dark overlay gradient */}
+        {/* Dark overlay gradient — dramatic cinematic look */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(26,15,0,0.75) 0%, rgba(45,27,0,0.65) 40%, rgba(128,0,32,0.55) 70%, rgba(26,15,0,0.85) 100%)',
+              'linear-gradient(to bottom, rgba(26,15,0,0.80) 0%, rgba(45,27,0,0.70) 35%, rgba(128,0,32,0.50) 60%, rgba(60,0,15,0.75) 80%, rgba(26,15,0,0.95) 100%)',
+          }}
+        />
+        {/* Vignette effect — darker corners for cinematic feel */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.35) 100%)',
           }}
         />
       </motion.div>

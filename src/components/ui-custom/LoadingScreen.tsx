@@ -3,7 +3,6 @@
 import { motion, AnimatePresence, useSpring, useTransform } from 'framer-motion'
 import { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
-import { Crown } from 'lucide-react'
 
 interface LoadingScreenProps {
   onComplete: () => void
@@ -134,18 +133,36 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             }}
           />
 
-          {/* Crown icon with gentle bounce */}
+          {/* Crown icon with gentle bounce — ornamental SVG */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.3 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.7, type: 'spring', stiffness: 200, damping: 15 }}
             className="mb-4"
           >
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <Crown className="w-8 h-8 text-royal-gold" />
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="drop-shadow-[0_0_12px_rgba(212,160,23,0.5)]">
+                {/* Ornamental crown SVG */}
+                <path d="M8 36L4 16L14 24L24 10L34 24L44 16L40 36Z" fill="url(#crownGrad)" stroke="#FFD700" strokeWidth="1.5" />
+                <circle cx="4" cy="16" r="2.5" fill="#FFD700" />
+                <circle cx="24" cy="10" r="2.5" fill="#FFD700" />
+                <circle cx="44" cy="16" r="2.5" fill="#FFD700" />
+                <rect x="8" y="36" width="32" height="4" rx="1" fill="url(#crownGrad)" stroke="#FFD700" strokeWidth="0.5" />
+                {/* Jewels */}
+                <circle cx="16" cy="34" r="2" fill="#C41E3A" opacity="0.8" />
+                <circle cx="24" cy="34" r="2" fill="#D4A017" opacity="0.9" />
+                <circle cx="32" cy="34" r="2" fill="#C41E3A" opacity="0.8" />
+                <defs>
+                  <linearGradient id="crownGrad" x1="4" y1="10" x2="44" y2="40" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#B8860B" />
+                    <stop offset="0.5" stopColor="#D4A017" />
+                    <stop offset="1" stopColor="#FFD700" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </motion.div>
           </motion.div>
 
@@ -185,12 +202,12 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             />
           </motion.div>
 
-          {/* Title with gold gradient fade-in */}
+          {/* Title with gold gradient shimmer */}
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.7, ease: 'easeOut' }}
-            className="text-gold-gradient text-2xl sm:text-3xl md:text-4xl font-bold mt-5 tracking-wide font-[family-name:var(--font-playfair)]"
+            className="animate-text-shimmer text-2xl sm:text-3xl md:text-4xl font-bold mt-5 tracking-wide font-[family-name:var(--font-playfair)]"
           >
             Maharaja Caterer
           </motion.h1>
@@ -219,28 +236,40 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
               </span>
             </div>
 
-            {/* Gold progress bar */}
+            {/* Gold progress bar with striking gradient */}
             <div
-              className="h-[3px] rounded-full overflow-hidden"
+              className="h-[4px] rounded-full overflow-hidden relative"
               style={{ backgroundColor: 'rgba(212,160,23,0.15)' }}
             >
               <div
                 className="h-full rounded-full relative"
                 style={{
                   width: `${progress}%`,
-                  background: 'linear-gradient(90deg, #B8860B, #D4A017, #FFD700, #D4A017, #B8860B)',
+                  background: 'linear-gradient(90deg, #800020, #B8860B, #D4A017, #FFD700, #D4A017, #B8860B, #800020)',
                   transition: 'width 0.1s ease-out',
+                  boxShadow: '0 0 12px rgba(212,160,23,0.6), 0 0 24px rgba(255,215,0,0.3)',
                 }}
               >
                 {/* Shimmer effect on progress bar */}
                 <div
                   className="absolute inset-0 animate-shimmer"
                   style={{
-                    background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
                     backgroundSize: '200% 100%',
                   }}
                 />
               </div>
+              {/* Glow dot at leading edge */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full"
+                style={{
+                  left: `${progress}%`,
+                  transform: `translate(-50%, -50%)`,
+                  background: '#FFD700',
+                  boxShadow: '0 0 10px rgba(255,215,0,0.8), 0 0 20px rgba(212,160,23,0.5)',
+                  transition: 'left 0.1s ease-out',
+                }}
+              />
             </div>
           </motion.div>
         </motion.div>

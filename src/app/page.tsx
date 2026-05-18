@@ -43,6 +43,9 @@ import SocialFeedSection from '@/components/sections/SocialFeedSection'
 import LiveActivityFeed from '@/components/ui-custom/LiveActivityFeed'
 import WhatsAppChatPopup from '@/components/ui-custom/WhatsAppChatPopup'
 import DietaryMenuFilter from '@/components/sections/DietaryMenuFilter'
+import FestivalCalendarSection from '@/components/sections/FestivalCalendarSection'
+import RoyalBrandsSection from '@/components/sections/RoyalBrandsSection'
+import NewsletterSection from '@/components/sections/NewsletterSection'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -78,10 +81,13 @@ export default function Home() {
           <GallerySection />
           <BeforeAfterComparison />
           <SpecialOffersSection />
+          <FestivalCalendarSection />
           <VenuePartnersSection />
+          <RoyalBrandsSection />
           <CTABanner />
           <TestimonialsSection />
           <TestimonialVideoSection />
+          <NewsletterSection />
           <SocialFeedSection />
           <StatsSection />
           <SectionDivider variant="maroon-peak" />

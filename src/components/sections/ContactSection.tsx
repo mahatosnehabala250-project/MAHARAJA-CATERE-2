@@ -263,6 +263,7 @@ export default function ContactSection() {
                         <FormControl>
                           <Input
                             placeholder=" "
+                            aria-label="Your name"
                             className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
@@ -287,6 +288,7 @@ export default function ContactSection() {
                           <Input
                             type="email"
                             placeholder=" "
+                            aria-label="Your email address"
                             className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
@@ -314,6 +316,7 @@ export default function ContactSection() {
                           <Input
                             type="tel"
                             placeholder=" "
+                            aria-label="Your phone number"
                             className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />
@@ -368,6 +371,7 @@ export default function ContactSection() {
                         <FormControl>
                           <Textarea
                             placeholder=" "
+                            aria-label="Your message"
                             className="min-h-[120px] border-royal-gold/30 bg-white/50 resize-none transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
                             {...field}
                           />

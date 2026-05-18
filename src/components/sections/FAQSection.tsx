@@ -121,11 +121,11 @@ export default function FAQSection() {
               <motion.div key={index} variants={itemVariants}>
                 <AccordionItem
                   value={`item-${index}`}
-                  className="bg-white/80 dark:bg-[#2D1B00]/80 backdrop-blur-sm border border-royal-gold/15 rounded-lg px-6 data-[state=open]:border-l-4 data-[state=open]:border-l-royal-gold data-[state=open]:shadow-lg data-[state=open]:shadow-royal-gold/5 transition-all duration-300 group"
+                  className="bg-white/80 dark:bg-[#2D1B00]/80 backdrop-blur-sm border border-royal-gold/15 rounded-lg px-6 border-l-4 border-l-royal-gold/20 data-[state=open]:border-l-royal-gold data-[state=open]:shadow-lg data-[state=open]:shadow-royal-gold/5 transition-all duration-500 ease-out group hover:bg-royal-gold/[0.03] hover:border-l-royal-gold/50"
                 >
-                  <AccordionTrigger className="text-royal-maroon font-[family-name:var(--font-playfair)] text-base sm:text-lg font-semibold hover:text-royal-gold hover:no-underline transition-colors py-5">
+                  <AccordionTrigger className="text-royal-maroon font-[family-name:var(--font-playfair)] text-base sm:text-lg font-semibold hover:text-royal-gold hover:no-underline transition-all duration-300 py-5 [&[data-state=open]>svg]:text-royal-gold [&[data-state=open]>svg]:drop-shadow-[0_0_6px_rgba(212,160,23,0.4)] [&>svg]:transition-all [&>svg]:duration-300">
                     <span className="flex items-center gap-3 text-left">
-                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-royal-gold/10 flex items-center justify-center text-royal-gold text-sm font-bold font-[family-name:var(--font-lato)]">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-royal-gold/10 flex items-center justify-center text-royal-gold text-sm font-bold font-[family-name:var(--font-lato)] group-data-[state=open]:bg-royal-gold group-data-[state=open]:text-white group-data-[state=open]:shadow-[0_0_10px_rgba(212,160,23,0.4)] transition-all duration-300">
                         {index + 1}
                       </span>
                       <span>{item.question}</span>

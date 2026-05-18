@@ -41,7 +41,7 @@ export default function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -60, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="fixed top-14 left-0 right-0 w-full z-[998] sm:top-auto sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm sm:rounded-xl"
+          className="fixed top-[72px] left-0 right-0 w-full z-[998] sm:top-auto sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm sm:rounded-xl"
         >
           {/* Gold gradient top border on mobile */}
           <div

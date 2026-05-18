@@ -56,8 +56,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#1a0f00] text-royal-cream/80 mt-auto relative">
-      {/* Gold gradient top border */}
-      <div className="h-[3px] bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light" />
+      {/* Gold gradient top border — fades from transparent via gold to transparent */}
+      <div className="h-[3px] bg-gradient-to-r from-transparent via-royal-gold to-transparent" />
 
       {/* Newsletter Section */}
       <div className="relative bg-gradient-to-r from-royal-maroon via-[#5A0015] to-royal-maroon-light py-10 md:py-14 overflow-hidden">
@@ -95,7 +95,9 @@ export default function Footer() {
         </div>
       </div>
       {/* Decorative mandala pattern overlay */}
-      <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" style={{ top: '3px' }} />
+      <div className="absolute inset-0 mandala-bg opacity-[0.08] pointer-events-none" style={{ top: '3px' }} />
+      {/* Subtle diamond pattern overlay for depth */}
+      <div className="absolute inset-0 pointer-events-none" style={{ top: '3px', backgroundImage: 'radial-gradient(circle, rgba(212,160,23,0.03) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -139,9 +141,9 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-royal-cream/60 hover:text-royal-gold transition-colors duration-300 flex items-center gap-2 group font-[var(--font-lato)]"
+                    className="text-sm text-royal-cream/60 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/40 group-hover:bg-royal-gold transition-colors" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/40 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
                     {link.label}
                   </a>
                 </li>
@@ -159,9 +161,9 @@ export default function Footer() {
                 <li key={service}>
                   <a
                     href="#services"
-                    className="text-sm text-royal-cream/60 hover:text-royal-gold transition-colors duration-300 flex items-center gap-2 group font-[var(--font-lato)]"
+                    className="text-sm text-royal-cream/60 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/40 group-hover:bg-royal-gold transition-colors" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/40 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
                     {service}
                   </a>
                 </li>
@@ -254,7 +256,7 @@ export default function Footer() {
           <p className="text-sm text-royal-cream/40 text-center font-[var(--font-lato)]">
             Prop. Ujjal Chakraborty (Dolon)
           </p>
-          <p className="text-xs text-royal-cream/50 text-center font-[var(--font-lato)] animate-gentle-bounce">
+          <p className="text-xs text-royal-cream/50 text-center font-[var(--font-lato)] animate-float-rotate">
             Made with ❤️ in Purulia
           </p>
 

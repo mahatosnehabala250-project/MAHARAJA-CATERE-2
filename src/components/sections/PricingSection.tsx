@@ -262,7 +262,7 @@ export default function PricingSection() {
                   href="#contact"
                   className={`block w-full text-center py-3 px-6 rounded-xl font-semibold text-sm transition-all duration-300 font-[family-name:var(--font-lato)] ${
                     pkg.isPopular
-                      ? 'bg-royal-gold text-white hover:bg-royal-gold-dark shadow-lg hover:shadow-xl animate-pulse-gold'
+                      ? 'bg-royal-maroon text-royal-gold-light hover:bg-royal-maroon-light shadow-lg hover:shadow-xl animate-pulse-gold'
                       : 'bg-royal-maroon text-royal-gold-light hover:bg-royal-maroon-light shadow-md hover:shadow-lg'
                   }`}
                 >
