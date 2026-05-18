@@ -89,8 +89,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   }, [progress, springProgress])
 
   useEffect(() => {
-    const duration = 800
-    const interval = 20
+    const duration = 400
+    const interval = 10
     const steps = duration / interval
     const increment = 100 / steps
     let current = 0
@@ -101,10 +101,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         current = 100
         clearInterval(timer)
         // Brief pause then fade out
-        setTimeout(() => {
-          setIsVisible(false)
-          setTimeout(() => onComplete(), 200)
-        }, 100)
+        setIsVisible(false)
+        setTimeout(() => onComplete(), 150)
       }
       setProgress(Math.min(current, 100))
     }, interval)
