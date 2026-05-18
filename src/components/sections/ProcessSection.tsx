@@ -152,7 +152,7 @@ export default function ProcessSection() {
                 <div className={`ml-16 lg:ml-0 lg:w-[calc(50%-2.5rem)] ${
                   isEven ? 'lg:mr-auto lg:pr-0 lg:pl-0' : 'lg:ml-auto lg:pl-0 lg:pr-0'
                 } ${isEven ? 'lg:text-left' : 'lg:text-left'}`}>
-                  <div className="bg-royal-cream/10 backdrop-blur-sm rounded-xl p-5 md:p-6 border-l-4 border-l-royal-gold border border-royal-gold/20 hover:border-royal-gold/40 hover:bg-royal-cream/15 transition-all duration-300 group">
+                  <div className="bg-royal-cream/15 backdrop-blur-sm rounded-xl p-5 md:p-6 border-l-4 border-l-royal-gold border border-royal-gold/20 hover:border-royal-gold/40 hover:bg-royal-cream/15 transition-all duration-300 group">
                     <h3 className="text-xl sm:text-2xl font-bold text-royal-gold font-[family-name:var(--font-playfair)] mb-3 group-hover:text-royal-gold-light transition-colors">
                       {step.title}
                     </h3>

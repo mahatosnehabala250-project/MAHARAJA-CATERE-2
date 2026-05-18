@@ -20,7 +20,6 @@ import LoadingScreen from '@/components/ui-custom/LoadingScreen'
 import ScrollToTop from '@/components/ui-custom/ScrollToTop'
 import ReadingProgressBar from '@/components/ui-custom/ReadingProgressBar'
 import SpecialOffersSection from '@/components/sections/SpecialOffersSection'
-import CookieConsent from '@/components/ui-custom/CookieConsent'
 import SectionDivider from '@/components/ui-custom/SectionDivider'
 import EventCalculator from '@/components/ui-custom/EventCalculator'
 import StructuredData from '@/components/ui-custom/StructuredData'
@@ -64,7 +63,6 @@ export default function Home() {
         <WhatsAppFloat />
         <ScrollToTop />
       </div>
-      <CookieConsent />
     </>
   )
 }

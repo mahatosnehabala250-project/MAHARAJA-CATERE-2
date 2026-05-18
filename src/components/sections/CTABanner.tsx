@@ -10,7 +10,7 @@ export default function CTABanner() {
       <div className="h-1 bg-gradient-to-r from-transparent via-royal-gold to-transparent" />
 
       {/* Main Banner */}
-      <div className="relative bg-gradient-to-br from-royal-maroon dark:from-[#3D0010] via-[#5A0015] dark:via-[#5A0015] to-royal-maroon-light dark:to-[#3D0010] py-16 sm:py-20 lg:py-24">
+      <div className="relative bg-gradient-to-br from-royal-maroon via-royal-maroon to-royal-maroon-light py-16 sm:py-20 lg:py-24">
         {/* Subtle mandala overlay */}
         <div className="absolute inset-0 mandala-bg opacity-20" />
 
@@ -28,7 +28,7 @@ export default function CTABanner() {
             </h2>
 
             {/* Subtitle */}
-            <p className="text-royal-cream/90 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+            <p className="text-royal-cream text-base sm:text-lg lg:text-xl max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
               Let us transform your celebration into an unforgettable royal feast
             </p>
 
@@ -58,7 +58,7 @@ export default function CTABanner() {
             </div>
 
             {/* Small text */}
-            <p className="mt-6 sm:mt-8 text-royal-cream/80 text-xs sm:text-sm tracking-wide">
+            <p className="mt-6 sm:mt-8 text-royal-cream/90 text-xs sm:text-sm tracking-wide">
               Free consultation &bull; No obligation &bull; Quick response guaranteed
             </p>
           </motion.div>

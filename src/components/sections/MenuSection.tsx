@@ -146,7 +146,7 @@ export default function MenuSection() {
           <div className="ornament-divider max-w-xs mx-auto mb-4">
             <span className="text-royal-gold text-2xl">&#10022;</span>
           </div>
-          <p className="text-royal-cream/80 text-lg md:text-xl max-w-2xl mx-auto">
+          <p className="text-royal-cream text-lg md:text-xl max-w-2xl mx-auto">
             Bengali, Indian, Chinese &amp; Tandoori Specialties
           </p>
         </motion.div>
@@ -169,7 +169,7 @@ export default function MenuSection() {
           />
           <div className="absolute bottom-6 left-6 z-20">
             <p className="text-royal-gold font-semibold text-lg md:text-xl">Signature Dishes</p>
-            <p className="text-royal-cream/70 text-sm md:text-base">Crafted with passion &amp; tradition</p>
+            <p className="text-royal-cream/90 text-sm md:text-base">Crafted with passion &amp; tradition</p>
           </div>
         </motion.div>
 
@@ -181,7 +181,7 @@ export default function MenuSection() {
                 <TabsTrigger
                   key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-royal-maroon data-[state=active]:text-royal-gold data-[state=active]:shadow-md text-royal-cream/70 px-3 py-2 text-xs sm:text-sm md:text-base rounded-lg transition-all duration-300 hover:text-royal-cream relative"
+                  className="data-[state=active]:bg-royal-maroon data-[state=active]:text-royal-gold data-[state=active]:shadow-md text-royal-cream/80 px-3 py-2 text-xs sm:text-sm md:text-base rounded-lg transition-all duration-300 hover:text-royal-cream relative"
                 >
                   {category.label}
                 </TabsTrigger>

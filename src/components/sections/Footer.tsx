@@ -60,7 +60,7 @@ export default function Footer() {
       <div className="h-[3px] bg-gradient-to-r from-transparent via-royal-gold to-transparent" />
 
       {/* Newsletter Section */}
-      <div className="relative bg-gradient-to-r from-royal-maroon via-[#5A0015] to-royal-maroon-light py-10 md:py-14 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-royal-maroon via-royal-maroon to-royal-maroon-light py-10 md:py-14 overflow-hidden">
         {/* Mandala pattern */}
         <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" />
         <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6 text-center">
@@ -77,7 +77,7 @@ export default function Footer() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="w-full sm:flex-1 px-4 py-3 rounded-full bg-royal-cream/15 border border-royal-gold/40 text-white placeholder:text-royal-cream/50 focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold/60 transition-all duration-300 text-sm font-[family-name:var(--font-lato)]"
+              className="w-full sm:flex-1 px-4 py-3 rounded-full bg-royal-cream/15 border border-royal-gold/40 text-white placeholder:text-royal-cream/70 focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold/60 transition-all duration-300 text-sm font-[family-name:var(--font-lato)]"
             />
             <button
               type="submit"
@@ -117,7 +117,7 @@ export default function Footer() {
                 <h3 className="text-lg font-bold text-gold-gradient font-[var(--font-playfair)]">
                   Maharaja Caterer
                 </h3>
-                <p className="text-royal-cream/70 text-xs">Purulia, West Bengal</p>
+                <p className="text-royal-cream/90 text-xs">Purulia, West Bengal</p>
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4 text-royal-cream/80 font-[var(--font-lato)]">
@@ -250,10 +250,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="container mx-auto px-4 py-5">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-royal-cream/60 text-center md:text-left font-[var(--font-lato)]">
+          <p className="text-sm text-royal-cream/80 text-center md:text-left font-[var(--font-lato)]">
             © 2025 Maharaja Caterer Purulia. All Rights Reserved.
           </p>
-          <p className="text-sm text-royal-cream/60 text-center font-[var(--font-lato)]">
+          <p className="text-sm text-royal-cream/80 text-center font-[var(--font-lato)]">
             Prop. Ujjal Chakraborty (Dolon)
           </p>
           <p className="text-xs text-royal-cream/70 text-center font-[var(--font-lato)] animate-float-rotate">

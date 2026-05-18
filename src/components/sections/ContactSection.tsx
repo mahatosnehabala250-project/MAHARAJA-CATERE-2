@@ -258,7 +258,7 @@ export default function ContactSection() {
                         <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
                           field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
                         }`}>
-                          Name <span className="text-royal-red">*</span>
+                          Name <span className="text-royal-maroon">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -282,7 +282,7 @@ export default function ContactSection() {
                         <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
                           field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
                         }`}>
-                          Email <span className="text-royal-red">*</span>
+                          Email <span className="text-royal-maroon">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -366,7 +366,7 @@ export default function ContactSection() {
                         <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
                           field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
                         }`}>
-                          Message <span className="text-royal-red">*</span>
+                          Message <span className="text-royal-maroon">*</span>
                         </FormLabel>
                         <FormControl>
                           <Textarea
@@ -471,7 +471,7 @@ export default function ContactSection() {
                   </a>
                   <a
                     href="mailto:maharajaCaterer104@gmail.com"
-                    className="w-10 h-10 rounded-full bg-royal-maroon-light flex items-center justify-center text-white hover:bg-royal-maroon transition-all duration-300"
+                    className="w-10 h-10 rounded-full bg-royal-maroon flex items-center justify-center text-white hover:bg-royal-maroon transition-all duration-300"
                     aria-label="Email"
                   >
                     <Mail className="size-4" />

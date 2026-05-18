@@ -47,10 +47,10 @@
   --color-royal-gold-light: #F4D03F;
   --color-royal-gold-dark: #B8860B;
   --color-royal-maroon: #800020;
-  --color-royal-maroon-light: #A0344C;
+  --color-royal-maroon-light: #6B0020;
   --color-royal-cream: #FFF8E7;
   --color-royal-navy: #1a365d;
-  --color-royal-red: #C41E3A;
+  --color-royal-red: #9B1B30;
   --color-royal-blue: #1E3A8A;
 }
 
@@ -77,7 +77,7 @@
   --chart-1: #800020;
   --chart-2: #D4A017;
   --chart-3: #1a365d;
-  --chart-4: #C41E3A;
+  --chart-4: #9B1B30;
   --chart-5: #B8860B;
   --sidebar: #FFF8E7;
   --sidebar-foreground: #2D1B00;
@@ -109,9 +109,9 @@
   --input: #4A3520;
   --ring: #D4A017;
   --chart-1: #D4A017;
-  --chart-2: #A0344C;
+  --chart-2: #6B0020;
   --chart-3: #F4D03F;
-  --chart-4: #C41E3A;
+  --chart-4: #9B1B30;
   --chart-5: #8B7355;
   --sidebar: #2D1B00;
   --sidebar-foreground: #F5E6C8;
@@ -327,7 +327,7 @@
 }
 
 .text-maroon-gradient {
-  background: linear-gradient(135deg, #800020 0%, #A0344C 50%, #800020 100%);
+  background: linear-gradient(135deg, #800020 0%, #6B0020 50%, #800020 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -397,7 +397,7 @@
 }
 
 .section-dark-royal {
-  background: linear-gradient(180deg, #2D1B00 0%, #1a0f00 100%);
+  background: linear-gradient(180deg, #3D2B10 0%, #2D1B00 100%);
 }
 
 /* WhatsApp Float Button */

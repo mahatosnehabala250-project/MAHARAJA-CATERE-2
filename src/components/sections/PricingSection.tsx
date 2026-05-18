@@ -35,9 +35,9 @@ const packages: PricingPackage[] = [
       { text: 'Starter to Dessert' },
     ],
     minGuests: 'Starting from 50 guests',
-    accentColor: 'text-gray-400',
-    accentBorder: 'border-gray-300',
-    accentBg: 'bg-gray-50',
+    accentColor: 'text-royal-gold-dark/70',
+    accentBorder: 'border-royal-gold/30',
+    accentBg: 'bg-royal-cream/50',
     icon: Shield,
   },
   {

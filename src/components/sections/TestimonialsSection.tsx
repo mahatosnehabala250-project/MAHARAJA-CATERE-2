@@ -61,7 +61,7 @@ function StarRating({ rating }: { rating: number }) {
 const eventColors: Record<string, string> = {
   Wedding: 'bg-royal-maroon text-white',
   Birthday: 'bg-royal-gold text-white',
-  Reception: 'bg-royal-red text-white',
+  Reception: 'bg-royal-maroon text-white',
 }
 
 export default function TestimonialsSection() {
@@ -117,7 +117,7 @@ export default function TestimonialsSection() {
           <div className="ornament-divider max-w-xs mx-auto mb-4">
             <span className="text-royal-gold text-xl">✦</span>
           </div>
-          <p className="text-royal-cream/70 text-lg font-[var(--font-cormorant)]">
+          <p className="text-royal-cream/90 text-lg font-[var(--font-cormorant)]">
             What Our Valued Guests Say
           </p>
         </motion.div>
@@ -159,7 +159,7 @@ export default function TestimonialsSection() {
                             <h4 className="font-semibold text-royal-maroon text-sm truncate font-[var(--font-playfair)]">
                               {testimonial.name}
                             </h4>
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${eventColors[testimonial.eventType] || 'bg-gray-600 text-white'}`}>
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${eventColors[testimonial.eventType] || 'bg-royal-maroon text-white'}`}>
                               {testimonial.eventType}
                             </span>
                           </div>

@@ -1920,3 +1920,48 @@ StructuredData → Loading → Navbar → ReadingProgressBar → Hero → Sectio
 - `bun run lint` passes with zero errors
 - All 8 component files modified with readability improvements
 - No new files created
+
+---
+Task ID: R8
+Agent: Main Agent
+Task: Fix color scheme (dark grey + pink readability issues), remove Cookie Consent banner, provide Hero image prompt
+
+Work Log:
+- Removed CookieConsent component from page.tsx (import and usage)
+- Performed comprehensive color audit across all 16+ component files
+- Identified root causes of "dark grey + pink" readability complaints:
+  1. `royal-maroon-light: #A0344C` was a warm rose/raspberry — reads as PINK
+  2. `royal-red: #C41E3A` was bright crimson — reads as PINK-RED
+  3. `#5A0015` gradient midpoints in CTABanner & Footer — deep rose/pink
+  4. `section-dark-royal` (#2D1B00 → #1a0f00) read as dark grey on many monitors
+  5. Low-opacity cream text (royal-cream/70, /60, /50) on dark backgrounds
+  6. Generic gray colors (text-gray-400, bg-gray-50, bg-gray-600) breaking theme
+
+Color Fixes Applied:
+1. globals.css: `royal-maroon-light` #A0344C → #6B0020 (deep maroon)
+2. globals.css: `royal-red` #C41E3A → #9B1B30 (deep crimson, not pink)
+3. globals.css: chart-4 #C41E3A → #9B1B30 (both :root and .dark)
+4. globals.css: chart-2 #A0344C → #6B0020 (.dark)
+5. globals.css: `section-dark-royal` lightened: #3D2B10 → #2D1B00 (from #2D1B00 → #1a0f00)
+6. globals.css: `text-maroon-gradient` midpoint #A0344C → #6B0020
+7. CTABanner.tsx: Removed pink gradient midpoints (#5A0015, #3D0010), simplified to pure maroon gradient
+8. Footer.tsx: Same gradient fix, increased text opacity (cream/60 → cream/80, cream/50 → cream/70)
+9. MenuSection.tsx: Increased text opacity (cream/80 → cream, cream/70 → cream/90)
+10. TestimonialsSection.tsx: Changed bg-royal-red → bg-royal-maroon for badges, bg-gray-600 → bg-royal-maroon for fallback, cream/70 → cream/90
+11. ContactSection.tsx: text-royal-red → text-royal-maroon (asterisks), bg-royal-maroon-light → bg-royal-maroon (email button)
+12. PricingSection.tsx: text-gray-400 → text-royal-gold-dark/70, border-gray-300 → border-royal-gold/30, bg-gray-50 → bg-royal-cream/50
+13. NewsletterSection.tsx: placeholder cream/50 → cream/70, text cream/70 → cream/90, input bg cream/15 → cream/20
+14. ProcessSection.tsx: card bg cream/10 → cream/15
+
+Stage Summary:
+- Cookie Consent banner completely removed from site
+- All pink/raspberry colors replaced with deep maroon variants
+- All dark sections lightened from near-black to warm brown
+- Text opacity increased across all dark sections for better readability
+- Generic gray colors replaced with theme-consistent gold/maroon alternatives
+- 0 lint errors, dev server running successfully
+
+Unresolved Issues / Risks:
+- Google Maps embed still uses generic Purulia coordinates
+- Need 4K Hero background image from user
+- Some unused component files still exist (CookieConsent.tsx, BeforeAfterComparison.tsx, etc.)

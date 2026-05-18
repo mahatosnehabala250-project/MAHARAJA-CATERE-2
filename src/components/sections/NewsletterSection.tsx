@@ -133,7 +133,7 @@ export default function NewsletterSection() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="w-full px-5 py-3.5 rounded-full bg-royal-cream/15 border-2 border-royal-gold/40 text-white placeholder:text-royal-cream/50 font-[family-name:var(--font-lato)] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold transition-all duration-300"
+                className="w-full px-5 py-3.5 rounded-full bg-royal-cream/20 border-2 border-royal-gold/40 text-white placeholder:text-royal-cream/70 font-[family-name:var(--font-lato)] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold transition-all duration-300"
               />
             </div>
             <button
@@ -146,7 +146,7 @@ export default function NewsletterSection() {
           </form>
 
           {/* Disclaimer */}
-          <p className="mt-4 text-center text-royal-cream/70 text-xs sm:text-sm font-[family-name:var(--font-lato)]">
+          <p className="mt-4 text-center text-royal-cream/90 text-xs sm:text-sm font-[family-name:var(--font-lato)]">
             We respect your privacy. Unsubscribe anytime.
           </p>
         </motion.div>
