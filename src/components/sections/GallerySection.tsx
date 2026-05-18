@@ -1,38 +1,26 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { X, Plus } from 'lucide-react'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@/components/ui/dialog'
 
-interface GalleryImage {
-  src: string
-  alt: string
+interface GalleryItem {
   title: string
+  gradient: string
 }
 
-const galleryImages: GalleryImage[] = [
-  { src: '/images/hero-bg.png', alt: 'Grand Wedding Setup', title: 'Grand Wedding Setup' },
-  { src: '/images/food-1.png', alt: 'Signature Biryani', title: 'Signature Biryani' },
-  { src: '/images/event-wedding.png', alt: 'Wedding Ceremony', title: 'Wedding Ceremony' },
-  { src: '/images/food-desserts.png', alt: 'Sweet Celebrations', title: 'Sweet Celebrations' },
-  { src: '/images/event-birthday.png', alt: 'Birthday Bash', title: 'Birthday Bash' },
-  { src: '/images/food-tandoori.png', alt: 'Tandoori Delights', title: 'Tandoori Delights' },
-  { src: '/images/event-reception.png', alt: 'Grand Reception', title: 'Grand Reception' },
-  { src: '/images/event-family.png', alt: 'Family Function', title: 'Family Function' },
-  { src: '/images/team-service.png', alt: 'Our Service Team', title: 'Our Service Team' },
+const galleryItems: GalleryItem[] = [
+  { title: 'Wedding Feast Setup', gradient: 'from-rose-100 to-amber-100' },
+  { title: 'Bengali Thali Spread', gradient: 'from-yellow-100 to-orange-100' },
+  { title: 'Dessert Station', gradient: 'from-pink-100 to-rose-100' },
+  { title: 'Tandoori Counter', gradient: 'from-orange-100 to-red-100' },
+  { title: 'Corporate Lunch Setup', gradient: 'from-slate-100 to-gray-100' },
+  { title: 'Celebration Cake Table', gradient: 'from-amber-100 to-yellow-100' },
 ]
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.12 },
   },
 }
 
@@ -45,36 +33,28 @@ const itemVariants = {
   },
 }
 
-function GalleryCard({
-  image,
-  onClick,
-}: {
-  image: GalleryImage
-  onClick: () => void
-}) {
+function GalleryCard({ item }: { item: GalleryItem }) {
   return (
     <motion.div
       variants={itemVariants}
-      className="group cursor-pointer"
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2 }}
+      className="group card-royal-hover"
     >
-      <div className="relative overflow-hidden rounded-xl border-2 border-royal-gold/30 group-hover:border-royal-gold/60 transition-all duration-300 shadow-md group-hover:shadow-xl group-hover:shadow-royal-gold/20">
-        <div className="aspect-square w-full relative">
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            loading="lazy"
-          />
-        </div>
+      <div className="relative overflow-hidden rounded-xl aspect-[4/3]">
+        {/* Gradient placeholder background */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${item.gradient} transition-transform duration-500 ease-out group-hover:scale-105`}
+        />
 
-        {/* Simple darkening overlay with "+" icon */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-          <Plus className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+
+        {/* Text overlay at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <span
+            className="text-white text-sm sm:text-base font-[family-name:var(--font-lato)] font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
+          >
+            {item.title}
+          </span>
         </div>
       </div>
     </motion.div>
@@ -82,14 +62,13 @@ function GalleryCard({
 }
 
 export default function GallerySection() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
-  const selectedImage = selectedIndex !== null ? galleryImages[selectedIndex] : null
-  const isOpen = selectedIndex !== null
-
   return (
-    <section id="gallery" className="section-royal dark:bg-[#1a0f00]/40 relative py-20 md:py-28 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="gallery"
+      className="py-16 md:py-24"
+      style={{ backgroundColor: '#FAFAF5' }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -98,66 +77,48 @@ export default function GallerySection() {
           transition={{ duration: 0.7 }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-maroon-gradient mb-4">
-            Royal Gallery
+          {/* Badge */}
+          <span
+            className="inline-block px-4 py-1.5 rounded-full text-xs font-[family-name:var(--font-lato)] font-semibold uppercase tracking-widest mb-4"
+            style={{
+              backgroundColor: '#D4A01720',
+              color: '#D4A017',
+              border: '1px solid #D4A01740',
+            }}
+          >
+            Our Work
+          </span>
+
+          {/* Heading */}
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-playfair)] font-bold mb-4"
+            style={{ color: '#800020' }}
+          >
+            See What a Royal Feast Looks Like
           </h2>
-          <div className="ornament-divider max-w-xs mx-auto mb-4">
-            <span className="text-royal-gold text-2xl">&#10022;</span>
-          </div>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
-            A glimpse into our grand celebrations &amp; culinary artistry
+
+          {/* Subheading */}
+          <p
+            className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-[family-name:var(--font-lato)]"
+            style={{ color: '#555555' }}
+          >
+            Every dish is a masterpiece. Every event, a celebration to remember.
           </p>
         </motion.div>
 
-        {/* Simple equal grid */}
+        {/* Gallery Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
         >
-          {galleryImages.map((image, index) => (
-            <GalleryCard
-              key={image.src}
-              image={image}
-              onClick={() => setSelectedIndex(index)}
-            />
+          {galleryItems.map((item) => (
+            <GalleryCard key={item.title} item={item} />
           ))}
         </motion.div>
       </div>
-
-      {/* Lightbox Dialog — simple, no navigation arrows */}
-      <Dialog open={isOpen} onOpenChange={(open) => { if (!open) setSelectedIndex(null) }}>
-        <DialogContent className="max-w-4xl w-[calc(100%-2rem)] p-0 bg-black/95 border-royal-gold/30 overflow-hidden [&>button]:hidden">
-          <DialogTitle className="sr-only">{selectedImage?.title ?? 'Gallery image'}</DialogTitle>
-          {selectedImage && (
-            <div className="relative">
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="w-full h-auto max-h-[80vh] object-contain"
-              />
-
-              {/* Close button */}
-              <button
-                onClick={() => setSelectedIndex(null)}
-                className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm hover:bg-royal-gold/20 flex items-center justify-center text-royal-cream hover:text-royal-gold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
-                aria-label="Close lightbox"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <h3 className="text-royal-gold font-bold text-lg">
-                  {selectedImage.title}
-                </h3>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   )
 }

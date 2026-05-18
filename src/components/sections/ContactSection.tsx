@@ -1,22 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import {
-  MapPin,
   Phone,
-  Mail,
-  Clock,
   MessageCircle,
-  Globe,
-  Facebook,
-  Send,
+  Mail,
+  MapPin,
+  Clock,
+  Calendar,
   Loader2,
-  CheckCircle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -37,106 +33,95 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 
+// ── Zod Schema ────────────────────────────────────────────────────────────────
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().optional(),
-  eventType: z.string().optional(),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  phone: z
+    .string()
+    .min(7, 'Please enter a valid phone number')
+    .regex(/^[+\d\s()-]+$/, 'Please enter a valid phone number'),
+  email: z.string().email('Please enter a valid email').or(z.literal('')).optional(),
+  eventType: z.string().min(1, 'Please select an event type'),
+  eventDate: z.string().optional(),
+  guests: z
+    .string()
+    .optional()
+    .refine(
+      (val) => !val || (/^\d+$/.test(val) && Number(val) > 0),
+      'Please enter a valid number'
+    ),
+  requirements: z.string().optional(),
 })
 
 type ContactFormValues = z.infer<typeof contactSchema>
 
+// ── Event Types ───────────────────────────────────────────────────────────────
+const eventTypes = [
+  'Wedding',
+  'Birthday',
+  'Anniversary',
+  'Corporate',
+  'Rice Ceremony',
+  'Other',
+] as const
+
+// ── Contact Info Data ─────────────────────────────────────────────────────────
 const contactInfo = [
   {
-    icon: MapPin,
-    label: 'Address',
-    value: 'Near Fan House, Nadiha, Chowk Bazar, Purulia, West Bengal 723101',
-    href: undefined,
-  },
-  {
     icon: Phone,
-    label: 'Phone',
-    value: '089450 05456 / 8293829200',
+    label: 'Call Us',
+    value: '+91 89450 05456',
     href: 'tel:+918945005456',
   },
   {
     icon: MessageCircle,
     label: 'WhatsApp',
-    value: '8945005456',
+    value: '+91 89450 05456',
     href: 'https://wa.me/918945005456',
   },
   {
     icon: Mail,
     label: 'Email',
-    value: 'maharajaCaterer104@gmail.com',
-    href: 'mailto:maharajaCaterer104@gmail.com',
+    value: 'maharajacatererpurulia@gmail.com',
+    href: 'mailto:maharajacatererpurulia@gmail.com',
   },
   {
-    icon: Mail,
-    label: 'Alt. Email',
-    value: 'maharajacaterer24@gmail.com',
-    href: 'mailto:maharajacaterer24@gmail.com',
+    icon: MapPin,
+    label: 'Address',
+    value: 'Purulia, West Bengal, India',
+    href: undefined,
   },
   {
     icon: Clock,
     label: 'Hours',
-    value: '9:00 AM - 10:00 PM Daily',
-    href: undefined,
-  },
-  {
-    icon: Globe,
-    label: 'Languages',
-    value: 'English, Bengali',
+    value: 'Available 7 days a week, 8 AM - 10 PM',
     href: undefined,
   },
 ]
 
-const eventTypes = [
-  'Wedding',
-  'Birthday',
-  'Reception',
-  'Family Function',
-  'Social Event',
-  'Other',
-]
+// ── Shared Input Styles ───────────────────────────────────────────────────────
+const inputStyles =
+  'rounded-lg bg-white border-[#E8E4DD] text-[#1A1A1A] placeholder:text-[#999999] transition-all duration-300 focus:border-[#800020] focus:ring-2 focus:ring-[#D4A017]/30 h-11'
 
+const selectTriggerStyles =
+  'rounded-lg bg-white border-[#E8E4DD] text-[#1A1A1A] transition-all duration-300 focus:border-[#800020] focus:ring-2 focus:ring-[#D4A017]/30 h-11'
+
+// ── Component ─────────────────────────────────────────────────────────────────
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: '',
-      email: '',
       phone: '',
+      email: '',
       eventType: '',
-      message: '',
+      eventDate: '',
+      guests: '',
+      requirements: '',
     },
   })
-
-  // Track form progress for gold progress bar
-  const formValues = form.watch()
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    const fields = ['name', 'email', 'message'] as const
-    const optionalFields = ['phone', 'eventType'] as const
-    let filled = 0
-    let total = fields.length
-
-    fields.forEach((field) => {
-      if (formValues[field] && formValues[field].trim().length > 0) filled++
-    })
-    optionalFields.forEach((field) => {
-      if (formValues[field] && String(formValues[field]).trim().length > 0) {
-        filled++
-        total++
-      }
-    })
-    setProgress(total > 0 ? (filled / total) * 100 : 0)
-  }, [formValues])
 
   async function onSubmit(data: ContactFormValues) {
     setIsSubmitting(true)
@@ -147,19 +132,15 @@ export default function ContactSection() {
         body: JSON.stringify(data),
       })
 
-      if (!response.ok) {
-        throw new Error('Failed to send message')
-      }
+      if (!response.ok) throw new Error('Failed to submit')
 
-      toast.success('Royal Request Sent!', {
+      toast.success('Booking Request Sent!', {
         description:
-          'Thank you for reaching out! We will get back to you shortly.',
+          "Thank you for reaching out! We'll get back to you within 24 hours to plan your royal feast.",
       })
       form.reset()
-      setIsSubmitted(true)
-      setTimeout(() => setIsSubmitted(false), 4000)
     } catch {
-      toast.error('Failed to Send', {
+      toast.error('Submission Failed', {
         description:
           'Something went wrong. Please try again or contact us directly.',
       })
@@ -171,177 +152,131 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="section-royal py-16 md:py-24 relative overflow-hidden"
+      className="py-16 md:py-24 relative"
+      style={{ backgroundColor: '#FAFAF5' }}
     >
-      {/* Background decorations */}
-      <div className="absolute inset-0 mandala-bg opacity-50" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-royal-gold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-royal-maroon/5 rounded-full blur-3xl" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-maroon-gradient font-[var(--font-playfair)] mb-4">
-            Get In Touch
-          </h2>
-          <div className="ornament-divider max-w-xs mx-auto mb-4">
-            <span className="text-royal-gold text-xl">✦</span>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ── Section Header ─────────────────────────────────────────────── */}
+        <div className="text-center mb-12 md:mb-16">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4A017]/30 bg-[#D4A017]/5 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D4A017]" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-[#800020] font-[family-name:var(--font-lato)]">
+              Get Started
+            </span>
           </div>
-          <p className="text-royal-maroon/70 text-lg font-[var(--font-cormorant)]">
-            Let Us Make Your Event Royal
+
+          {/* Heading */}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#800020] font-[family-name:var(--font-playfair)] mb-4">
+            Let&apos;s Plan Your Royal Feast
+          </h2>
+
+          {/* Ornament Divider */}
+          <div className="ornament-divider max-w-xs mx-auto mb-4">
+            <span className="text-[#D4A017] text-lg">&#10022;</span>
+          </div>
+
+          {/* Subheading */}
+          <p className="text-[#555555] text-base md:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
+            Tell us about your event and we&apos;ll create the perfect menu for
+            you. No obligation, no hidden costs.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Two-column layout */}
+        {/* ── Two-Column Layout ──────────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
-          {/* Left: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-royal-gold/20 shadow-lg relative overflow-hidden">
-              {/* Gold progress bar at top of form */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-royal-gold/10">
-                <div
-                  className="h-full bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light transition-all duration-500 ease-out rounded-r-full"
-                  style={{ width: `${progress}%` }}
+          {/* LEFT — Contact Form */}
+          <div className="bg-white rounded-2xl p-6 md:p-8 border border-[#E8E4DD] shadow-sm">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                {/* Name */}
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                        Name <span className="text-[#800020]">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Your full name"
+                          className={inputStyles}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
                 />
-              </div>
 
-              <h3 className="text-xl md:text-2xl font-semibold text-royal-maroon mb-6 font-[var(--font-playfair)]">
-                Send Us a Message
-              </h3>
+                {/* Phone */}
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                        Phone Number <span className="text-[#800020]">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          placeholder="+91 XXXXX XXXXX"
+                          className={inputStyles}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
 
-              {/* Success Animation */}
-              <AnimatePresence>
-                {isSubmitted && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    className="absolute inset-0 z-20 bg-white/90 backdrop-blur-sm flex items-center justify-center rounded-2xl"
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                      className="flex flex-col items-center gap-3"
-                    >
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center shadow-lg shadow-royal-gold/30">
-                        <CheckCircle className="w-10 h-10 text-white" />
-                      </div>
-                      <p className="text-royal-maroon font-semibold text-lg font-[var(--font-playfair)]">Message Sent!</p>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                {/* Email */}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                        Email{' '}
+                        <span className="text-[#999999] text-xs font-normal">
+                          (optional)
+                        </span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="your@email.com"
+                          className={inputStyles}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
 
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-5"
-                >
-                  {/* Name */}
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem className="relative">
-                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
-                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
-                        }`}>
-                          Name <span className="text-royal-maroon">*</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder=" "
-                            aria-label="Your name"
-                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Email */}
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="relative">
-                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
-                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
-                        }`}>
-                          Email <span className="text-royal-maroon">*</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            type="email"
-                            placeholder=" "
-                            aria-label="Your email address"
-                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Phone */}
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem className="relative">
-                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
-                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
-                        }`}>
-                          Phone{' '}
-                          <span className="text-muted-foreground text-xs">
-                            (optional)
-                          </span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            type="tel"
-                            placeholder=" "
-                            aria-label="Your phone number"
-                            className="border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Event Type */}
+                {/* Event Type + Event Date (2 col on sm+) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="eventType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-royal-maroon font-medium">
-                          Event Type
+                        <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                          Event Type <span className="text-[#800020]">*</span>
                         </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="w-full border-royal-gold/30 bg-white/50 transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold">
-                              <SelectValue placeholder="Select event type" />
+                            <SelectTrigger className={selectTriggerStyles}>
+                              <SelectValue placeholder="Select type" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -352,151 +287,177 @@ export default function ContactSection() {
                             ))}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className="text-xs" />
                       </FormItem>
                     )}
                   />
 
-                  {/* Message */}
                   <FormField
                     control={form.control}
-                    name="message"
+                    name="eventDate"
                     render={({ field }) => (
-                      <FormItem className="relative">
-                        <FormLabel className={`absolute left-3 transition-all duration-300 pointer-events-none ${
-                          field.value ? '-top-2.5 text-xs bg-white px-1 text-royal-gold' : 'top-3 text-sm text-muted-foreground'
-                        }`}>
-                          Message <span className="text-royal-maroon">*</span>
+                      <FormItem>
+                        <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                          Event Date
                         </FormLabel>
                         <FormControl>
-                          <Textarea
-                            placeholder=" "
-                            aria-label="Your message"
-                            className="min-h-[120px] border-royal-gold/30 bg-white/50 resize-none transition-all duration-300 focus:ring-2 focus:ring-royal-gold/40 focus:border-royal-gold placeholder:text-transparent pt-5 pb-2"
+                          <Input
+                            type="date"
+                            className={inputStyles}
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-xs" />
                       </FormItem>
                     )}
                   />
+                </div>
 
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light hover:from-royal-gold hover:via-royal-gold-light hover:to-royal-gold text-white font-semibold py-3 h-12 text-base shadow-lg hover:shadow-xl hover:shadow-royal-gold/30 transition-all duration-300 group hover:scale-[1.01] active:scale-[0.99]"
-                  >
-                    {isSubmitting ? (
-                      <Loader2 className="size-5 animate-spin mr-2" />
-                    ) : (
-                      <Send className="size-5 mr-2 group-hover:translate-x-1 transition-transform" />
-                    )}
-                    {isSubmitting ? 'Sending...' : 'Send Royal Request'}
-                  </Button>
-                </form>
-              </Form>
-            </div>
-          </motion.div>
+                {/* Number of Guests */}
+                <FormField
+                  control={form.control}
+                  name="guests"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                        Number of Guests
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="e.g. 200"
+                          min="1"
+                          className={inputStyles}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
 
-          {/* Right: Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
+                {/* Special Requirements */}
+                <FormField
+                  control={form.control}
+                  name="requirements"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#1A1A1A] text-sm font-medium font-[family-name:var(--font-lato)]">
+                        Special Requirements
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us about any dietary preferences, special dishes, or other requirements..."
+                          className="rounded-lg bg-white border-[#E8E4DD] text-[#1A1A1A] placeholder:text-[#999999] transition-all duration-300 focus:border-[#800020] focus:ring-2 focus:ring-[#D4A017]/30 min-h-[100px] resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#800020] hover:bg-[#6B0018] text-white font-semibold py-3 h-12 text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-[family-name:var(--font-lato)] group"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="size-5 animate-spin mr-2" />
+                  ) : (
+                    <Calendar className="size-5 mr-2 group-hover:scale-110 transition-transform" />
+                  )}
+                  {isSubmitting ? 'Submitting...' : 'Book My Event'}
+                </Button>
+              </form>
+            </Form>
+          </div>
+
+          {/* RIGHT — Contact Information + Map */}
+          <div className="space-y-6">
             {/* Contact Details Card */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-royal-gold/20 shadow-lg">
-              <h3 className="text-xl md:text-2xl font-semibold text-royal-maroon mb-6 font-[var(--font-playfair)]">
+            <div className="bg-white rounded-2xl p-6 md:p-8 border border-[#E8E4DD] shadow-sm">
+              <h3 className="text-xl md:text-2xl font-semibold text-[#800020] font-[family-name:var(--font-playfair)] mb-6">
                 Contact Information
               </h3>
 
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {contactInfo.map((info) => (
-                  <div key={info.label} className="flex items-start gap-3 group">
-                    <div className="w-10 h-10 rounded-full bg-royal-gold/10 flex items-center justify-center shrink-0 group-hover:bg-royal-gold/20 transition-colors">
-                      <info.icon className="size-4 md:size-5 text-royal-gold-dark" />
+                  <div key={info.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-[#800020]/5 flex items-center justify-center shrink-0">
+                      <info.icon className="size-[18px] text-[#800020]" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs text-royal-maroon/60 font-medium uppercase tracking-wide">
+                      <p className="text-[11px] font-semibold tracking-widest uppercase text-[#999999] mb-0.5 font-[family-name:var(--font-lato)]">
                         {info.label}
                       </p>
                       {info.href ? (
                         <a
                           href={info.href}
-                          target={info.href.startsWith('http') ? '_blank' : undefined}
-                          rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          className="text-sm text-royal-maroon hover:text-royal-gold-dark transition-colors break-all"
+                          target={
+                            info.href.startsWith('http') ? '_blank' : undefined
+                          }
+                          rel={
+                            info.href.startsWith('http')
+                              ? 'noopener noreferrer'
+                              : undefined
+                          }
+                          className="text-sm text-[#1A1A1A] hover:text-[#800020] transition-colors break-all font-[family-name:var(--font-lato)]"
                         >
                           {info.value}
                         </a>
                       ) : (
-                        <p className="text-sm text-royal-maroon">{info.value}</p>
+                        <p className="text-sm text-[#1A1A1A] font-[family-name:var(--font-lato)]">
+                          {info.value}
+                        </p>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Social Links */}
-              <div className="mt-6 pt-4 border-t border-royal-gold/20">
-                <p className="text-sm text-royal-maroon/60 mb-3">Follow Us</p>
-                <div className="flex gap-3">
-                  <a
-                    href="https://www.facebook.com/profile.php?id=100064833288803"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-royal-maroon flex items-center justify-center text-royal-gold hover:bg-royal-gold hover:text-white transition-all duration-300"
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="size-4" />
-                  </a>
-                  <a
-                    href="https://wa.me/918945005456"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white hover:bg-green-700 transition-all duration-300"
-                    aria-label="WhatsApp"
-                  >
-                    <MessageCircle className="size-4" />
-                  </a>
-                  <a
-                    href="tel:+918945005456"
-                    className="w-10 h-10 rounded-full bg-royal-gold-dark flex items-center justify-center text-white hover:bg-royal-gold transition-all duration-300"
-                    aria-label="Phone"
-                  >
-                    <Phone className="size-4" />
-                  </a>
-                  <a
-                    href="mailto:maharajaCaterer104@gmail.com"
-                    className="w-10 h-10 rounded-full bg-royal-maroon flex items-center justify-center text-white hover:bg-royal-maroon transition-all duration-300"
-                    aria-label="Email"
-                  >
-                    <Mail className="size-4" />
-                  </a>
-                </div>
+              {/* Decorative divider */}
+              <div className="my-6 border-t border-[#E8E4DD]" />
+
+              {/* Quick CTA Buttons */}
+              <div className="grid grid-cols-2 gap-3">
+                <a
+                  href="tel:+918945005456"
+                  className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#800020]/20 bg-[#800020]/5 text-[#800020] text-sm font-medium hover:bg-[#800020] hover:text-white transition-all duration-300 font-[family-name:var(--font-lato)]"
+                >
+                  <Phone className="size-4" />
+                  Call Now
+                </a>
+                <a
+                  href="https://wa.me/918945005456"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-green-600/20 bg-green-50 text-green-700 text-sm font-medium hover:bg-green-600 hover:text-white transition-all duration-300 font-[family-name:var(--font-lato)]"
+                >
+                  <MessageCircle className="size-4" />
+                  WhatsApp
+                </a>
               </div>
             </div>
 
             {/* Google Map */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-royal-gold/30 shadow-lg overflow-hidden">
-              <div className="rounded-xl overflow-hidden border-2 border-royal-gold/20">
+            <div className="bg-white rounded-2xl p-4 border border-[#E8E4DD] shadow-sm overflow-hidden">
+              <div className="rounded-xl overflow-hidden border border-[#E8E4DD]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29179.47498524618!2d86.35!3d23.33!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6e3f8e0b0b0b1%3A0x4b0b0b0b0b0b0b0b!2sPurulia%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                   width="100%"
-                  height="250"
+                  height="220"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Maharaja Caterer Location - Purulia, West Bengal"
-                  className="grayscale-[30%] contrast-[1.1]"
+                  title="Maharaja Caterer Location — Purulia, West Bengal"
+                  className="grayscale-[20%] contrast-[1.05]"
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

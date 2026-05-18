@@ -1,149 +1,68 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Facebook,
-  MessageCircle,
-  ExternalLink,
-  Send,
-  Crown,
-} from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Crown } from 'lucide-react'
 
 const quickLinks = [
   { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
+  { label: 'About Us', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Menu', href: '#menu' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Reviews', href: '#reviews' },
   { label: 'Contact', href: '#contact' },
 ]
 
-const services = [
-  'Wedding',
-  'Birthday',
-  'Reception',
-  'Family Functions',
-  'Corporate Events',
-]
-
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email.trim()) {
-      setSubscribed(true)
-      setEmail('')
-      setTimeout(() => setSubscribed(false), 4000)
-    }
-  }
-
-  const scrollToTop = () => {
-    const heroEl = document.getElementById('hero')
-    if (heroEl) {
-      heroEl.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
   return (
-    <footer className="bg-[#1a0f00] text-royal-cream/80 mt-auto relative">
-      {/* Gold gradient top border — fades from transparent via gold to transparent */}
-      <div className="h-[3px] bg-gradient-to-r from-transparent via-royal-gold to-transparent" />
-
-      {/* Newsletter Section */}
-      <div className="relative bg-gradient-to-r from-royal-maroon via-royal-maroon to-royal-maroon-light py-10 md:py-14 overflow-hidden">
-        {/* Mandala pattern */}
-        <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" />
-        <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gold-gradient font-[family-name:var(--font-playfair)] mb-2">
-            Stay Updated
-          </h3>
-          <p className="text-royal-cream/85 text-sm sm:text-base font-[family-name:var(--font-lato)] mb-6">
-            Get festive offers &amp; menu updates delivered to your inbox
-          </p>
-          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row items-center gap-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-              className="w-full sm:flex-1 px-4 py-3 rounded-full bg-royal-cream/15 border border-royal-gold/40 text-white placeholder:text-royal-cream/70 focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold/60 transition-all duration-300 text-sm font-[family-name:var(--font-lato)]"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#B8860B] via-royal-gold to-[#FFD700] text-royal-maroon font-bold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/30 hover:scale-105 font-[family-name:var(--font-lato)]"
-            >
-              <Send className="w-4 h-4" />
-              Subscribe
-            </button>
-          </form>
-          {subscribed && (
-            <p className="mt-3 text-royal-gold text-sm font-medium font-[family-name:var(--font-lato)] animate-fade-in">
-              ✨ Thank you for subscribing!
-            </p>
-          )}
-        </div>
-      </div>
-      {/* Decorative mandala pattern overlay */}
-      <div className="absolute inset-0 mandala-bg opacity-[0.08] pointer-events-none" style={{ top: '3px' }} />
-      {/* Subtle diamond pattern overlay for depth */}
-      <div className="absolute inset-0 pointer-events-none" style={{ top: '3px', backgroundImage: 'radial-gradient(circle, rgba(212,160,23,0.03) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Column 1: Logo + About */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-royal-gold/40 shadow-md">
+    <footer className="bg-[#1A1A1A] text-[#F5F3EE] mt-auto">
+      {/* ── Top Section: 3 columns ── */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+          {/* ── Column 1: Brand ── */}
+          <div className="flex flex-col items-start">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-[#D4A017]/60 shrink-0">
                 <Image
                   src="/images/logo.jpg"
                   alt="Maharaja Caterer Logo"
                   fill
                   className="object-cover"
-                  sizes="56px"
+                  sizes="36px"
                 />
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-gold-gradient font-[var(--font-playfair)]">
-                  Maharaja Caterer
-                </h3>
-                <p className="text-royal-cream/90 text-xs">Purulia, West Bengal</p>
-              </div>
+              <span className="text-xl font-semibold text-[#D4A017] font-[family-name:var(--font-playfair)]">
+                Maharaja Caterer
+              </span>
             </div>
-            <p className="text-sm leading-relaxed mb-4 text-royal-cream/80 font-[var(--font-lato)]">
-              Purulia&apos;s finest catering and event planning service. We bring
-              royal flavors and impeccable service to make every celebration
-              unforgettable.
+
+            <p className="text-[#F5F3EE] text-sm font-[family-name:var(--font-lato)] mb-2">
+              Where Every Feast Becomes a Royal Celebration
             </p>
-            <div className="flex items-center gap-2 bg-royal-cream/5 rounded-lg px-3 py-2 border border-royal-gold/10 w-fit">
-              <span className="text-royal-gold text-xs font-semibold">FSSAI</span>
-              <span className="text-royal-cream/70 text-xs">Licensed</span>
-            </div>
+
+            <p className="text-[#D4A017]/80 text-sm font-[family-name:var(--font-lato)] mb-5">
+              সকলের মনপরাজিত হবে!
+            </p>
+
+            <p className="text-[#AAAAAA] text-sm leading-relaxed font-[family-name:var(--font-lato)] max-w-sm">
+              Purulia&apos;s most trusted catering service since 2009. We bring
+              royal feasts to your celebrations.
+            </p>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* ── Column 2: Quick Links ── */}
           <div>
-            <h4 className="text-royal-gold font-semibold mb-4 font-[var(--font-playfair)] text-lg">
+            <h4 className="text-[#D4A017] font-semibold text-lg mb-5 font-[family-name:var(--font-playfair)]">
               Quick Links
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-royal-cream/80 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
+                    className="text-sm text-[#F5F3EE]/80 hover:text-[#D4A017] transition-colors duration-300 font-[family-name:var(--font-lato)] inline-flex items-center gap-2 group"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/60 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
+                    <span className="w-1 h-1 rounded-full bg-[#D4A017]/50 group-hover:bg-[#D4A017] group-hover:w-1.5 group-hover:h-1.5 transition-all duration-300" />
                     {link.label}
                   </a>
                 </li>
@@ -151,150 +70,58 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Services */}
+          {/* ── Column 3: Contact ── */}
           <div>
-            <h4 className="text-royal-gold font-semibold mb-4 font-[var(--font-playfair)] text-lg">
-              Services
+            <h4 className="text-[#D4A017] font-semibold text-lg mb-5 font-[family-name:var(--font-playfair)]">
+              Get in Touch
             </h4>
-            <ul className="space-y-2.5">
-              {services.map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
-                    className="text-sm text-royal-cream/80 hover:text-royal-gold transition-all duration-300 flex items-center gap-2 group font-[var(--font-lato)] hover:pl-1"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-royal-gold/60 group-hover:bg-royal-gold group-hover:shadow-[0_0_6px_rgba(212,160,23,0.5)] transition-all duration-300" />
-                    {service}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div className="space-y-4">
+              <a
+                href="tel:+918945005456"
+                className="flex items-center gap-3 text-sm text-[#F5F3EE]/80 hover:text-[#D4A017] transition-colors duration-300 font-[family-name:var(--font-lato)]"
+              >
+                <Phone className="w-4 h-4 text-[#D4A017] shrink-0" />
+                +91 89450 05456
+              </a>
 
-          {/* Column 4: Contact Info */}
-          <div>
-            <h4 className="text-royal-gold font-semibold mb-4 font-[var(--font-playfair)] text-lg">
-              Contact Info
-            </h4>
-            <div className="space-y-3">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="size-4 text-royal-gold shrink-0 mt-0.5" />
-                <p className="text-sm text-royal-cream/80 font-[var(--font-lato)]">
-                  Near Fan House, Nadiha, Chowk Bazar, Purulia, West Bengal 723101
-                </p>
+              <a
+                href="mailto:maharajacatererpurulia@gmail.com"
+                className="flex items-center gap-3 text-sm text-[#F5F3EE]/80 hover:text-[#D4A017] transition-colors duration-300 font-[family-name:var(--font-lato)] break-all"
+              >
+                <Mail className="w-4 h-4 text-[#D4A017] shrink-0" />
+                maharajacatererpurulia@gmail.com
+              </a>
+
+              <div className="flex items-start gap-3 text-sm text-[#F5F3EE]/80 font-[family-name:var(--font-lato)]">
+                <MapPin className="w-4 h-4 text-[#D4A017] shrink-0 mt-0.5" />
+                Purulia, West Bengal, India
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="size-4 text-royal-gold shrink-0" />
-                <a
-                  href="tel:+918945005456"
-                  className="text-sm text-royal-cream/80 hover:text-royal-gold transition-colors font-[var(--font-lato)]"
-                >
-                  089450 05456 / 8293829200
-                </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <MessageCircle className="size-4 text-green-500 shrink-0" />
-                <a
-                  href="https://wa.me/918945005456"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-royal-cream/80 hover:text-royal-gold transition-colors font-[var(--font-lato)] flex items-center gap-1"
-                >
-                  8945005456
-                  <ExternalLink className="size-3" />
-                </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="size-4 text-royal-gold shrink-0" />
-                <a
-                  href="mailto:maharajaCaterer104@gmail.com"
-                  className="text-sm text-royal-cream/80 hover:text-royal-gold transition-colors break-all font-[var(--font-lato)]"
-                >
-                  maharajaCaterer104@gmail.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Clock className="size-4 text-royal-gold shrink-0" />
-                <p className="text-sm text-royal-cream/80 font-[var(--font-lato)]">
-                  9:00 AM - 10:00 PM Daily
-                </p>
+
+              <div className="flex items-center gap-3 text-sm text-[#F5F3EE]/80 font-[family-name:var(--font-lato)]">
+                <Clock className="w-4 h-4 text-[#D4A017] shrink-0" />
+                Available 7 days, 8 AM – 10 PM
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Animated Back to Top Button */}
-      <div className="flex justify-center -mt-2 mb-4">
-        <button
-          onClick={scrollToTop}
-          className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-royal-gold-dark via-royal-gold to-royal-gold-light flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(212,160,23,0.5)]"
-          aria-label="Back to top"
-        >
-          <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:animate-gentle-bounce" />
-          {/* Gold glow ring on hover */}
-          <div className="absolute inset-0 rounded-full animate-glow-ring opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </button>
-      </div>
+      {/* ── Bottom Section ── */}
+      {/* Gold gradient divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-[#D4A017]/60 to-transparent" />
 
-      {/* Decorative gold ornamental line above bottom copyright bar */}
-      <div className="relative h-8 flex items-center justify-center">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rotate-45 border border-royal-gold/50 bg-royal-gold/20" />
-        <div className="absolute left-4 sm:left-8 right-1/2 mr-6 sm:mr-8 top-1/2 h-px bg-gradient-to-r from-transparent via-royal-gold/50 to-royal-gold/50" />
-        <div className="absolute right-4 sm:right-8 left-1/2 ml-6 sm:ml-8 top-1/2 h-px bg-gradient-to-l from-transparent via-royal-gold/50 to-royal-gold/50" />
-      </div>
-
-      {/* Gold Divider Line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-royal-gold/50 to-transparent" />
-
-      {/* Bottom Bar */}
-      <div className="container mx-auto px-4 py-5">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-royal-cream/80 text-center md:text-left font-[var(--font-lato)]">
-            © 2025 Maharaja Caterer Purulia. All Rights Reserved.
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-[#AAAAAA] font-[family-name:var(--font-lato)]">
+            &copy; 2024 Maharaja Caterer. All rights reserved.
           </p>
-          <p className="text-sm text-royal-cream/80 text-center font-[var(--font-lato)]">
-            Prop. Ujjal Chakraborty (Dolon)
-          </p>
-          <p className="text-xs text-royal-cream/70 text-center font-[var(--font-lato)] animate-float-rotate">
+
+          {/* Center gold crown separator */}
+          <Crown className="w-4 h-4 text-[#D4A017]/60 hidden sm:block" aria-hidden="true" />
+
+          <p className="text-xs text-[#AAAAAA] font-[family-name:var(--font-lato)]">
             Made with ❤️ in Purulia
           </p>
-
-          {/* Social Icons with gold background on hover */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://www.facebook.com/profile.php?id=100064833288803"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-royal-gold hover:text-royal-maroon hover:border-royal-gold hover:scale-110 transition-all duration-300"
-              aria-label="Facebook"
-            >
-              <Facebook className="size-4" />
-            </a>
-            <a
-              href="https://wa.me/918945005456"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-green-600 hover:text-white hover:border-green-600 hover:scale-110 transition-all duration-300"
-              aria-label="WhatsApp"
-            >
-              <MessageCircle className="size-4" />
-            </a>
-            <a
-              href="tel:+918945005456"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-royal-gold hover:text-royal-maroon hover:border-royal-gold hover:scale-110 transition-all duration-300"
-              aria-label="Phone"
-            >
-              <Phone className="size-4" />
-            </a>
-            <a
-              href="mailto:maharajaCaterer104@gmail.com"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-royal-gold hover:text-royal-maroon hover:border-royal-gold hover:scale-110 transition-all duration-300"
-              aria-label="Email"
-            >
-              <Mail className="size-4" />
-            </a>
-          </div>
         </div>
       </div>
     </footer>

@@ -120,7 +120,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-          style={{ backgroundColor: '#1a0f00' }}
+          style={{ backgroundColor: '#FFFFFF' }}
         >
           {/* Gold Particles */}
           <GoldParticles />
@@ -207,7 +207,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.7, ease: 'easeOut' }}
-            className="animate-text-shimmer text-2xl sm:text-3xl md:text-4xl font-bold mt-5 tracking-wide font-[family-name:var(--font-playfair)]"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mt-5 tracking-wide font-[family-name:var(--font-playfair)] text-royal-maroon"
           >
             Maharaja Caterer
           </motion.h1>
@@ -217,7 +217,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="text-royal-cream/70 mt-2.5 text-xs sm:text-sm tracking-widest uppercase font-[family-name:var(--font-lato)]"
+            className="text-gray-400 mt-2.5 text-xs sm:text-sm tracking-widest uppercase font-[family-name:var(--font-lato)]"
           >
             Loading Royal Experience
           </motion.p>

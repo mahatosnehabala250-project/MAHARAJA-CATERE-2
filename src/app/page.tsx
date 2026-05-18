@@ -3,28 +3,23 @@
 import { useState } from 'react'
 import Navbar from '@/components/sections/Navbar'
 import HeroSection from '@/components/sections/HeroSection'
-import AboutSection from '@/components/sections/AboutSection'
+import ProblemSection from '@/components/sections/ProblemSection'
+import GuideSection from '@/components/sections/GuideSection'
 import ServicesSection from '@/components/sections/ServicesSection'
+import PlanSection from '@/components/sections/PlanSection'
 import MenuSection from '@/components/sections/MenuSection'
+import PricingSection from '@/components/sections/PricingSection'
 import GallerySection from '@/components/sections/GallerySection'
-import CTABanner from '@/components/sections/CTABanner'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
-import StatsSection from '@/components/sections/StatsSection'
+import CTASection from '@/components/sections/CTASection'
+import FAQSection from '@/components/sections/FAQSection'
 import ContactSection from '@/components/sections/ContactSection'
 import Footer from '@/components/sections/Footer'
 import WhatsAppFloat from '@/components/ui-custom/WhatsAppFloat'
-import PricingSection from '@/components/sections/PricingSection'
-import FAQSection from '@/components/sections/FAQSection'
-import ProcessSection from '@/components/sections/ProcessSection'
 import LoadingScreen from '@/components/ui-custom/LoadingScreen'
 import ScrollToTop from '@/components/ui-custom/ScrollToTop'
 import ReadingProgressBar from '@/components/ui-custom/ReadingProgressBar'
-import SpecialOffersSection from '@/components/sections/SpecialOffersSection'
-import SectionDivider from '@/components/ui-custom/SectionDivider'
-import EventCalculator from '@/components/ui-custom/EventCalculator'
 import StructuredData from '@/components/ui-custom/StructuredData'
-import VenuePartnersSection from '@/components/sections/VenuePartnersSection'
-import NewsletterSection from '@/components/sections/NewsletterSection'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -35,28 +30,44 @@ export default function Home() {
       {!loadingComplete && (
         <LoadingScreen onComplete={() => setLoadingComplete(true)} />
       )}
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <ReadingProgressBar />
         <Navbar />
         <main className="flex-1">
+          {/* SB7 #1: Character — Hook the customer with their desire */}
           <HeroSection />
-          <SectionDivider variant="gold-wave" />
-          <AboutSection />
+
+          {/* SB7 #2 + #6: Problem + Failure — What's at stake */}
+          <ProblemSection />
+
+          {/* SB7 #3: Guide — Position Maharaja as the trusted expert */}
+          <GuideSection />
+
+          {/* Guide's Expertise — Types of celebrations */}
           <ServicesSection />
-          <ProcessSection />
+
+          {/* SB7 #4: Plan — 3 steps to success */}
+          <PlanSection />
+
+          {/* SB7 #4: Plan Details — Menu choices */}
           <MenuSection />
+
+          {/* SB7 #4: Plan Pricing — Transparent investment */}
           <PricingSection />
-          <EventCalculator />
+
+          {/* SB7 #7: Success Visual — See what success looks like */}
           <GallerySection />
-          <SpecialOffersSection />
-          <VenuePartnersSection />
-          <CTABanner />
+
+          {/* SB7 #7: Success Stories — Real testimonials */}
           <TestimonialsSection />
-          <NewsletterSection />
-          <StatsSection />
-          <SectionDivider variant="maroon-peak" />
+
+          {/* SB7 #5: Call to Action — Don't let your event be forgettable */}
+          <CTASection />
+
+          {/* Objection Handling — FAQ */}
           <FAQSection />
-          <SectionDivider variant="double-line" />
+
+          {/* Final Conversion — Contact form */}
           <ContactSection />
         </main>
         <Footer />
