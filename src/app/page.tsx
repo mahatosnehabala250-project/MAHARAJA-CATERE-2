@@ -13,9 +13,6 @@ import StatsSection from '@/components/sections/StatsSection'
 import ContactSection from '@/components/sections/ContactSection'
 import Footer from '@/components/sections/Footer'
 import WhatsAppFloat from '@/components/ui-custom/WhatsAppFloat'
-import EventTypeChips from '@/components/ui-custom/EventTypeChips'
-import MaharajaFigures from '@/components/ui-custom/MaharajaFigures'
-import SocialProofBanner from '@/components/ui-custom/SocialProofBanner'
 import PricingSection from '@/components/sections/PricingSection'
 import FAQSection from '@/components/sections/FAQSection'
 import ProcessSection from '@/components/sections/ProcessSection'
@@ -25,26 +22,9 @@ import ReadingProgressBar from '@/components/ui-custom/ReadingProgressBar'
 import SpecialOffersSection from '@/components/sections/SpecialOffersSection'
 import CookieConsent from '@/components/ui-custom/CookieConsent'
 import SectionDivider from '@/components/ui-custom/SectionDivider'
-import TrustSection from '@/components/sections/TrustSection'
 import EventCalculator from '@/components/ui-custom/EventCalculator'
 import StructuredData from '@/components/ui-custom/StructuredData'
 import VenuePartnersSection from '@/components/sections/VenuePartnersSection'
-import FloatingActionMenu from '@/components/ui-custom/FloatingActionMenu'
-import MenuDownloadCTA from '@/components/ui-custom/MenuDownloadCTA'
-import ChefSpecialSection from '@/components/sections/ChefSpecialSection'
-import EventCountdown from '@/components/ui-custom/EventCountdown'
-import TestimonialVideoSection from '@/components/sections/TestimonialVideoSection'
-import ImageCarousel from '@/components/ui-custom/ImageCarousel'
-import BeforeAfterComparison from '@/components/sections/BeforeAfterComparison'
-import InteractiveMapSection from '@/components/sections/InteractiveMapSection'
-import SeasonalMenuSection from '@/components/sections/SeasonalMenuSection'
-import GuestReviewsWidget from '@/components/ui-custom/GuestReviewsWidget'
-import SocialFeedSection from '@/components/sections/SocialFeedSection'
-import LiveActivityFeed from '@/components/ui-custom/LiveActivityFeed'
-import WhatsAppChatPopup from '@/components/ui-custom/WhatsAppChatPopup'
-import DietaryMenuFilter from '@/components/sections/DietaryMenuFilter'
-import FestivalCalendarSection from '@/components/sections/FestivalCalendarSection'
-import RoyalBrandsSection from '@/components/sections/RoyalBrandsSection'
 import NewsletterSection from '@/components/sections/NewsletterSection'
 
 export default function Home() {
@@ -61,48 +41,28 @@ export default function Home() {
         <Navbar />
         <main className="flex-1">
           <HeroSection />
-          <ImageCarousel />
           <SectionDivider variant="gold-wave" />
-          <SocialProofBanner />
-          <MaharajaFigures />
           <AboutSection />
-          <TrustSection />
-          <EventTypeChips />
           <ServicesSection />
           <ProcessSection />
           <MenuSection />
-          <MenuDownloadCTA />
-          <SeasonalMenuSection />
-          <DietaryMenuFilter />
-          <ChefSpecialSection />
           <PricingSection />
           <EventCalculator />
-          <EventCountdown />
           <GallerySection />
-          <BeforeAfterComparison />
           <SpecialOffersSection />
-          <FestivalCalendarSection />
           <VenuePartnersSection />
-          <RoyalBrandsSection />
           <CTABanner />
           <TestimonialsSection />
-          <TestimonialVideoSection />
           <NewsletterSection />
-          <SocialFeedSection />
           <StatsSection />
           <SectionDivider variant="maroon-peak" />
           <FAQSection />
           <SectionDivider variant="double-line" />
-          <InteractiveMapSection />
           <ContactSection />
         </main>
         <Footer />
         <WhatsAppFloat />
         <ScrollToTop />
-        <FloatingActionMenu />
-        <GuestReviewsWidget />
-        <LiveActivityFeed />
-        <WhatsAppChatPopup />
       </div>
       <CookieConsent />
     </>
