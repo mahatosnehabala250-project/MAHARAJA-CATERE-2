@@ -72,13 +72,11 @@ export default function HeroSection() {
     >
       {/* ---- Background image with parallax ---- */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
-        <Image
+        {/* Raw img tag — original quality, no Next.js compression */}
+        <img
           src="/images/hero-bg-new.png"
           alt="Maharaja Caterer — royal feast setting"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Cinematic dark overlay — clean gradient */}
         <div
