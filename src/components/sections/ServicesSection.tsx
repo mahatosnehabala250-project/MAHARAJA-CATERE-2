@@ -122,7 +122,7 @@ function ServiceCard({
   return (
     <motion.div
       variants={cardVariants}
-      className="group card-royal-hover rounded-xl bg-white/90 border border-royal-gold/15 overflow-hidden hover:border-royal-gold/50"
+      className="group card-royal-hover rounded-xl bg-white/90 dark:bg-[#2D1B00]/80 border border-royal-gold/15 overflow-hidden hover:border-royal-gold/50"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -153,8 +153,8 @@ function ServiceCard({
         {/* Golden sparkle overlay on hover */}
         {isHovered && <SparkleOverlay />}
 
-        {/* Icon overlay */}
-        <div className="absolute bottom-4 left-4 z-[2] w-12 h-12 rounded-full bg-royal-gold flex items-center justify-center shadow-lg">
+        {/* Icon overlay with scale on hover */}
+        <div className="absolute bottom-4 left-4 z-[2] w-12 h-12 rounded-full bg-royal-gold flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-royal-gold/40">
           <service.icon className="w-5 h-5 text-white" />
         </div>
 
@@ -165,7 +165,7 @@ function ServiceCard({
       </div>
 
       {/* Card content */}
-      <div className="p-6 space-y-3">
+      <div className="p-6 space-y-3 relative">
         <h3 className="text-xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)]">
           {service.title}
         </h3>
@@ -174,11 +174,17 @@ function ServiceCard({
         </p>
         <a
           href="#contact"
-          className="inline-flex items-center gap-2 text-royal-gold-dark font-semibold text-sm font-[family-name:var(--font-lato)] group/link transition-all duration-300 hover:text-royal-gold hover:gap-3"
+          className="inline-flex items-center gap-2 text-royal-gold-dark font-semibold text-sm font-[family-name:var(--font-lato)] group/link transition-all duration-300 hover:text-royal-gold hover:gap-3 relative"
         >
-          Learn More
+          <span className="relative">
+            Learn More
+            <span className="absolute left-0 -bottom-0.5 w-0 h-0.5 bg-royal-gold transition-all duration-300 group-hover/link:w-full" />
+          </span>
           <ArrowRight className="w-4 h-4 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:text-royal-gold" />
         </a>
+
+        {/* Gold gradient bar at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
     </motion.div>
   );
@@ -191,7 +197,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative py-20 md:py-28 section-royal overflow-hidden"
+      className="relative py-20 md:py-28 section-royal overflow-hidden dark:bg-[#1a0f00]/50"
       ref={sectionRef}
     >
       {/* Decorative background corners */}
@@ -211,7 +217,7 @@ export default function ServicesSection() {
           <span className="text-royal-gold font-semibold uppercase tracking-widest text-sm font-[family-name:var(--font-lato)]">
             What We Offer
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] mt-3 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-royal-maroon dark:text-royal-cream font-[family-name:var(--font-playfair)] mt-3 mb-6">
             Our Royal Services
           </h2>
           {/* Ornament divider */}

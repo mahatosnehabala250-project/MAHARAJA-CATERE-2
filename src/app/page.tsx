@@ -25,12 +25,16 @@ import ReadingProgressBar from '@/components/ui-custom/ReadingProgressBar'
 import SpecialOffersSection from '@/components/sections/SpecialOffersSection'
 import CookieConsent from '@/components/ui-custom/CookieConsent'
 import SectionDivider from '@/components/ui-custom/SectionDivider'
+import TrustSection from '@/components/sections/TrustSection'
+import EventCalculator from '@/components/ui-custom/EventCalculator'
+import StructuredData from '@/components/ui-custom/StructuredData'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
 
   return (
     <>
+      <StructuredData />
       {!loadingComplete && (
         <LoadingScreen onComplete={() => setLoadingComplete(true)} />
       )}
@@ -43,11 +47,13 @@ export default function Home() {
           <SocialProofBanner />
           <MaharajaFigures />
           <AboutSection />
+          <TrustSection />
           <EventTypeChips />
           <ServicesSection />
           <ProcessSection />
           <MenuSection />
           <PricingSection />
+          <EventCalculator />
           <GallerySection />
           <SpecialOffersSection />
           <CTABanner />

@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { X, ZoomIn } from 'lucide-react'
+import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -50,14 +50,16 @@ const itemVariants = {
 function GalleryCard({
   image,
   onClick,
+  isWide,
 }: {
   image: GalleryImage
   onClick: () => void
+  isWide: boolean
 }) {
   return (
     <motion.div
       variants={itemVariants}
-      className="group cursor-pointer"
+      className={`group cursor-pointer ${isWide ? 'lg:col-span-2' : ''}`}
       onClick={onClick}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
@@ -74,6 +76,11 @@ function GalleryCard({
           />
         </div>
 
+        {/* Gold shimmer overlay on hover */}
+        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-royal-gold/20 to-transparent skew-x-12" />
+        </div>
+
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-royal-maroon/90 via-royal-maroon/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-4">
           <ZoomIn className="w-8 h-8 text-royal-gold mb-2 drop-shadow-lg" />
@@ -87,8 +94,20 @@ function GalleryCard({
 }
 
 export default function GallerySection() {
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
-  const isOpen = selectedImage !== null
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+
+  const selectedImage = selectedIndex !== null ? galleryImages[selectedIndex] : null
+  const isOpen = selectedIndex !== null
+
+  const goPrev = useCallback(() => {
+    if (selectedIndex === null) return
+    setSelectedIndex((selectedIndex - 1 + galleryImages.length) % galleryImages.length)
+  }, [selectedIndex])
+
+  const goNext = useCallback(() => {
+    if (selectedIndex === null) return
+    setSelectedIndex((selectedIndex + 1) % galleryImages.length)
+  }, [selectedIndex])
 
   return (
     <section id="gallery" className="section-royal relative py-20 md:py-28 overflow-hidden">
@@ -115,7 +134,7 @@ export default function GallerySection() {
           </p>
         </motion.div>
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid with masonry-like layout */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -123,19 +142,20 @@ export default function GallerySection() {
           viewport={{ once: true, margin: '-50px' }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
         >
-          {galleryImages.map((image) => (
+          {galleryImages.map((image, index) => (
             <GalleryCard
               key={image.src}
               image={image}
-              onClick={() => setSelectedImage(image)}
+              onClick={() => setSelectedIndex(index)}
+              isWide={index === 0 || index === galleryImages.length - 1}
             />
           ))}
         </motion.div>
       </div>
 
       {/* Lightbox Dialog */}
-      <Dialog open={isOpen} onOpenChange={(open) => { if (!open) setSelectedImage(null) }}>
-        <DialogContent className="max-w-4xl w-[calc(100%-2rem)] p-0 bg-black/95 border-royal-gold/40 overflow-hidden [&>button]:hidden">
+      <Dialog open={isOpen} onOpenChange={(open) => { if (!open) setSelectedIndex(null) }}>
+        <DialogContent className="max-w-4xl w-[calc(100%-2rem)] p-0 bg-black/98 backdrop-blur-xl border-royal-gold/30 overflow-hidden [&>button]:hidden">
           <DialogTitle className="sr-only">{selectedImage?.title ?? 'Gallery image'}</DialogTitle>
           {selectedImage && (
             <div className="relative">
@@ -146,11 +166,27 @@ export default function GallerySection() {
               />
               {/* Close button */}
               <button
-                onClick={() => setSelectedImage(null)}
+                onClick={() => setSelectedIndex(null)}
                 className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
                 aria-label="Close lightbox"
               >
                 <X className="w-5 h-5" />
+              </button>
+              {/* Previous arrow */}
+              <button
+                onClick={goPrev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-royal-gold/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              {/* Next arrow */}
+              <button
+                onClick={goNext}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-royal-gold/80 flex items-center justify-center text-royal-cream transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-royal-gold/50"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5" />
               </button>
               {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">

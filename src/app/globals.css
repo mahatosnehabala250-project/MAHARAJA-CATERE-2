@@ -272,6 +272,52 @@
   animation: marquee 30s linear infinite;
 }
 
+@keyframes glow-pulse {
+  0%, 100% {
+    background-color: rgba(212, 160, 23, 0.03);
+    box-shadow: 0 0 20px rgba(212, 160, 23, 0.05);
+  }
+  50% {
+    background-color: rgba(212, 160, 23, 0.08);
+    box-shadow: 0 0 40px rgba(212, 160, 23, 0.12), 0 0 80px rgba(212, 160, 23, 0.05);
+  }
+}
+
+@keyframes border-shimmer {
+  0% { border-color: rgba(212, 160, 23, 0.3); }
+  25% { border-color: rgba(255, 215, 0, 0.6); }
+  50% { border-color: rgba(184, 134, 11, 0.7); }
+  75% { border-color: rgba(255, 215, 0, 0.6); }
+  100% { border-color: rgba(212, 160, 23, 0.3); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.animate-border-shimmer {
+  animation: border-shimmer 3s ease-in-out infinite;
+}
+
+.text-shadow-gold {
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.3), 0 0 20px rgba(212, 160, 23, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bg-noise {
+  position: relative;
+}
+.bg-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  z-index: 0;
+}
+
 /* Maharaja Gold Gradient Text */
 .text-gold-gradient {
   background: linear-gradient(135deg, #D4A017 0%, #FFD700 25%, #B8860B 50%, #FFD700 75%, #D4A017 100%);

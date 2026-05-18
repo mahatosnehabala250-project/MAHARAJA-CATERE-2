@@ -66,7 +66,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`size-4 ${
+          className={`size-5 ${
             star <= rating
               ? 'fill-royal-gold text-royal-gold'
               : 'fill-muted text-muted'
@@ -160,9 +160,9 @@ export default function TestimonialsSection() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="h-full"
                   >
-                    <div className="bg-royal-cream/95 rounded-xl p-6 border-2 border-royal-gold/30 hover:border-royal-gold/60 transition-all duration-300 card-royal-hover h-full flex flex-col">
+                    <div className="bg-gradient-to-br from-royal-cream/95 to-white rounded-xl p-6 border-2 border-royal-gold/30 hover:border-royal-gold/60 transition-all duration-300 card-royal-hover h-full flex flex-col">
                       {/* Quote icon */}
-                      <Quote className="size-8 text-royal-gold/30 mb-3 fill-royal-gold/30" />
+                      <Quote className="size-12 text-royal-gold/50 mb-3 fill-royal-gold/30" />
 
                       {/* Comment */}
                       <p className="text-royal-maroon/80 text-sm leading-relaxed mb-4 flex-1 font-[var(--font-lato)]">
@@ -175,7 +175,7 @@ export default function TestimonialsSection() {
                       {/* Author info */}
                       <div className="flex items-center gap-3">
                         {/* Avatar */}
-                        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-md">
+                        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-royal-gold to-royal-gold-dark flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-md ring-2 ring-transparent hover:ring-royal-gold/60 hover:ring-offset-2 hover:ring-offset-royal-cream transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/30">
                           {getInitials(testimonial.name)}
                         </div>
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useMemo, useCallback, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -83,6 +83,7 @@ function FloatingParticles() {
   }, [])
 
   const particles = useMemo<Particle[]>(() => {
+    if (!mounted) return []
     const arr: Particle[] = []
     for (let i = 0; i < 30; i++) {
       arr.push({
@@ -95,7 +96,7 @@ function FloatingParticles() {
       })
     }
     return arr
-  }, [])
+  }, [mounted])
 
   if (!mounted) return null
 
@@ -236,6 +237,8 @@ function StatItem({
 
 export default function HeroSection() {
   const controls = useAnimation()
+  const { scrollY } = useScroll()
+  const bgY = useTransform(scrollY, [0, 500], [0, 150])
 
   useEffect(() => {
     controls.start('visible')
@@ -264,8 +267,8 @@ export default function HeroSection() {
       id="hero"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
     >
-      {/* ---- Background image ---- */}
-      <div className="absolute inset-0 z-0">
+      {/* ---- Background image with parallax ---- */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <Image
           src="/images/hero-bg.png"
           alt="Maharaja Caterer — royal feast setting"
@@ -282,7 +285,7 @@ export default function HeroSection() {
               'linear-gradient(to bottom, rgba(26,15,0,0.75) 0%, rgba(45,27,0,0.65) 40%, rgba(128,0,32,0.55) 70%, rgba(26,15,0,0.85) 100%)',
           }}
         />
-      </div>
+      </motion.div>
 
       {/* ---- Floating particles ---- */}
       <FloatingParticles />

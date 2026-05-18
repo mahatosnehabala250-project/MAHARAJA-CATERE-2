@@ -111,7 +111,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative py-20 md:py-28 section-royal overflow-hidden"
+      className="relative py-20 md:py-28 section-royal overflow-hidden dark:bg-[#1a0f00]/50"
       ref={sectionRef}
     >
       {/* Mandala pattern background */}
@@ -157,7 +157,7 @@ export default function PricingSection() {
             <motion.div
               key={pkg.name}
               variants={cardVariants}
-              className={`relative rounded-2xl bg-royal-cream/95 border-2 ${pkg.isPopular ? 'border-royal-gold shadow-2xl lg:scale-105 z-10' : pkg.accentBorder + ' shadow-lg'} overflow-hidden transition-shadow duration-300 hover:shadow-xl`}
+              className={`relative rounded-2xl bg-royal-cream/95 dark:bg-[#2D1B00]/90 border-2 ${pkg.isPopular ? 'border-royal-gold shadow-2xl lg:scale-105 z-10' : pkg.accentBorder + ' shadow-lg'} overflow-hidden transition-shadow duration-300 hover:shadow-xl`}
             >
               {/* Popular badge */}
               {pkg.isPopular && (

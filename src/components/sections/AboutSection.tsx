@@ -19,7 +19,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative py-20 md:py-28 overflow-hidden mandala-bg"
+      className="relative py-20 md:py-28 overflow-hidden mandala-bg dark:bg-[#1a0f00]/30"
       ref={sectionRef}
     >
       {/* Background decorative elements */}
@@ -35,11 +35,14 @@ export default function AboutSection() {
             initial={{ opacity: 0, x: -60 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="relative flex justify-center"
+            className="relative flex justify-center group"
           >
             <div className="relative w-full max-w-lg">
-              {/* Outer gold border frame */}
-              <div className="absolute -inset-3 border-2 border-royal-gold/40 rounded-xl" />
+              {/* Subtle background glow behind image frame */}
+              <div className="absolute -inset-10 bg-royal-gold/10 rounded-full blur-3xl animate-glow-pulse pointer-events-none" />
+
+              {/* Outer gold border frame with shimmer on hover */}
+              <div className="absolute -inset-3 border-2 border-royal-gold/40 rounded-xl transition-all duration-500 group-hover:animate-border-shimmer" />
 
               {/* Decorative corner ornaments */}
               <div className="absolute -top-4 -left-4 w-10 h-10 z-10">
@@ -122,6 +125,15 @@ export default function AboutSection() {
               </p>
             </div>
 
+            {/* Decorative SVG divider */}
+            <div className="flex items-center justify-center gap-3 py-2">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-royal-gold/40" />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#D4A017" fillOpacity="0.6" />
+              </svg>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-royal-gold/40" />
+            </div>
+
             {/* Key highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {highlights.map((item, index) => (
@@ -130,7 +142,7 @@ export default function AboutSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-white/60 border border-royal-gold/15 hover:border-royal-gold/40 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-white/60 dark:bg-[#2D1B00]/60 border border-royal-gold/15 border-l-4 border-l-royal-gold hover:border-royal-gold/40 hover:border-l-royal-gold-light transition-colors"
                 >
                   <div className="flex-shrink-0 w-9 h-9 rounded-full bg-royal-gold/10 flex items-center justify-center">
                     <item.icon className="w-4 h-4 text-royal-gold" />

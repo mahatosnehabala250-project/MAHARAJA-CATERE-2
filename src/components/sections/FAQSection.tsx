@@ -77,7 +77,7 @@ export default function FAQSection() {
   return (
     <section
       id="faq"
-      className="relative py-20 md:py-28 section-royal overflow-hidden"
+      className="relative py-20 md:py-28 section-royal overflow-hidden dark:bg-[#1a0f00]/50"
       ref={sectionRef}
     >
       {/* Mandala pattern overlay */}
@@ -121,7 +121,7 @@ export default function FAQSection() {
               <motion.div key={index} variants={itemVariants}>
                 <AccordionItem
                   value={`item-${index}`}
-                  className="bg-white/80 backdrop-blur-sm border border-royal-gold/15 rounded-lg px-6 data-[state=open]:border-l-4 data-[state=open]:border-l-royal-gold data-[state=open]:shadow-lg data-[state=open]:shadow-royal-gold/5 transition-all duration-300 group"
+                  className="bg-white/80 dark:bg-[#2D1B00]/80 backdrop-blur-sm border border-royal-gold/15 rounded-lg px-6 data-[state=open]:border-l-4 data-[state=open]:border-l-royal-gold data-[state=open]:shadow-lg data-[state=open]:shadow-royal-gold/5 transition-all duration-300 group"
                 >
                   <AccordionTrigger className="text-royal-maroon font-[family-name:var(--font-playfair)] text-base sm:text-lg font-semibold hover:text-royal-gold hover:no-underline transition-colors py-5">
                     <span className="flex items-center gap-3 text-left">
