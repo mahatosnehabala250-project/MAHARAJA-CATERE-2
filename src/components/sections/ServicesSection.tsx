@@ -169,7 +169,7 @@ function ServiceCard({
         <h3 className="text-xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)]">
           {service.title}
         </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed font-[family-name:var(--font-lato)]">
+        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed font-[family-name:var(--font-lato)]">
           {service.description}
         </p>
         <a

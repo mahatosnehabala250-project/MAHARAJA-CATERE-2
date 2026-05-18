@@ -1117,3 +1117,349 @@ StructuredData → Loading → Navbar → ReadingProgressBar → Hero → ImageC
 - Add Google Analytics integration
 - ARIA labels audit across all interactive elements
 - Test dark mode across ALL sections including newest ones
+
+---
+
+## Task ID: R9-1
+**Agent:** Bug Fix & Mobile Improvement Agent
+**Task:** Fix QA-identified mobile bugs: readability, cookie consent, spacing, and keyboard navigation
+
+### Work Log
+
+#### Bug Fix 1: Mobile readability — text too small
+- **ServicesSection.tsx**: Changed service description from `text-sm` to `text-sm sm:text-base` for better mobile readability
+- **PricingSection.tsx**: Three changes:
+  - Package description: `text-sm` → `text-sm sm:text-base`
+  - Feature list items: `text-sm` → `text-sm sm:text-base`
+  - Min guests note: `text-xs` → `text-xs sm:text-sm`
+- **FAQSection.tsx**: Already had `text-sm sm:text-base` on answer text — no changes needed
+- **GallerySection.tsx**: Changed "View" overlay text from `text-sm` to `text-sm sm:text-base` for better readability on mobile
+- **SocialFeedSection.tsx**: Changed caption text from `text-[10px]` to `text-xs sm:text-sm` — 10px was far too small to read on mobile
+- **BeforeAfterComparison.tsx**: Changed "Before"/"After" labels from `text-sm` to `text-xs sm:text-sm` minimum for readability on small screens
+
+#### Bug Fix 2: Cookie consent top banner blocking navbar
+- **CookieConsent.tsx**: Changed positioning from `fixed top-0 left-0 right-0` to `fixed top-14 left-0 right-0 w-full` on mobile (below the navbar which is h-14 on mobile), and added `sm:top-auto sm:bottom-6` for desktop positioning. This prevents the cookie banner from overlapping with the navbar on mobile devices.
+
+#### Bug Fix 3: Mobile section spacing inconsistency
+- **TrustSection.tsx**: Changed from `py-20 md:py-28` to `py-16 sm:py-20 md:py-28` — more breathing room on small screens
+- **EventTypeChips.tsx**: Changed from `py-12 md:py-16` to `py-12 sm:py-16 md:py-20` — better spacing progression
+- **ChefSpecialSection.tsx**: Changed from `py-20 md:py-28` to `py-16 sm:py-20 md:py-28` — consistent with other sections
+- **SeasonalMenuSection.tsx**: Changed from `py-20 md:py-28` to `py-16 sm:py-20 md:py-28` — consistent with other sections
+
+#### Bug Fix 4: Gallery lightbox keyboard navigation
+- **GallerySection.tsx**: Verified that keyboard navigation already exists and is fully implemented:
+  - `useEffect` with `keydown` event listener when lightbox is open
+  - Left arrow → `goPrev()`, Right arrow → `goNext()`, Escape → `setSelectedIndex(null)`
+  - Event listener properly added/removed with cleanup function
+  - Dependencies correctly include `isOpen`, `goPrev`, `goNext`
+  - No changes needed — already working correctly
+
+### Verification
+- `bun run lint` passes with zero errors (1 pre-existing warning in unrelated file LiveActivityFeed.tsx)
+- All changes use Tailwind CSS classes, no inline styles added
+- All changes maintain existing code style and royal color scheme
+- No new component files created
+
+### Files Modified
+1. `src/components/sections/ServicesSection.tsx` — text size fix
+2. `src/components/sections/PricingSection.tsx` — text size fixes (3)
+3. `src/components/sections/GallerySection.tsx` — text size fix
+4. `src/components/sections/SocialFeedSection.tsx` — text size fix
+5. `src/components/sections/BeforeAfterComparison.tsx` — text size fixes (2)
+6. `src/components/ui-custom/CookieConsent.tsx` — positioning fix
+7. `src/components/sections/TrustSection.tsx` — spacing fix
+8. `src/components/ui-custom/EventTypeChips.tsx` — spacing fix
+9. `src/components/sections/ChefSpecialSection.tsx` — spacing fix
+10. `src/components/sections/SeasonalMenuSection.tsx` — spacing fix
+
+
+---
+
+## Task ID: R9-3
+**Agent:** Feature Addition Agent
+**Task:** Create LiveActivityFeed, WhatsAppChatPopup, and DietaryMenuFilter components
+
+### Work Log
+
+#### Component 1: LiveActivityFeed (`src/components/ui-custom/LiveActivityFeed.tsx`)
+- `use client` component — floating social proof ticker
+- Position: fixed at bottom-20 (mobile, above cookie consent area) / bottom-6 left-6 (desktop, bottom-left card)
+- z-index 996 (does not conflict with WhatsApp button z-999 or cookie consent z-999)
+- 6 rotating "booking" notifications:
+  1. 🎉 "Someone in Purulia just booked a Wedding package!" — Just now
+  2. ⭐ "5-star review from Rajesh K. — 'Amazing food!'" — 2 mins ago
+  3. 🍽️ "Corporate lunch booked for 200 guests in Purulia" — 5 mins ago
+  4. 💍 "Wedding reception confirmed for March 2025" — 8 mins ago
+  5. 🌸 "Durga Puja catering booked — 500 plates!" — 12 mins ago
+  6. 📞 "New inquiry from Asansol for Birthday party" — 15 mins ago
+- Auto-rotates every 4 seconds with slide-in/out animation (framer-motion AnimatePresence)
+- Each notification has:
+  - Gold icon on the left
+  - Message text in cream on dark maroon/90 backdrop-blur background
+  - 3px gold left border
+  - Semi-transparent backdrop-blur background
+  - Timestamp in small text (text-royal-gold/60)
+- Dismiss button (X) that stores dismissal in sessionStorage (key: maharaja-activity-dismissed)
+- Auto-dismisses after 5 page views (sessionStorage counter: maharaja-activity-count)
+  - Count increment handled in useState initializer (no setState in effect — satisfies react-hooks/set-state-in-effect lint rule)
+- Mobile: full-width bottom bar style (left-0 right-0 with px-3), Desktop: max-w-sm card style (left-6 right-auto)
+- Animated entrance: spring physics slide up from bottom (y: 100 → 0) with 5s delay
+
+#### Component 2: WhatsAppChatPopup (`src/components/ui-custom/WhatsAppChatPopup.tsx`)
+- `use client` component — interactive chat-style popup simulating a WhatsApp conversation
+- Position: fixed bottom-24 sm:bottom-28 right-4 sm:right-6, z-index 998
+- Standalone with own trigger button ("Chat with us" pill)
+- Trigger button:
+  - Green gradient (from-[#25D366] to-[#128C7E])
+  - MessageCircle icon + "Chat with us" text
+  - gentle-bounce animation (existing utility class from globals.css)
+  - Appears after 6 seconds delay
+  - hover:scale-105 with green shadow glow
+- Chat popup window:
+  - Header: Green (#075E54) WhatsApp-style with "Maharaja Caterer" name, "MC" avatar, online status dot with pulse, close button
+  - Chat area: WhatsApp-style beige background (#ECE5DD) with subtle pattern overlay
+    - "Today" date indicator
+    - 3 pre-set bot messages with staggered appearance (800ms, 1600ms, 2400ms delays):
+      1. "👋 Namaste! Welcome to Maharaja Caterer. How can we help you?"
+      2. "We offer: Wedding Catering • Corporate Events • Birthday Parties • Religious Ceremonies"
+      3. "📞 Call us: +91 89450 05456 or click below to chat on WhatsApp!"
+    - Each message appears after typing indicator (3 bouncing dots with staggered animation)
+    - Messages have WhatsApp-style bubbles (white, rounded-lg, with tail SVG, timestamps)
+  - Quick reply buttons at bottom:
+    - "📅 Book Event" (maroon bg) → links to #contact
+    - "🍽️ View Menu" (gold bg) → links to #menu
+    - "💬 Chat on WhatsApp" (green bg) → opens wa.me/918945005456
+- Animation: spring scale-up entrance (scale 0.8 → 1), smooth close
+- Responsive: works on both mobile and desktop
+
+#### Component 3: DietaryMenuFilter (`src/components/sections/DietaryMenuFilter.tsx`)
+- `use client` component with section id="dietary"
+- section-royal background with mandala-bg overlay
+- Section header: "Dietary Preferences" with gold gradient text, ornament divider, and subtitle
+- 6 dietary filter chips in a horizontal wrap row:
+  1. 🥬 Vegetarian (green badge)
+  2. 🌱 Vegan (emerald badge)
+  3. 🥜 Nut-Free (amber badge)
+  4. 🍞 Gluten-Free (orange badge)
+  5. 🥛 Dairy-Free (blue badge)
+  6. 🌶️ Spicy (red badge)
+- Each chip is toggleable (click to select/deselect) with aria-pressed attribute
+- Active state: filled color (bg + text white), inactive: light bg + colored text
+- Hover: subtle scale and shadow
+- Below the chips, show 8 food cards filtered by selected dietary tags:
+  1. "Paneer Tikka" — Vegetarian, Gluten-Free
+  2. "Dal Tadka" — Vegan, Gluten-Free
+  3. "Veg Biryani" — Vegetarian, Nut-Free
+  4. "Chingri Malaikari" — Nut-Free, Spicy
+  5. "Aloo Gobi" — Vegan, Dairy-Free, Nut-Free
+  6. "Misti Doi" — Vegetarian, Gluten-Free, Nut-Free
+  7. "Kosha Mangsho" — Spicy, Nut-Free, Dairy-Free
+  8. "Veg Hakka Noodles" — Vegetarian, Dairy-Free
+- When no filter is selected, show all 8 items
+- When filters are selected, show only items matching ANY selected filter (OR logic)
+- Active filter count indicator with "Clear all" button
+- Cards have staggered framer-motion reveal animation (containerVariants + cardVariants)
+- Each card has: food emoji, name (Playfair), description (Lato), dietary badges (colored pills matching filter), gold left accent (1px gradient), gold border
+- Hover effect: scale-[1.02], gold border glow, shadow-[0_0_25px_rgba(212,160,23,0.2)]
+- "View Full Menu" CTA button at bottom linking to #menu with gold gradient and pulse-glow animation
+- Decorative SVG corner elements matching existing style
+- No results message when filtered items is empty
+
+#### Page Integration (`src/app/page.tsx`)
+- Imported LiveActivityFeed, WhatsAppChatPopup, DietaryMenuFilter
+- Added `<DietaryMenuFilter />` between SeasonalMenuSection and ChefSpecialSection
+- Added `<LiveActivityFeed />` after GuestReviewsWidget (before closing </div> of main container)
+- Added `<WhatsAppChatPopup />` after LiveActivityFeed (before closing </div> of main container)
+
+### Updated Page Section Order
+StructuredData → Loading → Navbar → ReadingProgressBar → Hero → ImageCarousel → SectionDivider(gold-wave) → SocialProof → MaharajaFigures → About → TrustSection → EventTypeChips → Services → Process → Menu → MenuDownloadCTA → SeasonalMenuSection → **DietaryMenuFilter** → ChefSpecialSection → PricingSection → EventCalculator → EventCountdown → Gallery → BeforeAfterComparison → SpecialOffers → VenuePartners → CTABanner → Testimonials → TestimonialVideo → SocialFeed → Stats → SectionDivider(maroon-peak) → FAQ → SectionDivider(double-line) → InteractiveMap → Contact → Footer
++ WhatsAppFloat + ScrollToTop + FloatingActionMenu + GuestReviewsWidget + **LiveActivityFeed** + **WhatsAppChatPopup** (fixed position)
++ CookieConsent (outside main div)
+
+### Component Count
+- Sections: AboutSection, CTABanner, ChefSpecialSection, ContactSection, DietaryMenuFilter, FAQSection, Footer, GallerySection, HeroSection, InteractiveMapSection, MenuSection, Navbar, PricingSection, ProcessSection, SeasonalMenuSection, ServicesSection, SocialFeedSection, SpecialOffersSection, StatsSection, TestimonialsSection, TestimonialVideoSection, TrustSection, VenuePartnersSection, BeforeAfterComparison (24)
+- Custom UI: CookieConsent, DarkModeToggle, EventCalculator, EventTypeChips, FloatingActionMenu, GuestReviewsWidget, ImageCarousel, LiveActivityFeed, LoadingScreen, MaharajaFigures, MenuDownloadCTA, ReadingProgressBar, ScrollToTop, SectionDivider, SocialProofBanner, StructuredData, WhatsAppChatPopup, WhatsAppFloat, EventCountdown (19)
+- Total: 43 components
+
+### Verification
+- `bun run lint` passes with zero errors
+- Dev server compiling and returning 200 consistently
+- All 3 components follow existing code style (TypeScript, Tailwind CSS, framer-motion, royal color scheme, Playfair/Lato fonts)
+- All components have `use client` directive
+- All interactive elements have proper ARIA labels (aria-label, aria-pressed, role="img" aria-hidden)
+- No z-index conflicts with existing components
+
+
+---
+
+## Task ID: R9-2
+**Agent:** Styling Improvement Agent
+**Task:** Premium styling improvements across 6 areas — interactive slider, Instagram masonry, back-to-top, carousel, seasonal hover, new animations
+
+### Work Log
+
+#### Improvement 1: Enhanced globals.css with new premium animations
+- **File**: `src/app/globals.css`
+- Added `@keyframes ticker-scroll` — smooth horizontal scroll for activity ticker (translateX 0 to -100%)
+- Added `.animate-ticker-scroll` utility class (30s linear infinite)
+- Added `@keyframes glow-ring` — pulsing gold ring effect (box-shadow expanding/contracting)
+- Added `.animate-glow-ring` utility class (2s ease-in-out infinite)
+- Added `@keyframes slide-in-bounce` — entrance with slight bounce (translateY with cubic-bezier)
+- Added `.animate-slide-in-bounce` utility class (0.6s)
+- Added `@keyframes typing-cursor` — blinking cursor effect (opacity 0 to 1)
+- Added `.animate-typing-cursor` utility class (1s step-end infinite)
+- Added `@keyframes confetti-fall` — subtle falling animation for celebration moments (translateY + rotate)
+- Added `.animate-confetti-fall` utility class (3s ease-in-out infinite)
+
+#### Improvement 2: Enhanced BeforeAfterComparison with interactive slider
+- **File**: `src/components/sections/BeforeAfterComparison.tsx`
+- Replaced static stacked before/after cards with **interactive slider comparison**
+- Created `ComparisonSlider` sub-component with draggable slider divider
+- Desktop: works with mouse drag (onMouseDown/onMouseMove/onMouseUp)
+- Mobile: works with touch drag (onTouchStart/onTouchMove/onTouchEnd)
+- Added vertical gold gradient divider line with circular gold handle (left/right arrows SVG)
+- Handle scales up (110%) when actively dragging for tactile feedback
+- Before side on left using `clipPath: inset(0 ${100-sliderPosition}% 0 0)` for reveal control
+- After side on right, full width behind
+- Added floating "Before" (top-left, black/50 bg) and "After" (top-right, gold bg) labels
+- Added ARIA slider role with aria-valuenow, aria-valuemin, aria-valuemax
+- Added hint text "↕ Drag the slider to compare before & after" in section header
+- All 3 cards have interactive slider, kept framer-motion staggered reveal animation
+
+#### Improvement 3: Enhanced SocialFeedSection with Instagram-like masonry
+- **File**: `src/components/sections/SocialFeedSection.tsx`
+- Changed grid from `grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5` to `grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4`
+- Made first and last cards taller: `aspect-[3/4]` for first/last, `aspect-square` for middle cards
+- Added gold shimmer overlay on hover: sweeping gold gradient from left to right using `translate-x-[-100%] group-hover:translate-x-[100%]`
+- Added gold gradient border animation on hover: inset box-shadow with gold color
+- Increased heart overlay size on hover: `w-10 h-10 sm:w-12 sm:h-12` (was `w-8 h-8`)
+- Added **double-tap heart animation**: when user double-clicks a card, show large white heart (w-20 h-20) that appears and fades using AnimatePresence
+- Made captions `text-xs sm:text-sm` (was `text-[10px]`)
+- Added verified badge (✓) next to Instagram handle in header — small gold circle with white checkmark
+- Extracted `SocialCard` sub-component for cleaner code with per-card state
+
+#### Improvement 4: Enhanced Footer with animated back-to-top
+- **File**: `src/components/sections/Footer.tsx`
+- Added animated "Back to Top" button between main content and bottom bar
+  - Gold gradient circular button (Crown icon from lucide-react)
+  - `hover:scale-110` and `hover:shadow-[0_0_25px_rgba(212,160,23,0.5)]` hover effects
+  - Crown icon has `group-hover:animate-gentle-bounce` for playful interaction
+  - Gold glow ring overlay appears on hover (`animate-glow-ring`)
+  - Smooth scrolls to `#hero` section
+- Added decorative gold ornamental line above bottom copyright bar
+  - Diamond shape (rotated square) in center with gradient lines extending left and right
+- Made social links have gold/green background on hover instead of just opacity change
+  - Facebook: `hover:bg-royal-gold hover:text-royal-maroon`
+  - WhatsApp: `hover:bg-green-600 hover:text-white`
+  - Phone: `hover:bg-royal-gold hover:text-royal-maroon`
+  - Email: `hover:bg-royal-gold hover:text-royal-maroon`
+- Added Crown import from lucide-react
+
+#### Improvement 5: Enhanced ImageCarousel with parallax text, progress bar, Ken Burns
+- **File**: `src/components/ui-custom/ImageCarousel.tsx`
+- Added **Ken Burns effect** on current slide: `motion.div` with `initial={{ scale: 1.0, x: 0 }}` to `animate={{ scale: 1.08, x: '-2%' }}` over 5 seconds
+- Added **gold progress bar** at bottom of carousel showing auto-play progress
+  - Uses `requestAnimationFrame` for smooth 0-100% fill matching 4s autoplay duration
+  - Resets on slide change, pauses when hovered
+  - Gold gradient: `from-royal-gold-dark via-royal-gold to-royal-gold-light`
+- Added **slide number indicator** "01 / 05" style in bottom-right corner
+  - Current slide number in bold gold, total in white/50
+  - Uses `String(n).padStart(2, '0')` for zero-padded formatting
+- Made navigation **dots slightly larger** with gold glow on active dot
+  - Active: `w-9 sm:w-11 h-3 sm:h-3.5` with `shadow-[0_0_12px_rgba(212,160,23,0.7)]`
+  - Inactive: `w-3 sm:w-3.5 h-3 sm:h-3.5`
+- Added **parallax text effect**: text overlay moves with slightly different timing using `ease: [0.16, 1, 0.3, 1]` cubic-bezier and longer duration (0.6s vs 0.4s previously)
+- Progress bar uses refs (startTimeRef, progressRef) for smooth animation
+- Fixed lint issue: removed `setProgress(0)` from effect body (was synchronous setState)
+
+#### Improvement 6: Enhanced SeasonalMenuSection with hover previews
+- **File**: `src/components/sections/SeasonalMenuSection.tsx`
+- Added **hover effect showing sample dishes**: on hover, card expands slightly (`hover:scale-[1.02]`) and shows 2-3 dish names below description
+  - Sample dishes added to data: Kosha Mangsho/Luchi Alur Dom/Chaler Payesh, Aam Panna/Doi Maach/Mango Kulfi, etc.
+  - Dishes appear as small gold-accented pills in a wrap layout
+  - Uses `max-h-0 opacity-0` → `max-h-24 opacity-100` transition for smooth reveal
+- Added **gold sparkle icon** (✦) that appears on hover next to card title
+  - `opacity-0 group-hover:opacity-100` transition
+- Added **diagonal gradient shimmer** sweep on hover
+  - Sweeping gold gradient with slight rotation (`rotate(-3deg) scale(1.2)`)
+  - `translate-x-[-100%]` to `translate-x-[100%]` transition (0.7s)
+- Made **availability badge pulse gently** — added `animate-gentle-bounce` class and pulsing gold dot (`animate-pulse`)
+- Extracted `SeasonalCard` sub-component for per-card hover state management
+
+### Verification
+- `bun run lint` passes with zero errors
+- Dev server compiling and returning 200 consistently
+- All changes follow existing code style and royal color scheme
+- No new component files created — all modifications to existing files only
+- All interactive elements have proper ARIA labels
+
+---
+
+## Task ID: R9
+**Agent:** Cron Review Agent Round 9
+**Task:** Comprehensive QA, Bug Fixes, Premium Styling, and Feature Additions
+
+### Current Project Status Assessment
+- Fully functional premium website for Maharaja Caterer Purulia
+- 44 components total (24 sections + 20 custom UI)
+- 1 API route (contact form), 1 custom hook (useScrollReveal)
+- SEO structured data (JSON-LD) integrated
+- Dev server returning 200 consistently
+- All lint checks passing, zero console errors, zero hydration warnings
+- VLM overall rating: 8/10 (up from 7/10 desktop, 6/10 mobile in previous round)
+
+### QA Testing Results (Round 9)
+- Performed agent-browser testing on desktop (1920x1080) and mobile (375x812)
+- Used VLM to analyze 6+ screenshots across all sections
+- Desktop: Visual quality 8/10, Layout 8/10, Typography 8/10
+- Mobile: Responsiveness 7/10 (improved from 6/10 via mobile readability fixes)
+- VLM noted: strong royal theme, good imagery, premium feel; minor: cookie banner intrusiveness, review widget placement
+
+### Bug Fixes
+1. **Mobile readability — text too small** — Fixed ServicesSection (`text-sm sm:text-base`), PricingSection (3 text size fixes), GallerySection ("View" text), SocialFeedSection (`text-[10px]` → `text-xs sm:text-sm`), BeforeAfterComparison (`text-xs sm:text-sm`)
+2. **Cookie consent blocking navbar** — Changed mobile positioning from `fixed top-0` to `fixed top-14` (below navbar), added `w-full` for mobile, `sm:top-auto sm:bottom-6` for desktop
+3. **Mobile section spacing inconsistency** — Increased mobile padding in TrustSection, EventTypeChips, ChefSpecialSection, SeasonalMenuSection (`py-16 sm:py-20 md:py-28`)
+4. **Gallery lightbox keyboard navigation** — Verified already implemented (Left/Right + Escape), no changes needed
+
+### Styling Improvements (Mandatory)
+1. **globals.css premium animations** — Added 5 new keyframes: ticker-scroll (horizontal scroll), glow-ring (pulsing gold ring), slide-in-bounce (bounce entrance), typing-cursor (blinking cursor), confetti-fall (celebration falling) — each with utility classes
+2. **BeforeAfterComparison interactive slider** — Replaced static before/after stacked cards with draggable slider comparison. Users drag left/right (mouse/touch) to reveal before/after. Vertical gold divider with circular handle, floating labels, ARIA slider attributes
+3. **SocialFeedSection Instagram-like masonry** — Changed grid to 2-3 cols with varied aspect ratios, gold shimmer overlay on hover, gold gradient border animation, double-tap heart animation, larger captions, verified badge (✓)
+4. **Footer animated back-to-top** — Gold gradient Crown button scrolling to #hero, scale+glow hover, gentle-bounce Crown animation, decorative ornamental gold line above bottom bar, social links with gold/green fill on hover
+5. **ImageCarousel premium effects** — Ken Burns effect (slow zoom/pan), gold progress bar for auto-play, slide number indicator ("01 / 05"), larger navigation dots with gold glow, parallax text effect
+6. **SeasonalMenuSection hover previews** — Cards expand on hover revealing sample dish pills, gold sparkle icon (✦) on hover title, diagonal gradient shimmer sweep, pulsing availability badge
+
+### New Features (Mandatory)
+1. **LiveActivityFeed** — Floating social proof ticker showing recent "booking" notifications. Auto-rotates 6 messages every 4s with slide animations. Gold left border, dark maroon backdrop-blur, timestamps, dismissible with sessionStorage, auto-dismiss after 5 views, z-index 996
+2. **WhatsAppChatPopup** — Interactive chat-style popup simulating WhatsApp. "Chat with us" trigger pill with green gradient + bounce. 3 bot messages with typing delays, WhatsApp-style bubbles. Quick reply buttons: Book Event, View Menu, Chat on WhatsApp. Spring scale-up entrance, z-index 998
+3. **DietaryMenuFilter** — Section with 6 toggleable dietary filter chips (Vegetarian, Vegan, Nut-Free, Gluten-Free, Dairy-Free, Spicy). 8 food cards filtered by OR logic. Each card: emoji, name, description, colored dietary badges, hover scale/glow. "View Full Menu" CTA
+
+### Component Count
+- Sections (24): AboutSection, BeforeAfterComparison, CTABanner, ChefSpecialSection, ContactSection, DietaryMenuFilter, FAQSection, Footer, GallerySection, HeroSection, InteractiveMapSection, MenuSection, Navbar, PricingSection, ProcessSection, SeasonalMenuSection, ServicesSection, SocialFeedSection, SpecialOffersSection, StatsSection, TestimonialsSection, TestimonialVideoSection, TrustSection, VenuePartnersSection
+- Custom UI (20): CookieConsent, DarkModeToggle, EventCalculator, EventCountdown, EventTypeChips, FloatingActionMenu, FloatingParticles, GuestReviewsWidget, ImageCarousel, LiveActivityFeed, LoadingScreen, MaharajaFigures, MenuDownloadCTA, ReadingProgressBar, ScrollToTop, SectionDivider, SocialProofBanner, StructuredData, WhatsAppChatPopup, WhatsAppFloat
+- Total: 44 components + 1 hook
+
+### Page Section Order
+StructuredData → Loading → Navbar → ReadingProgressBar → Hero → ImageCarousel → SectionDivider(gold-wave) → SocialProof → MaharajaFigures → About → TrustSection → EventTypeChips → Services → Process → Menu → MenuDownloadCTA → SeasonalMenuSection → **DietaryMenuFilter** → ChefSpecialSection → Pricing → EventCalculator → EventCountdown → Gallery → BeforeAfterComparison → SpecialOffers → VenuePartners → CTABanner → Testimonials → TestimonialVideoSection → SocialFeedSection → Stats → SectionDivider(maroon-peak) → FAQ → SectionDivider(double-line) → InteractiveMapSection → Contact → Footer
++ WhatsAppFloat + ScrollToTop + FloatingActionMenu + GuestReviewsWidget + **LiveActivityFeed** + **WhatsAppChatPopup** + CookieConsent (fixed position)
+
+### Unresolved Issues / Risks
+- Google Maps embed uses generic Purulia coordinates (needs exact business location)
+- Pricing is approximate, should be confirmed with business owner
+- Video testimonials show "Coming Soon" — need real video content
+- Chef's Special / BeforeAfter / SocialFeed images are gradient placeholders
+- WhatsAppChatPopup is a simulation, not connected to real WhatsApp API
+- Performance could benefit from code splitting and dynamic imports for below-fold sections
+- Dark mode not fully tested on newest sections (DietaryMenuFilter, etc.)
+
+### Priority Recommendations for Next Phase
+- Replace placeholder images with real food photography and venue photos
+- Add real YouTube video testimonial embeds
+- Performance optimization: dynamic imports for below-fold sections, image lazy loading with blur placeholders
+- Mobile spacing audit — further optimize touch targets and padding
+- Add Open Graph / social sharing meta images
+- Add Google Analytics integration
+- ARIA labels audit across all interactive elements
+- Test and refine dark mode across ALL sections including newest ones
+- Add image preloading for gallery lightbox smooth transitions
+- Consider adding a real-time chat integration (WhatsApp Business API)

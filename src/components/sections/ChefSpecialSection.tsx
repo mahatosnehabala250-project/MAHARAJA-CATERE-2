@@ -179,7 +179,7 @@ export default function ChefSpecialSection() {
   return (
     <section
       id="chef-special"
-      className="relative py-20 md:py-28 section-dark-royal overflow-hidden"
+      className="relative py-16 sm:py-20 md:py-28 section-dark-royal overflow-hidden"
       ref={sectionRef}
     >
       {/* Mandala pattern background */}

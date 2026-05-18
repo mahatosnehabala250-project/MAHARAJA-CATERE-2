@@ -71,7 +71,7 @@ export default function TrustSection() {
   return (
     <section
       id="trust"
-      className="relative py-20 md:py-28 section-royal dark:bg-[#1a0f00]/40 overflow-hidden"
+      className="relative py-16 sm:py-20 md:py-28 section-royal dark:bg-[#1a0f00]/40 overflow-hidden"
     >
       {/* Mandala pattern background */}
       <div className="absolute inset-0 mandala-bg opacity-60" />

@@ -1,8 +1,7 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { ArrowDown } from 'lucide-react'
 
 interface ComparisonCard {
   id: string
@@ -57,6 +56,176 @@ const cardVariants = {
     scale: 1,
     transition: { duration: 0.7, ease: 'easeOut' },
   },
+}
+
+function ComparisonSlider({ card }: { card: ComparisonCard }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [sliderPosition, setSliderPosition] = useState(50)
+  const [isDragging, setIsDragging] = useState(false)
+
+  const handleMove = useCallback(
+    (clientX: number) => {
+      if (!containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const x = clientX - rect.left
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100))
+      setSliderPosition(percentage)
+    },
+    []
+  )
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      setIsDragging(true)
+      handleMove(e.clientX)
+    },
+    [handleMove]
+  )
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging) return
+      handleMove(e.clientX)
+    },
+    [isDragging, handleMove]
+  )
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      setIsDragging(true)
+      handleMove(e.touches[0].clientX)
+    },
+    [handleMove]
+  )
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!isDragging) return
+      handleMove(e.touches[0].clientX)
+    },
+    [isDragging, handleMove]
+  )
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  return (
+    <div className="group relative rounded-2xl overflow-hidden border-2 border-royal-gold/20 bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 hover:border-royal-gold/50 hover:shadow-xl hover:shadow-royal-gold/10 hover:-translate-y-1">
+      {/* Card title */}
+      <div className="px-5 pt-5 pb-3">
+        <h3 className="text-xl md:text-2xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] text-center">
+          {card.title}
+        </h3>
+      </div>
+
+      {/* Interactive slider comparison */}
+      <div
+        ref={containerRef}
+        className="relative mx-4 mb-4 rounded-xl overflow-hidden aspect-[4/3] select-none cursor-ew-resize"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        role="slider"
+        aria-label={`Before and after comparison for ${card.title}. Drag to reveal.`}
+        aria-valuenow={Math.round(sliderPosition)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        {/* After side (full width, behind) */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${card.afterGradient} flex flex-col items-center justify-center`}>
+          <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-royal-gold/40">
+            <span className="text-white font-semibold text-sm uppercase tracking-wider font-[family-name:var(--font-lato)]">
+              After
+            </span>
+          </div>
+          <p className="mt-3 text-white/90 text-sm font-[family-name:var(--font-lato)]">
+            {card.afterLabel}
+          </p>
+          {/* Decorated venue icon */}
+          <svg className="w-16 h-16 mt-3 text-white/60" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="20" width="48" height="32" rx="2" stroke="currentColor" strokeWidth="2" />
+            <path d="M8 20 L32 8 L56 20" stroke="currentColor" strokeWidth="2" fill="none" />
+            <circle cx="20" cy="14" r="3" fill="#FFD700" />
+            <circle cx="32" cy="10" r="4" fill="#FFD700" />
+            <circle cx="44" cy="14" r="3" fill="#FFD700" />
+            <rect x="14" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <rect x="28" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <rect x="42" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="8" y1="20" x2="56" y2="20" stroke="currentColor" strokeWidth="2" />
+            <path d="M14 42 L14 52" stroke="#FFD700" strokeWidth="1" />
+            <path d="M50 42 L50 52" stroke="#FFD700" strokeWidth="1" />
+            <circle cx="14" cy="42" r="2" fill="#FFD700" />
+            <circle cx="50" cy="42" r="2" fill="#FFD700" />
+          </svg>
+        </div>
+
+        {/* Before side (clipped, on top) */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${card.beforeGradient} flex flex-col items-center justify-center`}
+          style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        >
+          <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+            <span className="text-gray-600 font-semibold text-sm uppercase tracking-wider font-[family-name:var(--font-lato)]">
+              Before
+            </span>
+          </div>
+          <p className="mt-3 text-gray-500 text-sm font-[family-name:var(--font-lato)]">
+            {card.beforeLabel}
+          </p>
+          {/* Plain venue icon placeholder */}
+          <svg className="w-16 h-16 mt-3 text-gray-400/50" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="20" width="48" height="32" rx="2" stroke="currentColor" strokeWidth="2" />
+            <rect x="14" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <rect x="28" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <rect x="42" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="8" y1="20" x2="56" y2="20" stroke="currentColor" strokeWidth="2" />
+          </svg>
+        </div>
+
+        {/* Vertical gold divider line */}
+        <div
+          className="absolute top-0 bottom-0 z-10 pointer-events-none"
+          style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+        >
+          <div className="w-0.5 h-full bg-gradient-to-b from-royal-gold via-royal-gold-light to-royal-gold shadow-[0_0_8px_rgba(212,160,23,0.6)]" />
+
+          {/* Circular gold handle */}
+          <div
+            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-royal-gold-dark via-royal-gold to-royal-gold-light border-2 border-white shadow-lg flex items-center justify-center transition-transform duration-150 ${isDragging ? 'scale-110' : 'scale-100'}`}
+            style={{ boxShadow: '0 0 12px rgba(212,160,23,0.5), 0 2px 8px rgba(0,0,0,0.3)' }}
+          >
+            {/* Left/Right arrows in handle */}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-white">
+              <path d="M6 10L3 10M3 10L5.5 7.5M3 10L5.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M14 10L17 10M17 10L14.5 7.5M17 10L14.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Floating labels */}
+        <div className="absolute top-3 left-3 z-20 pointer-events-none">
+          <span className="bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider font-[family-name:var(--font-lato)]">
+            Before
+          </span>
+        </div>
+        <div className="absolute top-3 right-3 z-20 pointer-events-none">
+          <span className="bg-royal-gold/80 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider font-[family-name:var(--font-lato)]">
+            After
+          </span>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default function BeforeAfterComparison() {
@@ -123,9 +292,12 @@ export default function BeforeAfterComparison() {
           <p className="mt-6 text-muted-foreground text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
             Witness how we transform ordinary venues into extraordinary celebrations
           </p>
+          <p className="mt-2 text-royal-gold/70 text-sm font-[family-name:var(--font-lato)]">
+            ↕ Drag the slider to compare before &amp; after
+          </p>
         </motion.div>
 
-        {/* Comparison cards */}
+        {/* Comparison cards with interactive sliders */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -136,79 +308,8 @@ export default function BeforeAfterComparison() {
             <motion.div
               key={card.id}
               variants={cardVariants}
-              className="group relative rounded-2xl overflow-hidden border-2 border-royal-gold/20 bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 hover:border-royal-gold/50 hover:shadow-xl hover:shadow-royal-gold/10 hover:-translate-y-1"
             >
-              {/* Card title */}
-              <div className="px-5 pt-5 pb-3">
-                <h3 className="text-xl md:text-2xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] text-center">
-                  {card.title}
-                </h3>
-              </div>
-
-              {/* Before image */}
-              <div className="relative mx-4 rounded-xl overflow-hidden aspect-[4/3]">
-                <div className={`absolute inset-0 bg-gradient-to-br ${card.beforeGradient} flex flex-col items-center justify-center`}>
-                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
-                    <span className="text-gray-600 font-semibold text-sm uppercase tracking-wider font-[family-name:var(--font-lato)]">
-                      Before
-                    </span>
-                  </div>
-                  <p className="mt-3 text-gray-500 text-sm font-[family-name:var(--font-lato)]">
-                    {card.beforeLabel}
-                  </p>
-                  {/* Plain venue icon placeholder */}
-                  <svg className="w-16 h-16 mt-3 text-gray-400/50" viewBox="0 0 64 64" fill="none">
-                    <rect x="8" y="20" width="48" height="32" rx="2" stroke="currentColor" strokeWidth="2" />
-                    <rect x="14" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                    <rect x="28" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                    <rect x="42" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                    <line x1="8" y1="20" x2="56" y2="20" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Decorative divider between before/after */}
-              <div className="flex items-center justify-center py-2 px-4">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-royal-gold/50 to-transparent" />
-                <motion.div
-                  className="mx-3 w-8 h-8 rounded-full bg-royal-gold flex items-center justify-center shadow-md"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  <ArrowDown className="w-4 h-4 text-white" />
-                </motion.div>
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-royal-gold/50 to-transparent" />
-              </div>
-
-              {/* After image */}
-              <div className="relative mx-4 mb-4 rounded-xl overflow-hidden aspect-[4/3]">
-                <div className={`absolute inset-0 bg-gradient-to-br ${card.afterGradient} flex flex-col items-center justify-center`}>
-                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-royal-gold/40">
-                    <span className="text-white font-semibold text-sm uppercase tracking-wider font-[family-name:var(--font-lato)]">
-                      After
-                    </span>
-                  </div>
-                  <p className="mt-3 text-white/90 text-sm font-[family-name:var(--font-lato)]">
-                    {card.afterLabel}
-                  </p>
-                  {/* Decorated venue icon */}
-                  <svg className="w-16 h-16 mt-3 text-white/60" viewBox="0 0 64 64" fill="none">
-                    <rect x="8" y="20" width="48" height="32" rx="2" stroke="currentColor" strokeWidth="2" />
-                    <path d="M8 20 L32 8 L56 20" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <circle cx="20" cy="14" r="3" fill="#FFD700" />
-                    <circle cx="32" cy="10" r="4" fill="#FFD700" />
-                    <circle cx="44" cy="14" r="3" fill="#FFD700" />
-                    <rect x="14" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                    <rect x="28" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                    <rect x="42" y="26" width="10" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                    <line x1="8" y1="20" x2="56" y2="20" stroke="currentColor" strokeWidth="2" />
-                    <path d="M14 42 L14 52" stroke="#FFD700" strokeWidth="1" />
-                    <path d="M50 42 L50 52" stroke="#FFD700" strokeWidth="1" />
-                    <circle cx="14" cy="42" r="2" fill="#FFD700" />
-                    <circle cx="50" cy="42" r="2" fill="#FFD700" />
-                  </svg>
-                </div>
-              </div>
+              <ComparisonSlider card={card} />
             </motion.div>
           ))}
         </motion.div>

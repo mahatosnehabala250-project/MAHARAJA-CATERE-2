@@ -60,7 +60,7 @@ export default function EventTypeChips() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-12 md:py-16 overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 overflow-hidden"
     >
       {/* Semi-transparent cream background with subtle pattern */}
       <div className="absolute inset-0 bg-royal-cream/60" />

@@ -40,6 +40,9 @@ import InteractiveMapSection from '@/components/sections/InteractiveMapSection'
 import SeasonalMenuSection from '@/components/sections/SeasonalMenuSection'
 import GuestReviewsWidget from '@/components/ui-custom/GuestReviewsWidget'
 import SocialFeedSection from '@/components/sections/SocialFeedSection'
+import LiveActivityFeed from '@/components/ui-custom/LiveActivityFeed'
+import WhatsAppChatPopup from '@/components/ui-custom/WhatsAppChatPopup'
+import DietaryMenuFilter from '@/components/sections/DietaryMenuFilter'
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -67,6 +70,7 @@ export default function Home() {
           <MenuSection />
           <MenuDownloadCTA />
           <SeasonalMenuSection />
+          <DietaryMenuFilter />
           <ChefSpecialSection />
           <PricingSection />
           <EventCalculator />
@@ -91,6 +95,8 @@ export default function Home() {
         <ScrollToTop />
         <FloatingActionMenu />
         <GuestReviewsWidget />
+        <LiveActivityFeed />
+        <WhatsAppChatPopup />
       </div>
       <CookieConsent />
     </>

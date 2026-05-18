@@ -235,7 +235,7 @@ export default function PricingSection() {
                 </div>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm mb-6 font-[family-name:var(--font-lato)]">
+                <p className="text-muted-foreground text-sm sm:text-base mb-6 font-[family-name:var(--font-lato)]">
                   {pkg.description}
                 </p>
 
@@ -247,13 +247,13 @@ export default function PricingSection() {
                   {pkg.features.map((feature) => (
                     <li key={feature.text} className="flex items-start gap-2.5">
                       <Check className={`w-4 h-4 mt-0.5 shrink-0 ${pkg.isPopular ? 'text-royal-gold' : 'text-muted-foreground'}`} />
-                      <span className="text-sm text-foreground/80 font-[family-name:var(--font-lato)]">{feature.text}</span>
+                      <span className="text-sm sm:text-base text-foreground/80 font-[family-name:var(--font-lato)]">{feature.text}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Min guests */}
-                <p className="text-xs text-muted-foreground font-medium mb-5 font-[family-name:var(--font-lato)] italic">
+                <p className="text-xs sm:text-sm text-muted-foreground font-medium mb-5 font-[family-name:var(--font-lato)] italic">
                   {pkg.minGuests}
                 </p>
 

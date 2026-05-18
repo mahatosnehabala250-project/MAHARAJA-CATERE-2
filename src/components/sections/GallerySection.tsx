@@ -83,7 +83,7 @@ function GalleryCard({
 
         {/* Hover overlay with gradient darkening from bottom and gold "View" text */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
-          <span className="text-royal-gold font-semibold text-sm uppercase tracking-widest mb-2 font-[family-name:var(--font-lato)] drop-shadow-lg">
+          <span className="text-royal-gold font-semibold text-sm sm:text-base uppercase tracking-widest mb-2 font-[family-name:var(--font-lato)] drop-shadow-lg">
             View
           </span>
           <h3 className="text-white font-bold text-lg text-center drop-shadow-lg font-[family-name:var(--font-playfair)]">

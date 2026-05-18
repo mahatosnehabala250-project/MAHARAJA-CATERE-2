@@ -11,6 +11,7 @@ import {
   MessageCircle,
   ExternalLink,
   Send,
+  Crown,
 } from 'lucide-react'
 
 const quickLinks = [
@@ -41,6 +42,15 @@ export default function Footer() {
       setSubscribed(true)
       setEmail('')
       setTimeout(() => setSubscribed(false), 4000)
+    }
+  }
+
+  const scrollToTop = () => {
+    const heroEl = document.getElementById('hero')
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
@@ -212,6 +222,26 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Animated Back to Top Button */}
+      <div className="flex justify-center -mt-2 mb-4">
+        <button
+          onClick={scrollToTop}
+          className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-royal-gold-dark via-royal-gold to-royal-gold-light flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(212,160,23,0.5)]"
+          aria-label="Back to top"
+        >
+          <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:animate-gentle-bounce" />
+          {/* Gold glow ring on hover */}
+          <div className="absolute inset-0 rounded-full animate-glow-ring opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </button>
+      </div>
+
+      {/* Decorative gold ornamental line above bottom copyright bar */}
+      <div className="relative h-8 flex items-center justify-center">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rotate-45 border border-royal-gold/50 bg-royal-gold/20" />
+        <div className="absolute left-4 sm:left-8 right-1/2 mr-6 sm:mr-8 top-1/2 h-px bg-gradient-to-r from-transparent via-royal-gold/50 to-royal-gold/50" />
+        <div className="absolute right-4 sm:right-8 left-1/2 ml-6 sm:ml-8 top-1/2 h-px bg-gradient-to-l from-transparent via-royal-gold/50 to-royal-gold/50" />
+      </div>
+
       {/* Gold Divider Line */}
       <div className="h-px bg-gradient-to-r from-transparent via-royal-gold/50 to-transparent" />
 
@@ -228,13 +258,13 @@ export default function Footer() {
             Made with ❤️ in Purulia
           </p>
 
-          {/* Social Icons */}
+          {/* Social Icons with gold background on hover */}
           <div className="flex items-center gap-3">
             <a
               href="https://www.facebook.com/profile.php?id=100064833288803"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-royal-gold hover:text-royal-maroon hover:border-royal-gold hover:scale-110 transition-all duration-300"
               aria-label="Facebook"
             >
               <Facebook className="size-4" />
@@ -243,21 +273,21 @@ export default function Footer() {
               href="https://wa.me/918945005456"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-green-500 hover:border-green-500/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-green-600 hover:text-white hover:border-green-600 hover:scale-110 transition-all duration-300"
               aria-label="WhatsApp"
             >
               <MessageCircle className="size-4" />
             </a>
             <a
               href="tel:+918945005456"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-royal-gold hover:text-royal-maroon hover:border-royal-gold hover:scale-110 transition-all duration-300"
               aria-label="Phone"
             >
               <Phone className="size-4" />
             </a>
             <a
               href="mailto:maharajaCaterer104@gmail.com"
-              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:scale-110 hover:text-royal-gold hover:border-royal-gold/50 transition-all duration-300"
+              className="w-9 h-9 rounded-full bg-royal-cream/5 border border-royal-gold/20 flex items-center justify-center text-royal-cream/50 hover:bg-royal-gold hover:text-royal-maroon hover:border-royal-gold hover:scale-110 transition-all duration-300"
               aria-label="Email"
             >
               <Mail className="size-4" />

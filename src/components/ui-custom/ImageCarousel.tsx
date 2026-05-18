@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -63,6 +63,11 @@ export default function ImageCarousel() {
   const [direction, setDirection] = useState(1)
   const [isPaused, setIsPaused] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const progressRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null)
+  const startTimeRef = useRef<number>(0)
+
+  const AUTOPLAY_DURATION = 4000 // 4 seconds
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- standard mount pattern for hydration safety
@@ -73,6 +78,7 @@ export default function ImageCarousel() {
     (index: number) => {
       setDirection(index > currentIndex ? 1 : -1)
       setCurrentIndex(index)
+      setProgress(0)
     },
     [currentIndex]
   )
@@ -80,19 +86,47 @@ export default function ImageCarousel() {
   const goNext = useCallback(() => {
     setDirection(1)
     setCurrentIndex((prev) => (prev + 1) % slides.length)
+    setProgress(0)
   }, [])
 
   const goPrev = useCallback(() => {
     setDirection(-1)
     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length)
+    setProgress(0)
   }, [])
 
   // Auto-play every 4 seconds
   useEffect(() => {
     if (isPaused || !mounted) return
-    const timer = setInterval(goNext, 4000)
+    const timer = setInterval(goNext, AUTOPLAY_DURATION)
     return () => clearInterval(timer)
   }, [isPaused, mounted, goNext])
+
+  // Progress bar animation
+  useEffect(() => {
+    if (isPaused || !mounted) {
+      return
+    }
+
+    startTimeRef.current = performance.now()
+
+    const animate = (now: number) => {
+      const elapsed = now - startTimeRef.current
+      const pct = Math.min((elapsed / AUTOPLAY_DURATION) * 100, 100)
+      setProgress(pct)
+      if (pct < 100) {
+        progressRef.current = requestAnimationFrame(animate)
+      }
+    }
+
+    progressRef.current = requestAnimationFrame(animate)
+
+    return () => {
+      if (progressRef.current) {
+        cancelAnimationFrame(progressRef.current)
+      }
+    }
+  }, [currentIndex, isPaused, mounted])
 
   if (!mounted) {
     return (
@@ -121,10 +155,13 @@ export default function ImageCarousel() {
           transition={slideTransition}
           className="absolute inset-0"
         >
-          {/* Background image */}
-          <div
+          {/* Background image with Ken Burns effect */}
+          <motion.div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slides[currentIndex].image})` }}
+            initial={{ scale: 1.0, x: 0 }}
+            animate={{ scale: 1.08, x: '-2%' }}
+            transition={{ duration: 5, ease: 'linear' }}
           />
 
           {/* Gold gradient overlay at bottom for text readability */}
@@ -135,15 +172,15 @@ export default function ImageCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Title overlay at bottom */}
+      {/* Title overlay at bottom with parallax effect */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`title-${currentIndex}`}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.4 }}
-          className="absolute bottom-12 sm:bottom-16 left-0 right-0 text-center z-10 px-4"
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute bottom-14 sm:bottom-18 left-0 right-0 text-center z-10 px-4"
         >
           <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white font-[family-name:var(--font-playfair)] text-shadow-gold">
             {slides[currentIndex].title}
@@ -169,7 +206,7 @@ export default function ImageCarousel() {
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
-      {/* Navigation Dots */}
+      {/* Navigation Dots - larger with gold glow on active */}
       <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-3">
         {slides.map((slide, index) => (
           <button
@@ -179,14 +216,29 @@ export default function ImageCarousel() {
               rounded-full transition-all duration-300
               ${
                 index === currentIndex
-                  ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-royal-gold shadow-[0_0_8px_rgba(212,160,23,0.6)]'
-                  : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-white/50 hover:bg-royal-gold/70 border border-white/30'
+                  ? 'w-9 sm:w-11 h-3 sm:h-3.5 bg-royal-gold shadow-[0_0_12px_rgba(212,160,23,0.7)]'
+                  : 'w-3 sm:w-3.5 h-3 sm:h-3.5 bg-white/50 hover:bg-royal-gold/70 border border-white/30'
               }
             `}
             aria-label={`Go to slide ${index + 1}: ${slide.title}`}
             aria-current={index === currentIndex ? 'true' : undefined}
           />
         ))}
+      </div>
+
+      {/* Slide number indicator */}
+      <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 font-[family-name:var(--font-lato)] text-sm sm:text-base tracking-wider">
+        <span className="text-royal-gold font-bold">{String(currentIndex + 1).padStart(2, '0')}</span>
+        <span className="text-white/50 mx-1">/</span>
+        <span className="text-white/50">{String(slides.length).padStart(2, '0')}</span>
+      </div>
+
+      {/* Gold progress bar at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 h-1 bg-black/30">
+        <div
+          className="h-full bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light transition-none"
+          style={{ width: `${progress}%` }}
+        />
       </div>
 
       {/* Pause indicator */}

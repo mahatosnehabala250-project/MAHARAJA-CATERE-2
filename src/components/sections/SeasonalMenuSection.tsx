@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 interface SeasonalItem {
@@ -9,6 +9,7 @@ interface SeasonalItem {
   title: string
   description: string
   availability: string
+  sampleDishes: string[]
 }
 
 const seasonalItems: SeasonalItem[] = [
@@ -18,6 +19,7 @@ const seasonalItems: SeasonalItem[] = [
     title: 'Durga Puja Feast',
     description: 'Traditional Bengali bhog with 25+ items including kosha mangsho, luchi, and payesh',
     availability: 'Available Oct',
+    sampleDishes: ['Kosha Mangsho', 'Luchi Alur Dom', 'Chaler Payesh'],
   },
   {
     id: 'summer-cooler',
@@ -25,6 +27,7 @@ const seasonalItems: SeasonalItem[] = [
     title: 'Summer Cooler Menu',
     description: 'Refreshing drinks, light curries, and fruit desserts perfect for summer events',
     availability: 'Available May-Jul',
+    sampleDishes: ['Aam Panna', 'Doi Maach', 'Mango Kulfi'],
   },
   {
     id: 'winter-wedding',
@@ -32,6 +35,7 @@ const seasonalItems: SeasonalItem[] = [
     title: 'Winter Wedding Special',
     description: 'Rich gravies, kebabs, and warm desserts for the perfect winter celebration',
     availability: 'Available Nov-Feb',
+    sampleDishes: ['Mutton Rezala', 'Seekh Kebab', 'Gajar Ka Halwa'],
   },
   {
     id: 'diwali-dinner',
@@ -39,6 +43,7 @@ const seasonalItems: SeasonalItem[] = [
     title: 'Diwali Dinner Package',
     description: 'Grand festive spread with sweets, snacks, and royal dinner options',
     availability: 'Available Oct-Nov',
+    sampleDishes: ['Paneer Tikka', 'Gulab Jamun', 'Dal Makhani'],
   },
 ]
 
@@ -59,6 +64,74 @@ const cardVariants = {
     scale: 1,
     transition: { duration: 0.6, ease: 'easeOut' },
   },
+}
+
+function SeasonalCard({ item }: { item: SeasonalItem }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <motion.div
+      variants={cardVariants}
+      className="group relative rounded-2xl bg-white/90 backdrop-blur-sm border-l-4 border-l-royal-gold border border-royal-gold/20 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-l-royal-gold/80 hover:shadow-[0_0_30px_rgba(212,160,23,0.2)]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Hover glow overlay */}
+      <div
+        className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ boxShadow: '0 0 30px rgba(212, 160, 23, 0.15), inset 0 0 30px rgba(212, 160, 23, 0.05)' }}
+      />
+
+      {/* Diagonal gradient shimmer sweep on hover */}
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden rounded-2xl">
+        <div
+          className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out bg-gradient-to-br from-transparent via-royal-gold-light/15 to-transparent"
+          style={{ transform: isHovered ? 'translateX(100%) rotate(-3deg) scale(1.2)' : 'translateX(-100%) rotate(-3deg) scale(1.2)', transition: 'transform 0.7s ease-in-out' }}
+        />
+      </div>
+
+      <div className="relative p-6 md:p-8 flex flex-col items-center text-center">
+        {/* Season emoji */}
+        <span className="text-4xl mb-4">{item.emoji}</span>
+
+        {/* Title with gold sparkle on hover */}
+        <h3 className="text-lg md:text-xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] mb-3 inline-flex items-center gap-1.5">
+          {item.title}
+          <span
+            className="text-royal-gold text-base opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            aria-hidden="true"
+          >
+            ✦
+          </span>
+        </h3>
+
+        {/* Description */}
+        <p className="text-royal-maroon/60 text-sm font-[family-name:var(--font-lato)] mb-4 leading-relaxed">
+          {item.description}
+        </p>
+
+        {/* Sample dishes on hover */}
+        <div className={`overflow-hidden transition-all duration-300 ${isHovered ? 'max-h-24 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}`}>
+          <div className="flex flex-wrap justify-center gap-1.5">
+            {item.sampleDishes.map((dish) => (
+              <span
+                key={dish}
+                className="inline-flex items-center text-xs font-[family-name:var(--font-lato)] px-2.5 py-1 rounded-full bg-royal-gold/10 text-royal-gold-dark border border-royal-gold/20"
+              >
+                {dish}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Availability badge with gentle pulse */}
+        <span className="inline-flex items-center bg-royal-gold/15 text-royal-gold text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full font-[family-name:var(--font-lato)] animate-gentle-bounce">
+          <span className="w-1.5 h-1.5 rounded-full bg-royal-gold mr-1.5 animate-pulse" aria-hidden="true" />
+          {item.availability}
+        </span>
+      </div>
+    </motion.div>
+  )
 }
 
 export default function SeasonalMenuSection() {
@@ -131,37 +204,7 @@ export default function SeasonalMenuSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
         >
           {seasonalItems.map((item) => (
-            <motion.div
-              key={item.id}
-              variants={cardVariants}
-              className="group relative rounded-2xl bg-white/90 backdrop-blur-sm border-l-4 border-l-royal-gold border border-royal-gold/20 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-l-royal-gold/80 hover:shadow-[0_0_30px_rgba(212,160,23,0.2)]"
-            >
-              {/* Hover glow overlay */}
-              <div
-                className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ boxShadow: '0 0 30px rgba(212, 160, 23, 0.15), inset 0 0 30px rgba(212, 160, 23, 0.05)' }}
-              />
-
-              <div className="relative p-6 md:p-8 flex flex-col items-center text-center">
-                {/* Season emoji */}
-                <span className="text-4xl mb-4">{item.emoji}</span>
-
-                {/* Title */}
-                <h3 className="text-lg md:text-xl font-bold text-royal-maroon font-[family-name:var(--font-playfair)] mb-3">
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-royal-maroon/60 text-sm font-[family-name:var(--font-lato)] mb-4 leading-relaxed">
-                  {item.description}
-                </p>
-
-                {/* Availability badge */}
-                <span className="inline-flex items-center bg-royal-gold/15 text-royal-gold text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full font-[family-name:var(--font-lato)]">
-                  {item.availability}
-                </span>
-              </div>
-            </motion.div>
+            <SeasonalCard key={item.id} item={item} />
           ))}
         </motion.div>
       </div>
