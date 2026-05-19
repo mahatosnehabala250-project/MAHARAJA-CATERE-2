@@ -472,3 +472,13 @@
 .animate-whatsapp-pulse {
   animation: whatsapp-pulse 2.5s ease-in-out infinite;
 }
+
+/* ===== Scrollbar Hide Utility ===== */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

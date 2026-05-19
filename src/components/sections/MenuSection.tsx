@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { UtensilsCrossed } from 'lucide-react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface MenuCategory {
   id: string
@@ -120,9 +120,9 @@ export default function MenuSection() {
 
         {/* Menu Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          {/* Tab Navigation */}
-          <div className="flex justify-center mb-10 md:mb-14">
-            <TabsList className="bg-transparent h-auto p-0 gap-0 flex flex-wrap justify-center border-b border-[#E8E4DD] rounded-none">
+          {/* Tab Navigation — horizontally scrollable on mobile */}
+          <div className="mb-10 md:mb-14 -mx-4 px-4 overflow-x-auto scrollbar-hide">
+            <TabsList className="bg-transparent h-auto p-0 gap-0 flex whitespace-nowrap border-b border-[#E8E4DD] rounded-none justify-start sm:justify-center w-max sm:w-full">
               {menuCategories.map((category) => (
                 <TabsTrigger
                   key={category.id}
@@ -133,7 +133,7 @@ export default function MenuSection() {
                     rounded-none
                     border-b-[3px]
                     border-b-transparent
-                    px-4 sm:px-6 py-3
+                    px-5 sm:px-6 py-3
                     text-sm sm:text-base
                     font-[family-name:var(--font-lato)]
                     font-medium
@@ -145,6 +145,7 @@ export default function MenuSection() {
                     data-[state=active]:border-b-[#D4A017]
                     data-[state=active]:shadow-none
                     data-[state=active]:font-semibold
+                    flex-shrink-0
                   "
                 >
                   {category.label}
@@ -153,43 +154,33 @@ export default function MenuSection() {
             </TabsList>
           </div>
 
-          {/* Tab Content with AnimatePresence */}
-          <AnimatePresence mode="wait">
-            {activeCategory && (
-              <TabsContent
-                key={activeCategory.id}
-                value={activeCategory.id}
-                className="outline-none"
-                forceMount
-              >
+          {/* Tab Content — simple conditional render, no overlap */}
+          {activeCategory && (
+            <motion.div
+              key={activeCategory.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 sm:gap-x-12 gap-y-3 sm:gap-y-5 max-w-3xl mx-auto"
+            >
+              {activeCategory.items.map((item, index) => (
                 <motion.div
-                  key={activeCategory.id}
-                  initial={{ opacity: 0, y: 12 }}
+                  key={item}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4 md:gap-y-5 max-w-3xl mx-auto"
+                  transition={{ duration: 0.25, delay: index * 0.04 }}
+                  className="flex items-center gap-3 py-2.5 px-2 border-b border-[#E8E4DD]/60 hover:translate-x-1 transition-transform"
                 >
-                  {activeCategory.items.map((item, index) => (
-                    <motion.div
-                      key={item}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.04 }}
-                      className="flex items-center gap-3 py-2.5 border-b border-[#E8E4DD]/60 hover:translate-x-1 transition-transform"
-                    >
-                      {/* Gold dot separator */}
-                      <span className="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-[#D4A017]" />
-                      {/* Item name */}
-                      <span className="text-[#1A1A1A] text-base font-[family-name:var(--font-lato)] font-medium leading-snug">
-                        {item}
-                      </span>
-                    </motion.div>
-                  ))}
+                  {/* Gold dot separator */}
+                  <span className="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-[#D4A017]" />
+                  {/* Item name */}
+                  <span className="text-[#1A1A1A] text-sm sm:text-base font-[family-name:var(--font-lato)] font-medium leading-snug">
+                    {item}
+                  </span>
                 </motion.div>
-              </TabsContent>
-            )}
-          </AnimatePresence>
+              ))}
+            </motion.div>
+          )}
         </Tabs>
 
         {/* Bottom accent line */}
