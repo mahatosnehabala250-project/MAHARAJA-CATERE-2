@@ -58,7 +58,7 @@ export default function HeroSection() {
   return (
     <section id="hero" className="relative overflow-hidden bg-white">
       {/* ===== DESKTOP: Split Layout ===== */}
-      <div className="hidden lg:flex h-[78vh] min-h-[520px] max-h-[700px]">
+      <div className="hidden lg:flex h-[78vh] min-h-[520px] max-h-[700px] pt-16">
         {/* ---- LEFT: Text Content — clean, spacious ---- */}
         <div className="flex-1 flex flex-col justify-center px-12 xl:px-20">
           <div className="max-w-lg">
