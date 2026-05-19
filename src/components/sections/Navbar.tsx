@@ -148,13 +148,13 @@ export default function Navbar() {
               onClick={(e) => scrollToSection(e, '#hero')}
               className="flex items-center gap-2.5 flex-shrink-0"
             >
-              <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-gray-200">
                 <Image
                   src="/images/logo.jpg"
-                  alt="Maharaja Caterer Logo"
+                  alt="Maharaja Caterer"
                   fill
                   className="object-cover"
-                  sizes="36px"
+                  sizes="32px"
                   priority
                 />
               </div>
@@ -256,13 +256,13 @@ export default function Navbar() {
                 {/* Drawer Header: Close button */}
                 <div className="flex items-center justify-between p-5 border-b border-gray-100">
                   <div className="flex items-center gap-2.5">
-                    <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
+                    <div className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-gray-200">
                       <Image
                         src="/images/logo.jpg"
-                        alt="Maharaja Caterer Logo"
+                        alt="Maharaja Caterer"
                         fill
                         className="object-cover"
-                        sizes="36px"
+                        sizes="32px"
                       />
                     </div>
                     <span className="font-[family-name:var(--font-playfair)] text-base font-bold text-[#800020]">
