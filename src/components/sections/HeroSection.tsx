@@ -58,9 +58,9 @@ export default function HeroSection() {
   return (
     <section id="hero" className="relative overflow-hidden bg-white">
       {/* ===== DESKTOP: Split Layout ===== */}
-      <div className="hidden lg:flex min-h-screen">
+      <div className="hidden lg:flex h-[78vh] min-h-[520px] max-h-[700px]">
         {/* ---- LEFT: Text Content — clean, spacious ---- */}
-        <div className="flex-1 flex flex-col justify-center px-16 xl:px-24 pt-8">
+        <div className="flex-1 flex flex-col justify-center px-12 xl:px-20">
           <div className="max-w-lg">
             {/* Badge */}
             <motion.div
@@ -88,7 +88,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mb-6 font-[family-name:var(--font-playfair)] text-[3.2rem] xl:text-[3.8rem] font-extrabold leading-[1.08] tracking-tight"
+              className="mb-5 font-[family-name:var(--font-playfair)] text-[2.6rem] xl:text-[3.2rem] font-extrabold leading-[1.1] tracking-tight"
               style={{ color: ROYAL_MAROON }}
             >
               Your Celebration<br />
@@ -102,7 +102,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mb-5 text-lg xl:text-xl text-gray-600 font-[family-name:var(--font-lato)] leading-relaxed max-w-md"
+              className="mb-4 text-base xl:text-lg text-gray-600 font-[family-name:var(--font-lato)] leading-relaxed max-w-md"
             >
               Don&apos;t let the stress of catering ruin your special day. Your guests deserve a feast — and so do you.
             </motion.p>
@@ -113,7 +113,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mb-8 text-2xl font-[family-name:var(--font-playfair)] font-bold"
+              className="mb-6 text-xl font-[family-name:var(--font-playfair)] font-bold"
               style={{ color: ROYAL_GOLD }}
             >
               স্বাদে রাজা, সেবায় অপরাজেয়!
@@ -125,12 +125,12 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="flex items-center gap-5 mb-12"
+              className="flex items-center gap-5 mb-8"
             >
               <Link
                 href="#contact"
                 onClick={handleBookEvent}
-                className="group inline-flex items-center justify-center gap-2.5 rounded-xl px-9 py-4 text-base font-bold tracking-wide shadow-lg shadow-[#800020]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#800020]/30 hover:scale-[1.02] font-[family-name:var(--font-lato)]"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold tracking-wide shadow-lg shadow-[#800020]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#800020]/30 hover:scale-[1.02] font-[family-name:var(--font-lato)]"
                 style={{
                   background: ROYAL_MAROON,
                   color: '#FFFFFF',
@@ -144,7 +144,7 @@ export default function HeroSection() {
               <Link
                 href="#menu"
                 onClick={handleExploreMenu}
-                className="group inline-flex items-center justify-center gap-2.5 rounded-xl px-9 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-lg font-[family-name:var(--font-lato)]"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-lg font-[family-name:var(--font-lato)]"
                 style={{
                   color: ROYAL_MAROON,
                   border: `2px solid ${ROYAL_MAROON}`,
