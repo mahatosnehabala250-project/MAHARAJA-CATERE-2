@@ -77,7 +77,7 @@ export default function FAQSection() {
   return (
     <section
       id="faq"
-      className="relative py-20 md:py-28 bg-[#FFFFFF] overflow-hidden"
+      className="relative py-14 md:py-20 bg-[#FFFFFF] overflow-hidden"
       ref={sectionRef}
     >
       {/* Gold decorative top line */}
@@ -98,7 +98,7 @@ export default function FAQSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14 md:mb-18"
+          className="text-center mb-8 md:mb-12"
         >
           {/* Badge */}
           <span className="inline-block px-4 py-1.5 rounded-full bg-[#D4A017]/10 text-[#D4A017] font-semibold uppercase tracking-widest text-xs font-[family-name:var(--font-lato)] mb-4">

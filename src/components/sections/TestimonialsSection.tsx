@@ -74,7 +74,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="relative bg-white py-16 md:py-24 overflow-hidden">
+    <section id="testimonials" className="relative bg-white py-12 md:py-16 overflow-hidden">
       {/* Gold decorative top line */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-8 md:mb-12"
         >
           {/* Badge */}
           <span className="inline-block px-4 py-1.5 rounded-full border border-[#D4A017]/30 bg-[#D4A017]/10 text-[#D4A017] text-xs font-semibold tracking-wider uppercase mb-4 font-[family-name:var(--font-lato)]">

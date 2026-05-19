@@ -104,7 +104,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-14 md:py-20 overflow-hidden"
       style={{ backgroundColor: '#FAFAF5' }}
       ref={sectionRef}
     >
@@ -126,7 +126,7 @@ export default function ServicesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14 md:mb-18"
+          className="text-center mb-8 md:mb-12"
         >
           {/* Badge */}
           <span className="inline-block px-4 py-1.5 rounded-full border border-[#D4A017]/30 bg-[#D4A017]/5 text-[#D4A017] font-semibold uppercase tracking-widest text-xs font-[family-name:var(--font-lato)] mb-4">
@@ -156,7 +156,7 @@ export default function ServicesSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-6"
         >
           {services.map((service) => (
             <ServiceCard key={service.title} service={service} />

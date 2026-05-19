@@ -85,7 +85,7 @@ export default function MenuSection() {
   const activeCategory = menuCategories.find((c) => c.id === activeTab)
 
   return (
-    <section id="menu" className="bg-white py-20 md:py-28 relative overflow-hidden">
+    <section id="menu" className="bg-white py-14 md:py-20 relative overflow-hidden">
       {/* Gold decorative top line */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
@@ -99,7 +99,7 @@ export default function MenuSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-8 md:mb-12"
         >
           {/* Badge */}
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4A017]/30 bg-[#D4A017]/5 text-[#D4A017] text-sm font-[family-name:var(--font-lato)] font-medium tracking-wide mb-4">
@@ -121,7 +121,7 @@ export default function MenuSection() {
         {/* Menu Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Tab Navigation — horizontally scrollable on mobile */}
-          <div className="mb-10 md:mb-14 -mx-4 px-4 overflow-x-auto scrollbar-hide">
+          <div className="mb-8 md:mb-10 -mx-4 px-4 overflow-x-auto scrollbar-hide">
             <TabsList className="bg-transparent h-auto p-0 gap-0 flex whitespace-nowrap border-b border-[#E8E4DD] rounded-none justify-start sm:justify-center w-max sm:w-full">
               {menuCategories.map((category) => (
                 <TabsTrigger

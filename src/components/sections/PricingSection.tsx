@@ -83,7 +83,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-14 md:py-20 overflow-hidden"
       style={{ backgroundColor: '#FAFAF5' }}
       ref={sectionRef}
     >
@@ -99,7 +99,7 @@ export default function PricingSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14 md:mb-18"
+          className="text-center mb-8 md:mb-12"
         >
           <span
             className="inline-block font-semibold uppercase tracking-widest text-sm font-[family-name:var(--font-lato)] px-4 py-1.5 rounded-full mb-4"
@@ -132,7 +132,7 @@ export default function PricingSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-6 items-stretch"
         >
           {packages.map((pkg) => (
             <motion.div

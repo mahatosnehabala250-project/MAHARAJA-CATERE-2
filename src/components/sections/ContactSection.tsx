@@ -152,7 +152,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 relative overflow-hidden"
+      className="py-12 md:py-16 relative overflow-hidden"
       style={{ backgroundColor: '#FAFAF5' }}
     >
       {/* Gold decorative top line */}
@@ -162,7 +162,7 @@ export default function ContactSection() {
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Section Header ─────────────────────────────────────────────── */}
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-8 md:mb-12">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4A017]/30 bg-[#D4A017]/5 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D4A017]" />
@@ -189,7 +189,7 @@ export default function ContactSection() {
         </div>
 
         {/* ── Two-Column Layout ──────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 max-w-6xl mx-auto">
           {/* LEFT — Contact Form */}
           <div className="bg-white rounded-2xl p-6 md:p-8 border border-[#E8E4DD] shadow-sm">
             <Form {...form}>
