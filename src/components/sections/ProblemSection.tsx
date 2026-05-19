@@ -77,7 +77,14 @@ export default function ProblemSection() {
       id="problem"
       ref={sectionRef}
       className="relative bg-white py-20 md:py-28 overflow-hidden"
+      style={{ borderTop: '1px solid transparent' }}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       {/* Subtle mandala background pattern */}
       <div className="absolute inset-0 mandala-bg opacity-40 pointer-events-none" />
 
@@ -92,7 +99,7 @@ export default function ProblemSection() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <span
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] font-[family-name:var(--font-lato)]"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] font-[family-name:var(--font-lato)]"
               style={{
                 color: ROYAL_MAROON,
                 backgroundColor: 'rgba(128,0,32,0.05)',
@@ -129,7 +136,7 @@ export default function ProblemSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-4 text-base sm:text-lg text-gray-500 font-[family-name:var(--font-lato)] max-w-2xl mx-auto leading-relaxed"
+            className="mt-4 text-base sm:text-lg text-gray-600 font-[family-name:var(--font-lato)] max-w-2xl mx-auto leading-relaxed"
           >
             Don&apos;t let these common catering mistakes turn your celebration into a disaster
           </motion.p>
@@ -204,7 +211,7 @@ export default function ProblemSection() {
                 </h3>
 
                 {/* Card body */}
-                <p className="text-gray-600 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed">
+                <p className="text-gray-700 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed">
                   {problem.description}
                 </p>
 
@@ -230,10 +237,10 @@ export default function ProblemSection() {
         >
           <p
             className="font-[family-name:var(--font-playfair)] text-lg sm:text-xl md:text-2xl font-semibold"
-            style={{ color: '#555555' }}
+            style={{ color: '#333333' }}
           >
             The good news?{' '}
-            <span style={{ color: ROYAL_MAROON }}>You don&apos;t have to risk any of this.</span>
+            <span style={{ color: '#1A1A1A' }}>You don&apos;t have to risk any of this.</span>
           </p>
 
           {/* Downward arrow indicator */}

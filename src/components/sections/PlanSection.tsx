@@ -73,6 +73,12 @@ export default function PlanSection() {
       className="relative py-20 md:py-28 bg-[#FFFFFF] overflow-hidden"
       ref={sectionRef}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       {/* Subtle decorative background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-12 left-12 w-32 h-32 rounded-full bg-[#D4A017]/5 blur-3xl" />
@@ -96,7 +102,7 @@ export default function PlanSection() {
             3 Steps to a Stress-Free Celebration
           </h2>
 
-          <p className="text-[#555555] font-[family-name:var(--font-lato)] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[#444444] font-[family-name:var(--font-lato)] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             We&apos;ve made it easy. Just follow these three steps and leave the rest to us.
           </p>
 
@@ -148,7 +154,7 @@ export default function PlanSection() {
                     {/* Pulse ring animation */}
                     <div className="absolute -inset-3 w-[4.5rem] h-[4.5rem] rounded-full animate-step-pulse" />
                     {/* Circle with maroon border and gold fill */}
-                    <div className="relative w-16 h-16 rounded-full border-2 border-[#800020] bg-gradient-to-br from-[#D4A017] to-[#B8860B] flex items-center justify-center shadow-lg shadow-[#D4A017]/20">
+                    <div className="relative w-16 h-16 rounded-full border-2 border-[#800020] bg-gradient-to-br from-[#D4A017] to-[#B8860B] flex items-center justify-center shadow-xl shadow-[#D4A017]/20">
                       <span className="text-white text-2xl font-bold font-[family-name:var(--font-playfair)]">
                         {step.number}
                       </span>
@@ -157,7 +163,7 @@ export default function PlanSection() {
 
                   {/* Icon */}
                   <div className="mb-4">
-                    <div className="w-12 h-12 rounded-full bg-[#800020]/5 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-[#800020]/5 flex items-center justify-center hover:scale-110 transition-transform">
                       <Icon className="w-6 h-6 text-[#800020]" strokeWidth={1.8} />
                     </div>
                   </div>
@@ -168,7 +174,7 @@ export default function PlanSection() {
                   </h3>
 
                   {/* Step description */}
-                  <p className="text-[#555555] font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed max-w-xs">
+                  <p className="text-[#444444] font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed max-w-xs">
                     {step.description}
                   </p>
 
@@ -186,7 +192,7 @@ export default function PlanSection() {
           transition={{ duration: 0.6, delay: 0.9 }}
           className="text-center mt-14 md:mt-20"
         >
-          <p className="text-[#555555] font-[family-name:var(--font-lato)] text-base sm:text-lg mb-6">
+          <p className="text-[#444444] font-[family-name:var(--font-lato)] text-base sm:text-lg mb-6">
             Ready to start? Let&apos;s plan your perfect celebration.
           </p>
           <a

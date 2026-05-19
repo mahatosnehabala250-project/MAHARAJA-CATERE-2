@@ -45,7 +45,7 @@ export default function ScrollToTop() {
           exit={{ scale: 0, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 260, damping: 20 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 z-[998] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-300"
+          className="fixed bottom-8 left-8 z-[998] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-300"
           aria-label="Scroll to top"
         >
           {/* Progress ring SVG */}
@@ -80,7 +80,7 @@ export default function ScrollToTop() {
           </svg>
 
           {/* Inner button */}
-          <div className="w-12 h-12 rounded-full bg-royal-maroon border-2 border-royal-gold flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(212,160,23,0.5)] transition-shadow duration-300">
+          <div className="w-12 h-12 rounded-full bg-royal-maroon border-2 border-royal-gold flex items-center justify-center shadow-lg shadow-[#800020]/20 hover:shadow-[0_0_20px_rgba(212,160,23,0.6)] transition-shadow duration-300">
             <ArrowUp className="w-5 h-5 text-royal-gold" />
           </div>
         </motion.button>

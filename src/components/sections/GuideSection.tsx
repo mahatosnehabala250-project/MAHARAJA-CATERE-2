@@ -131,7 +131,7 @@ export default function GuideSection() {
               <Quote className="w-6 h-6 mx-auto lg:ml-auto lg:mr-0 mb-2" style={{ color: '#D4A017' }} />
               <p
                 className="italic text-sm sm:text-base leading-relaxed"
-                style={{ color: '#555555' }}
+                style={{ color: '#444444' }}
               >
                 We started Maharaja Caterer because we believe every family in Purulia deserves a
                 feast that honors their celebration.
@@ -198,7 +198,7 @@ export default function GuideSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               className="text-sm sm:text-base leading-relaxed font-[family-name:var(--font-lato)]"
-              style={{ color: '#555555' }}
+              style={{ color: '#444444' }}
             >
               For over 15 years, Maharaja Caterer has been the trusted choice for families across
               Purulia. We&apos;ve served 5000+ events — from intimate family dinners to grand
@@ -218,7 +218,7 @@ export default function GuideSection() {
                 <motion.div
                   key={stat.label}
                   variants={statVariants}
-                  className="relative rounded-lg p-4 sm:p-5 text-center transition-shadow duration-300 hover:shadow-md"
+                  className="relative rounded-lg p-4 sm:p-5 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E8E4DD',
@@ -240,7 +240,7 @@ export default function GuideSection() {
                   {/* Label */}
                   <p
                     className="text-xs sm:text-sm mt-1 font-[family-name:var(--font-lato)]"
-                    style={{ color: '#777777' }}
+                    style={{ color: '#555555' }}
                   >
                     {stat.label}
                   </p>

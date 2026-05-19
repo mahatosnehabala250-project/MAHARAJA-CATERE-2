@@ -63,7 +63,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`size-4 ${
+          className={`size-[18px] ${
             star <= rating ? 'fill-[#D4A017] text-[#D4A017]' : 'fill-gray-200 text-gray-200'
           }`}
         />
@@ -74,7 +74,12 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="bg-white py-16 md:py-24">
+    <section id="testimonials" className="relative bg-white py-16 md:py-24 overflow-hidden">
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -95,7 +100,7 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Subheading */}
-          <p className="text-[#555555] text-base md:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)]">
+          <p className="text-[#444444] text-base md:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)]">
             See how other families celebrated stress-free with Maharaja Caterer
           </p>
 
@@ -116,8 +121,10 @@ export default function TestimonialsSection() {
           className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto"
         >
           {testimonials.map((testimonial, index) => (
-            <motion.div key={index} variants={cardVariants}>
-              <div className="relative bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+            <motion.div key={index} variants={cardVariants} className="group">
+              <div className="relative bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col overflow-hidden">
+                {/* Gold top accent on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#D4A017] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {/* Decorative gold quote mark */}
                 <Quote className="absolute top-4 right-4 size-10 text-[#D4A017]/15 fill-[#D4A017]/10 pointer-events-none" />
 
@@ -127,7 +134,7 @@ export default function TestimonialsSection() {
                 </div>
 
                 {/* Quote text */}
-                <p className="text-[#555555] text-sm md:text-base italic leading-relaxed mb-6 flex-1 font-[family-name:var(--font-lato)]">
+                <p className="text-[#444444] text-sm md:text-base italic leading-relaxed mb-6 flex-1 font-[family-name:var(--font-lato)]">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
 
@@ -139,7 +146,7 @@ export default function TestimonialsSection() {
                   <p className="text-[#800020] font-bold text-sm md:text-base font-[family-name:var(--font-playfair)]">
                     {testimonial.name}
                   </p>
-                  <p className="text-[#555555] text-xs md:text-sm font-[family-name:var(--font-lato)] mt-0.5">
+                  <p className="text-[#444444] text-xs md:text-sm font-[family-name:var(--font-lato)] mt-0.5">
                     {testimonial.eventType}, {testimonial.location}
                   </p>
                 </div>

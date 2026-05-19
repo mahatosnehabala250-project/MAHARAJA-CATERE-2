@@ -59,10 +59,10 @@ function ServiceCard({
   return (
     <motion.div
       variants={cardVariants}
-      className="group card-royal-hover relative rounded-2xl border border-[#E8E4DD] bg-white p-6 sm:p-8 flex flex-col overflow-hidden"
+      className="group card-royal-hover relative rounded-2xl border border-[#E8E4DD] bg-white p-6 sm:p-8 flex flex-col overflow-hidden hover:shadow-xl hover:shadow-[#800020]/5"
     >
       {/* Gold top accent line — appears on hover */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#B8860B] via-[#D4A017] to-[#FFD700] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#B8860B] via-[#D4A017] to-[#FFD700] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
 
       {/* Icon in gold-tinted circle */}
       <div
@@ -78,7 +78,7 @@ function ServiceCard({
       </h3>
 
       {/* Description */}
-      <p className="text-[#555555] text-sm sm:text-base leading-relaxed font-[family-name:var(--font-lato)] mb-6 flex-1">
+      <p className="text-[#444444] text-sm sm:text-base leading-relaxed font-[family-name:var(--font-lato)] mb-6 flex-1">
         {service.description}
       </p>
 
@@ -108,6 +108,12 @@ export default function ServicesSection() {
       style={{ backgroundColor: '#FAFAF5' }}
       ref={sectionRef}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       {/* Subtle decorative corners */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-8 right-8 w-20 h-20 border-t-2 border-r-2 border-[#D4A017]/10 rounded-tr-3xl" />
@@ -140,7 +146,7 @@ export default function ServicesSection() {
           </div>
 
           {/* Subheading */}
-          <p className="text-[#555555] text-base sm:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
+          <p className="text-[#444444] text-base sm:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
             From grand weddings to intimate family gatherings, we make every event unforgettable
           </p>
         </motion.div>

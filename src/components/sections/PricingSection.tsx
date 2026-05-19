@@ -87,6 +87,12 @@ export default function PricingSection() {
       style={{ backgroundColor: '#FAFAF5' }}
       ref={sectionRef}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section heading */}
         <motion.div
@@ -115,7 +121,7 @@ export default function PricingSection() {
           </div>
           <p
             className="text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto"
-            style={{ color: '#555555' }}
+            style={{ color: '#444444' }}
           >
             Choose the package that fits your celebration. Every package includes free menu consultation.
           </p>
@@ -142,7 +148,7 @@ export default function PricingSection() {
                 border: pkg.isPopular ? '1px solid #D4A017' : '1px solid #E8E4DD',
                 borderTop: pkg.isPopular ? '3px solid #D4A017' : '1px solid #E8E4DD',
                 boxShadow: pkg.isPopular
-                  ? '0 4px 24px rgba(212, 160, 23, 0.10), 0 0 0 1px rgba(212, 160, 23, 0.08)'
+                  ? '0 8px 32px rgba(212, 160, 23, 0.18), 0 0 0 1px rgba(212, 160, 23, 0.12)'
                   : '0 1px 3px rgba(0, 0, 0, 0.04)',
               }}
             >
@@ -151,7 +157,7 @@ export default function PricingSection() {
                 <div
                   className="absolute inset-0 rounded-2xl pointer-events-none"
                   style={{
-                    boxShadow: '0 0 40px rgba(212, 160, 23, 0.08), inset 0 0 40px rgba(212, 160, 23, 0.03)',
+                    boxShadow: '0 0 60px rgba(212, 160, 23, 0.15), inset 0 0 50px rgba(212, 160, 23, 0.05)',
                   }}
                 />
               )}
@@ -176,10 +182,10 @@ export default function PricingSection() {
                 <div className="flex items-center gap-3 mb-5">
                   {pkg.isRoyal && (
                     <div
-                      className="w-9 h-9 rounded-full flex items-center justify-center"
+                      className="w-9 h-9 rounded-full flex items-center justify-center animate-crown-shimmer"
                       style={{ backgroundColor: 'rgba(128, 0, 32, 0.08)' }}
                     >
-                      <Crown className="w-5 h-5" style={{ color: '#800020' }} />
+                      <Crown className="w-5 h-5" style={{ color: '#D4A017' }} />
                     </div>
                   )}
                   <h3
@@ -200,7 +206,7 @@ export default function PricingSection() {
                   </span>
                   <span
                     className="text-sm font-[family-name:var(--font-lato)] ml-1"
-                    style={{ color: '#555555' }}
+                    style={{ color: '#444444' }}
                   >
                     /plate
                   </span>
@@ -237,7 +243,7 @@ export default function PricingSection() {
                 {/* Suitability */}
                 <p
                   className="text-sm font-[family-name:var(--font-lato)] mb-6 italic"
-                  style={{ color: '#555555' }}
+                  style={{ color: '#444444' }}
                 >
                   Suitable for: {pkg.suitability}
                 </p>
@@ -259,7 +265,7 @@ export default function PricingSection() {
                     href="#contact"
                     className="block w-full text-center py-3 px-6 rounded-xl font-semibold text-sm transition-all duration-300 font-[family-name:var(--font-lato)] bg-transparent hover:bg-[#800020]/5"
                     style={{
-                      border: '2px solid #800020',
+                      border: '2.5px solid #800020',
                       color: '#800020',
                     }}
                   >
@@ -280,7 +286,7 @@ export default function PricingSection() {
         >
           <p
             className="text-sm md:text-base font-[family-name:var(--font-lato)]"
-            style={{ color: '#555555' }}
+            style={{ color: '#444444' }}
           >
             Need something custom?{' '}
             <a

@@ -152,9 +152,14 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 relative"
+      className="py-16 md:py-24 relative overflow-hidden"
       style={{ backgroundColor: '#FAFAF5' }}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Section Header ─────────────────────────────────────────────── */}
         <div className="text-center mb-12 md:mb-16">
@@ -177,7 +182,7 @@ export default function ContactSection() {
           </div>
 
           {/* Subheading */}
-          <p className="text-[#555555] text-base md:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
+          <p className="text-[#444444] text-base md:text-lg max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
             Tell us about your event and we&apos;ll create the perfect menu for
             you. No obligation, no hidden costs.
           </p>
@@ -361,7 +366,7 @@ export default function ContactSection() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#800020] hover:bg-[#6B0018] text-white font-semibold py-3 h-12 text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-[family-name:var(--font-lato)] group"
+                  className="w-full bg-[#800020] hover:bg-[#6B0018] text-white font-semibold py-3 h-12 text-base rounded-lg shadow-lg shadow-[#800020]/20 hover:shadow-xl transition-all duration-300 font-[family-name:var(--font-lato)] group"
                 >
                   {isSubmitting ? (
                     <Loader2 className="size-5 animate-spin mr-2" />
@@ -389,7 +394,7 @@ export default function ContactSection() {
                       <info.icon className="size-[18px] text-[#800020]" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[11px] font-semibold tracking-widest uppercase text-[#999999] mb-0.5 font-[family-name:var(--font-lato)]">
+                      <p className="text-xs font-semibold tracking-widest uppercase text-[#999999] mb-0.5 font-[family-name:var(--font-lato)]">
                         {info.label}
                       </p>
                       {info.href ? (
@@ -403,12 +408,12 @@ export default function ContactSection() {
                               ? 'noopener noreferrer'
                               : undefined
                           }
-                          className="text-sm text-[#1A1A1A] hover:text-[#800020] transition-colors break-all font-[family-name:var(--font-lato)]"
+                          className="text-sm text-[#1A1A1A] hover:text-[#800020] transition-colors break-all font-medium font-[family-name:var(--font-lato)]"
                         >
                           {info.value}
                         </a>
                       ) : (
-                        <p className="text-sm text-[#1A1A1A] font-[family-name:var(--font-lato)]">
+                        <p className="text-sm text-[#1A1A1A] font-medium font-[family-name:var(--font-lato)]">
                           {info.value}
                         </p>
                       )}
@@ -447,13 +452,12 @@ export default function ContactSection() {
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29179.47498524618!2d86.35!3d23.33!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6e3f8e0b0b0b1%3A0x4b0b0b0b0b0b0b0b!2sPurulia%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                   width="100%"
-                  height="220"
+                  className="h-[280px] grayscale-[20%] contrast-[1.05]"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Maharaja Caterer Location — Purulia, West Bengal"
-                  className="grayscale-[20%] contrast-[1.05]"
                 />
               </div>
             </div>

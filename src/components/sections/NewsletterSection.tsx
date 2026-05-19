@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail } from 'lucide-react'
+import { Mail, Send, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function NewsletterSection() {
@@ -21,19 +21,19 @@ export default function NewsletterSection() {
         body: JSON.stringify({ email }),
       })
       if (res.ok) {
-        toast.success('Welcome to the Maharaja family! 🎉', {
-          description: 'You\'ll receive our exclusive offers and updates.',
+        toast.success('Welcome to the Maharaja family!', {
+          description: "You'll receive our exclusive offers and seasonal menus.",
         })
         setEmail('')
       } else {
-        toast.success('Welcome to the Maharaja family! 🎉', {
-          description: 'You\'ll receive our exclusive offers and updates.',
+        toast.success('Welcome to the Maharaja family!', {
+          description: "You'll receive our exclusive offers and seasonal menus.",
         })
         setEmail('')
       }
     } catch {
-      toast.success('Welcome to the Maharaja family! 🎉', {
-        description: 'You\'ll receive our exclusive offers and updates.',
+      toast.success('Welcome to the Maharaja family!', {
+        description: "You'll receive our exclusive offers and seasonal menus.",
       })
       setEmail('')
     } finally {
@@ -44,41 +44,17 @@ export default function NewsletterSection() {
   return (
     <section
       id="newsletter"
-      className="relative py-20 md:py-28 section-dark-royal dark:from-[#2D1B00] overflow-hidden"
+      className="relative py-16 md:py-24 overflow-hidden"
+      style={{ backgroundColor: '#FFFBF0' }}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       {/* Mandala pattern background */}
-      <div className="absolute inset-0 mandala-bg opacity-40" />
-
-      {/* Decorative corner elements */}
-      <div className="absolute top-6 left-6 sm:top-8 sm:left-8 w-16 h-16 sm:w-20 sm:h-20 opacity-30">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-          <path d="M0 0 L30 0 L30 4 L4 4 L4 30 L0 30 Z" fill="#D4A017" />
-          <path d="M8 0 L20 0 L20 2 L10 2 L10 12 L8 12 Z" fill="#D4A017" opacity="0.6" />
-        </svg>
-      </div>
-      <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-16 h-16 sm:w-20 sm:h-20 opacity-30 rotate-90">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-          <path d="M0 0 L30 0 L30 4 L4 4 L4 30 L0 30 Z" fill="#D4A017" />
-          <path d="M8 0 L20 0 L20 2 L10 2 L10 12 L8 12 Z" fill="#D4A017" opacity="0.6" />
-        </svg>
-      </div>
-      <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 w-16 h-16 sm:w-20 sm:h-20 opacity-30 -rotate-90">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-          <path d="M0 0 L30 0 L30 4 L4 4 L4 30 L0 30 Z" fill="#D4A017" />
-          <path d="M8 0 L20 0 L20 2 L10 2 L10 12 L8 12 Z" fill="#D4A017" opacity="0.6" />
-        </svg>
-      </div>
-      <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 w-16 h-16 sm:w-20 sm:h-20 opacity-30 rotate-180">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-          <path d="M0 0 L30 0 L30 4 L4 4 L4 30 L0 30 Z" fill="#D4A017" />
-          <path d="M8 0 L20 0 L20 2 L10 2 L10 12 L8 12 Z" fill="#D4A017" opacity="0.6" />
-        </svg>
-      </div>
-
-      {/* Decorative radial glows */}
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-royal-gold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-royal-gold/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-royal-gold/3 rounded-full blur-3xl" />
+      <div className="absolute inset-0 mandala-bg" />
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -87,7 +63,7 @@ export default function NewsletterSection() {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
-        {/* Decorative envelope icon */}
+        {/* Decorative mail icon in gold circle */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -95,25 +71,26 @@ export default function NewsletterSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex justify-center mb-8"
         >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-royal-gold/10 border-2 border-royal-gold/30 flex items-center justify-center">
-            <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-royal-gold" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D4A017]/10 border-2 border-[#D4A017]/30 flex items-center justify-center">
+            <Mail className="w-7 h-7 sm:w-9 sm:h-9 text-[#D4A017]" />
           </div>
         </motion.div>
 
         {/* Section heading */}
-        <div className="text-center mb-10 md:mb-14">
-          <span className="text-royal-gold font-semibold uppercase tracking-widest text-sm font-[family-name:var(--font-lato)]">
-            Never Miss an Update
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gold-gradient font-[family-name:var(--font-playfair)] mt-3 mb-6">
-            Stay Connected
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#800020] font-[family-name:var(--font-playfair)] mb-4">
+            Stay in the Royal Loop
           </h2>
+
           {/* Ornament divider */}
-          <div className="ornament-divider max-w-xs mx-auto">
-            <span className="text-royal-gold text-lg">&#10022;</span>
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <span className="block w-12 h-px bg-[#D4A017]/40" />
+            <span className="text-[#D4A017] text-lg">&#10022;</span>
+            <span className="block w-12 h-px bg-[#D4A017]/40" />
           </div>
-          <p className="mt-6 text-royal-cream text-base md:text-lg font-[family-name:var(--font-lato)] max-w-2xl mx-auto">
-            Get exclusive offers, new menu updates &amp; festival specials
+
+          <p className="text-[#444444] font-[family-name:var(--font-lato)] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Get exclusive offers, seasonal menus, and celebration tips delivered to your inbox.
           </p>
         </div>
 
@@ -125,29 +102,37 @@ export default function NewsletterSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="max-w-lg mx-auto"
         >
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <div className="flex-1 relative">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                required
-                className="w-full px-5 py-3.5 rounded-full bg-royal-cream/20 border-2 border-royal-gold/40 text-white placeholder:text-royal-cream/70 font-[family-name:var(--font-lato)] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-royal-gold/50 focus:border-royal-gold transition-all duration-300"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="flex-1 px-5 py-3.5 rounded-lg bg-white border border-[#E8E4DD] text-[#1A1A1A] placeholder:text-[#999999] font-[family-name:var(--font-lato)] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D4A017]/30 focus:border-[#D4A017] transition-all duration-300"
+            />
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#B8860B] via-royal-gold to-[#FFD700] text-royal-maroon font-bold text-sm md:text-base transition-all duration-300 hover:shadow-lg hover:shadow-royal-gold/30 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed font-[family-name:var(--font-lato)] whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#800020] hover:bg-[#6B0018] text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-lg hover:shadow-[#800020]/20 disabled:opacity-60 disabled:cursor-not-allowed font-[family-name:var(--font-lato)] whitespace-nowrap"
             >
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Subscribing...
+                </>
+              ) : (
+                <>
+                  Subscribe
+                  <Send className="w-4 h-4" />
+                </>
+              )}
             </button>
           </form>
 
           {/* Disclaimer */}
-          <p className="mt-4 text-center text-royal-cream/90 text-xs sm:text-sm font-[family-name:var(--font-lato)]">
-            We respect your privacy. Unsubscribe anytime.
+          <p className="mt-4 text-center text-[#999999] text-xs sm:text-sm font-[family-name:var(--font-lato)]">
+            No spam, ever. Unsubscribe anytime.
           </p>
         </motion.div>
       </motion.div>

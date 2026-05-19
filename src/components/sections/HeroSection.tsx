@@ -60,7 +60,7 @@ export default function HeroSection() {
       {/* ===== DESKTOP: Split Layout ===== */}
       <div className="hidden lg:flex min-h-screen">
         {/* ---- LEFT: Text Content — clean, spacious ---- */}
-        <div className="flex-1 flex flex-col justify-center px-16 xl:px-24">
+        <div className="flex-1 flex flex-col justify-center px-16 xl:px-24 pt-8">
           <div className="max-w-lg">
             {/* Badge */}
             <motion.div
@@ -102,7 +102,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mb-5 text-lg xl:text-xl text-gray-500 font-[family-name:var(--font-lato)] leading-relaxed max-w-md"
+              className="mb-5 text-lg xl:text-xl text-gray-600 font-[family-name:var(--font-lato)] leading-relaxed max-w-md"
             >
               Don&apos;t let the stress of catering ruin your special day. Your guests deserve a feast — and so do you.
             </motion.p>
@@ -113,7 +113,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mb-8 text-xl font-[family-name:var(--font-playfair)] font-bold"
+              className="mb-8 text-2xl font-[family-name:var(--font-playfair)] font-bold"
               style={{ color: ROYAL_GOLD }}
             >
               স্বাদে রাজা, সেবায় অপরাজেয়!
@@ -130,7 +130,7 @@ export default function HeroSection() {
               <Link
                 href="#contact"
                 onClick={handleBookEvent}
-                className="group inline-flex items-center justify-center gap-2.5 rounded-xl px-9 py-4 text-base font-bold tracking-wide shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] font-[family-name:var(--font-lato)]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl px-9 py-4 text-base font-bold tracking-wide shadow-lg shadow-[#800020]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#800020]/30 hover:scale-[1.02] font-[family-name:var(--font-lato)]"
                 style={{
                   background: ROYAL_MAROON,
                   color: '#FFFFFF',
@@ -144,7 +144,7 @@ export default function HeroSection() {
               <Link
                 href="#menu"
                 onClick={handleExploreMenu}
-                className="group inline-flex items-center justify-center gap-2.5 rounded-xl px-9 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-[1.02] font-[family-name:var(--font-lato)]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl px-9 py-4 text-base font-bold tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-lg font-[family-name:var(--font-lato)]"
                 style={{
                   color: ROYAL_MAROON,
                   border: `2px solid ${ROYAL_MAROON}`,
@@ -164,18 +164,18 @@ export default function HeroSection() {
               className="flex items-center gap-8"
             >
               <div className="flex items-center gap-2">
-                <Star className="w-5 h-5 text-royal-gold fill-royal-gold" />
-                <span className="text-sm font-semibold text-gray-800 font-[family-name:var(--font-lato)]">4.8 Rating</span>
+                <Star className="w-6 h-6 text-royal-gold fill-royal-gold" />
+                <span className="text-base font-semibold text-gray-700 font-[family-name:var(--font-lato)]">4.8 Rating</span>
               </div>
               <div className="w-px h-5 bg-gray-200" />
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-royal-gold" />
-                <span className="text-sm font-semibold text-gray-800 font-[family-name:var(--font-lato)]">FSSAI Licensed</span>
+                <Shield className="w-6 h-6 text-royal-gold" />
+                <span className="text-base font-semibold text-gray-700 font-[family-name:var(--font-lato)]">FSSAI Licensed</span>
               </div>
               <div className="w-px h-5 bg-gray-200" />
               <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-royal-gold" />
-                <span className="text-sm font-semibold text-gray-800 font-[family-name:var(--font-lato)]">5000+ Events</span>
+                <Award className="w-6 h-6 text-royal-gold" />
+                <span className="text-base font-semibold text-gray-700 font-[family-name:var(--font-lato)]">5000+ Events</span>
               </div>
             </motion.div>
           </div>
@@ -186,7 +186,7 @@ export default function HeroSection() {
           variants={slideInRight}
           initial="hidden"
           animate="visible"
-          className="flex-1 relative"
+          className="flex-1 relative shadow-2xl"
         >
           <img
             src="/images/hero-bg-new.jpg"
@@ -254,7 +254,7 @@ export default function HeroSection() {
           className="bg-white px-6 sm:px-8 py-8 sm:py-10"
         >
           {/* Problem statement */}
-          <p className="text-base text-gray-500 font-[family-name:var(--font-lato)] mb-3 leading-relaxed">
+          <p className="text-base text-gray-600 font-[family-name:var(--font-lato)] mb-3 leading-relaxed">
             Don&apos;t let the stress of catering ruin your special day. Your guests deserve a feast — and so do you.
           </p>
 

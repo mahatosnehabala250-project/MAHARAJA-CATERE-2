@@ -85,7 +85,13 @@ export default function MenuSection() {
   const activeCategory = menuCategories.find((c) => c.id === activeTab)
 
   return (
-    <section id="menu" className="bg-white py-20 md:py-28">
+    <section id="menu" className="bg-white py-20 md:py-28 relative overflow-hidden">
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -107,7 +113,7 @@ export default function MenuSection() {
           </h2>
 
           {/* Subheading */}
-          <p className="text-[#555555] text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
+          <p className="text-[#444444] text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-[family-name:var(--font-lato)] leading-relaxed">
             100+ dishes across 5 cuisines — pick your favorites, and we&apos;ll make them extraordinary
           </p>
         </motion.div>
@@ -131,8 +137,8 @@ export default function MenuSection() {
                     text-sm sm:text-base
                     font-[family-name:var(--font-lato)]
                     font-medium
-                    text-[#777777]
-                    hover:text-[#555555]
+                    text-[#555555]
+                    hover:text-[#444444]
                     transition-colors duration-200
                     data-[state=active]:bg-transparent
                     data-[state=active]:text-[#800020]
@@ -170,10 +176,10 @@ export default function MenuSection() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.04 }}
-                      className="flex items-center gap-3 py-2.5 border-b border-[#E8E4DD]/60"
+                      className="flex items-center gap-3 py-2.5 border-b border-[#E8E4DD]/60 hover:translate-x-1 transition-transform"
                     >
                       {/* Gold dot separator */}
-                      <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#D4A017]" />
+                      <span className="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-[#D4A017]" />
                       {/* Item name */}
                       <span className="text-[#1A1A1A] text-base font-[family-name:var(--font-lato)] font-medium leading-snug">
                         {item}

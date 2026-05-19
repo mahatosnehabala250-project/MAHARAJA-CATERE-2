@@ -80,6 +80,12 @@ export default function FAQSection() {
       className="relative py-20 md:py-28 bg-[#FFFFFF] overflow-hidden"
       ref={sectionRef}
     >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
       {/* Subtle decorative background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-12 right-12 w-28 h-28 border-t-2 border-r-2 border-[#D4A017]/10 rounded-tr-3xl" />
@@ -112,7 +118,7 @@ export default function FAQSection() {
           </div>
 
           {/* Subheading */}
-          <p className="text-[#555555] font-[family-name:var(--font-lato)] text-base sm:text-lg max-w-xl mx-auto">
+          <p className="text-[#444444] font-[family-name:var(--font-lato)] text-base sm:text-lg max-w-xl mx-auto">
             Everything you need to know before booking Maharaja Caterer
           </p>
         </motion.div>
@@ -129,18 +135,18 @@ export default function FAQSection() {
               <motion.div key={index} variants={itemVariants}>
                 <AccordionItem
                   value={`item-${index}`}
-                  className="bg-white border border-[#D4A017]/10 rounded-lg px-5 sm:px-6 border-l-4 border-l-[#D4A017]/15 data-[state=open]:border-l-[#D4A017] data-[state=open]:shadow-md data-[state=open]:shadow-[#D4A017]/5 transition-all duration-500 ease-out group hover:bg-[#800020]/[0.01] hover:border-l-[#D4A017]/50"
+                  className="bg-white border border-[#D4A017]/10 rounded-lg px-5 sm:px-6 border-l-4 border-l-[#D4A017]/15 data-[state=open]:border-l-[#D4A017] data-[state=open]:shadow-md data-[state=open]:shadow-[#D4A017]/5 transition-all duration-500 ease-out group hover:bg-[#800020]/[0.01] hover:border-l-[#D4A017]/70"
                 >
                   <AccordionTrigger className="text-[#800020] font-[family-name:var(--font-playfair)] text-base sm:text-lg font-semibold hover:text-[#800020] hover:no-underline transition-all duration-300 py-5 [&[data-state=open]>svg]:text-[#D4A017] [&[data-state=open]>svg]:rotate-180 [&>svg]:transition-all [&>svg]:duration-300">
                     <span className="flex items-center gap-3 text-left">
                       {/* Number badge in gold circle */}
-                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#D4A017]/10 flex items-center justify-center text-[#D4A017] text-sm font-bold font-[family-name:var(--font-lato)] group-data-[state=open]:bg-[#D4A017] group-data-[state=open]:text-white group-data-[state=open]:shadow-[0_0_10px_rgba(212,160,23,0.3)] transition-all duration-300">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#D4A017]/10 flex items-center justify-center text-[#D4A017] text-sm font-bold font-[family-name:var(--font-lato)] shadow-sm group-data-[state=open]:bg-[#D4A017] group-data-[state=open]:text-white group-data-[state=open]:shadow-[0_0_10px_rgba(212,160,23,0.3)] transition-all duration-300">
                         {index + 1}
                       </span>
                       <span>{item.question}</span>
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed pl-11 pb-5">
+                  <AccordionContent className="text-gray-700 font-[family-name:var(--font-lato)] text-sm sm:text-base leading-relaxed pl-11 pb-5">
                     {item.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -156,7 +162,7 @@ export default function FAQSection() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12"
         >
-          <p className="text-[#555555] font-[family-name:var(--font-lato)] text-sm sm:text-base">
+          <p className="text-[#444444] font-[family-name:var(--font-lato)] text-sm sm:text-base">
             Still have questions?{' '}
             <a
               href="#contact"

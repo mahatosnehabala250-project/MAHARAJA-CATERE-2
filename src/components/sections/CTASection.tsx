@@ -78,8 +78,12 @@ export default function CTASection() {
         {/* Subtle mandala pattern overlay — very low opacity */}
         <div className="absolute inset-0 mandala-bg opacity-[0.08]" />
 
-        {/* Top & bottom gold accent lines */}
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#D4A017]/40 to-transparent" />
+        {/* Gold decorative top line */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+        />
+        {/* Bottom gold accent line */}
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#D4A017]/40 to-transparent" />
 
         {/* Decorative radial glow behind content */}
@@ -90,6 +94,25 @@ export default function CTASection() {
               'radial-gradient(circle, rgba(212,160,23,0.06) 0%, transparent 70%)',
           }}
         />
+
+        {/* Subtle floating particles for visual interest */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full animate-float"
+              style={{
+                width: `${6 + i * 2}px`,
+                height: `${6 + i * 2}px`,
+                backgroundColor: `rgba(212, 160, 23, ${0.06 + i * 0.02})`,
+                left: `${15 + i * 14}%`,
+                top: `${20 + (i % 3) * 25}%`,
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: `${3 + i * 0.5}s`,
+              }}
+            />
+          ))}
+        </div>
 
         {/* ===== Content ===== */}
         <motion.div
@@ -133,7 +156,7 @@ export default function CTASection() {
           {/* Body text */}
           <motion.p
             variants={fadeUp}
-            className="text-white/75 text-base sm:text-lg lg:text-xl font-[family-name:var(--font-lato)] leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8"
+            className="text-white/80 text-base sm:text-lg lg:text-xl font-[family-name:var(--font-lato)] leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8"
           >
             Your guests deserve a feast they&apos;ll remember. You deserve to
             enjoy your celebration stress-free. With Maharaja Caterer,
@@ -176,6 +199,7 @@ export default function CTASection() {
                 background: `linear-gradient(135deg, ${ROYAL_GOLD} 0%, ${ROYAL_GOLD_DARK} 100%)`,
                 color: ROYAL_MAROON,
                 boxShadow: '0 8px 30px rgba(212,160,23,0.3)',
+                textShadow: '0 1px 2px rgba(0,0,0,0.1)',
               }}
               whileHover={{
                 scale: 1.04,
@@ -214,7 +238,7 @@ export default function CTASection() {
             {trustItems.map((item, i) => (
               <div
                 key={item}
-                className="flex items-center gap-2 text-white/80 text-sm sm:text-base font-[family-name:var(--font-lato)]"
+                className="flex items-center gap-2 text-white/80 text-base sm:text-lg font-[family-name:var(--font-lato)]"
               >
                 <span
                   className="text-base sm:text-lg font-bold"

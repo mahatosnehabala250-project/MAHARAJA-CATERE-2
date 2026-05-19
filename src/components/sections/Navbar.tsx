@@ -148,17 +148,17 @@ export default function Navbar() {
               onClick={(e) => scrollToSection(e, '#hero')}
               className="flex items-center gap-2.5 flex-shrink-0"
             >
-              <div className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-gray-200">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-gray-200">
                 <Image
                   src="/images/logo.jpg"
                   alt="Maharaja Caterer"
                   fill
                   className="object-cover"
-                  sizes="32px"
+                  sizes="36px"
                   priority
                 />
               </div>
-              <span className="font-[family-name:var(--font-playfair)] text-lg font-bold tracking-wide text-[#800020]">
+              <span className="font-[family-name:var(--font-playfair)] text-xl font-bold tracking-wide text-[#800020]">
                 Maharaja Caterer
               </span>
             </a>
@@ -173,7 +173,7 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className={`relative px-3 py-2 text-sm font-[family-name:var(--font-lato)] font-medium tracking-wide transition-colors duration-200 ${
+                    className={`relative px-3.5 py-2 text-[0.82rem] font-[family-name:var(--font-lato)] font-medium tracking-wide transition-colors duration-200 ${
                       isActive
                         ? 'text-[#800020]'
                         : 'text-gray-700 hover:text-[#800020]'
@@ -182,7 +182,7 @@ export default function Navbar() {
                     {link.label}
                     {/* Gold underline for active link */}
                     <span
-                      className={`absolute bottom-0 left-3 right-3 h-0.5 bg-[#D4A017] transition-all duration-300 ${
+                      className={`absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#D4A017] transition-all duration-300 ${
                         isActive
                           ? 'opacity-100 scale-x-100'
                           : 'opacity-0 scale-x-0'
@@ -205,7 +205,7 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, '#contact')}
-                className="inline-flex items-center px-4 py-2 text-sm font-[family-name:var(--font-lato)] font-semibold text-white bg-[#800020] rounded-lg hover:bg-[#6b001a] transition-colors duration-200"
+                className="inline-flex items-center px-5 py-2.5 text-sm font-[family-name:var(--font-lato)] font-semibold text-white bg-[#800020] rounded-lg hover:bg-[#6b001a] transition-colors duration-200 shadow-sm shadow-[#800020]/10"
               >
                 Book Event
               </a>

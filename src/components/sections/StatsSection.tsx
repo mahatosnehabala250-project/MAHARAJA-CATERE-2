@@ -1,80 +1,205 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Calendar, Award, Star, UtensilsCrossed } from 'lucide-react'
+import { Award, Shield, Star, UtensilsCrossed } from 'lucide-react'
 
-const stats = [
+/* ------------------------------------------------------------------ */
+/*  Stats Data                                                         */
+/* ------------------------------------------------------------------ */
+
+interface StatItem {
+  icon: React.ElementType
+  target: number
+  suffix: string
+  label: string
+}
+
+const stats: StatItem[] = [
   {
-    icon: Calendar,
-    value: '5000',
+    icon: Award,
+    target: 5000,
     suffix: '+',
     label: 'Events Served',
   },
   {
-    icon: Award,
-    value: '15',
+    icon: Shield,
+    target: 15,
     suffix: '+',
-    label: 'Years Experience',
+    label: 'Years of Excellence',
   },
   {
     icon: Star,
-    value: '4.8',
-    suffix: '★',
-    label: 'Average Rating',
+    target: 4.8,
+    suffix: '',
+    label: 'Customer Rating',
   },
   {
     icon: UtensilsCrossed,
-    value: '100',
+    target: 100,
     suffix: '+',
     label: 'Menu Items',
   },
 ]
 
-export default function StatsSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true })
+/* ------------------------------------------------------------------ */
+/*  Counter Hook — Counts up from 0 when in view                      */
+/* ------------------------------------------------------------------ */
+
+function useCounter(target: number, isInView: boolean, isDecimal: boolean) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!isInView) return
+
+    const duration = 2000
+    const steps = 60
+    const increment = target / steps
+    let current = 0
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        setCount(target)
+        clearInterval(timer)
+      } else {
+        setCount(isDecimal ? parseFloat(current.toFixed(1)) : Math.floor(current))
+      }
+    }, duration / steps)
+
+    return () => clearInterval(timer)
+  }, [isInView, target, isDecimal])
+
+  return count
+}
+
+/* ------------------------------------------------------------------ */
+/*  Individual Stat Card                                               */
+/* ------------------------------------------------------------------ */
+
+function StatCard({
+  stat,
+  index,
+  isInView,
+}: {
+  stat: StatItem
+  index: number
+  isInView: boolean
+}) {
+  const isDecimal = stat.target % 1 !== 0
+  const count = useCounter(stat.target, isInView, isDecimal)
+  const IconComponent = stat.icon
 
   return (
-    <section ref={ref} className="relative py-12 md:py-16 overflow-hidden dark:bg-[#1a0f00]/30">
-      {/* Gold gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-royal-gold-dark via-royal-gold to-royal-gold-light" />
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
+      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+      className="relative rounded-xl p-6 sm:p-8 text-center group transition-all duration-300 hover:scale-[1.03]"
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        border: '1px solid #D4A017',
+        backdropFilter: 'blur(4px)',
+      }}
+    >
+      {/* Icon */}
+      <div className="flex justify-center mb-4">
+        <div
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+          style={{ backgroundColor: 'rgba(212, 160, 23, 0.15)' }}
+        >
+          <IconComponent
+            className="w-6 h-6 sm:w-7 sm:h-7"
+            style={{ color: '#D4A017' }}
+            strokeWidth={2}
+          />
+        </div>
+      </div>
 
-      {/* Mandala pattern overlay */}
-      <div className="absolute inset-0 mandala-bg opacity-60" />
+      {/* Number */}
+      <div className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-extrabold tabular-nums" style={{ color: '#D4A017' }}>
+        {isDecimal ? count.toFixed(1) : count}
+        {stat.suffix}
+      </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {/* Label */}
+      <p className="mt-2 text-sm sm:text-base font-medium font-[family-name:var(--font-lato)] text-white/90">
+        {stat.label}
+      </p>
+    </motion.div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  StatsSection — Animated Stats Counter                              */
+/*  Appears between ProblemSection and GuideSection                    */
+/* ------------------------------------------------------------------ */
+
+export default function StatsSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-16 sm:py-20 md:py-24 overflow-hidden"
+      style={{ backgroundColor: '#800020' }}
+    >
+      {/* Gold decorative top line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
+      {/* Gold decorative bottom line */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[2px]"
+        style={{ background: 'linear-gradient(90deg, transparent, #D4A017, transparent)' }}
+      />
+
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 mandala-bg opacity-20 pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10 sm:mb-14"
+        >
+          <span
+            className="inline-block text-sm sm:text-base font-semibold uppercase tracking-widest font-[family-name:var(--font-lato)]"
+            style={{ color: '#D4A017' }}
+          >
+            Our Track Record
+          </span>
+          <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-bold font-[family-name:var(--font-playfair)] text-white">
+            Numbers That Speak for Themselves
+          </h2>
+          {/* Gold ornamental divider */}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <span
+              className="block h-px w-10"
+              style={{ background: 'linear-gradient(to right, transparent, #D4A017)' }}
+            />
+            <span className="text-sm" style={{ color: '#D4A017' }}>&#10022;</span>
+            <span
+              className="block h-px w-10"
+              style={{ background: 'linear-gradient(to left, transparent, #D4A017)' }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Stats grid — 2x2 on mobile, 4 columns on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((stat, index) => (
-            <motion.div
+            <StatCard
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="relative text-center group rounded-2xl bg-white/80 dark:bg-[#2D1B00]/70 backdrop-blur-sm border-2 border-royal-gold/30 p-5 md:p-6 hover:scale-105 transition-transform duration-300 hover:border-royal-gold/60 hover:shadow-lg hover:shadow-royal-gold/20"
-            >
-              <div className="relative flex flex-col items-center gap-2 md:gap-3">
-                {/* Icon */}
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-royal-maroon/15 flex items-center justify-center group-hover:bg-royal-maroon/25 transition-colors duration-300 shadow-md shadow-royal-gold/10">
-                  <stat.icon className="size-7 md:size-8 text-royal-maroon" />
-                </div>
-
-                {/* Value — always shows final number, opacity transitions in */}
-                <div className="text-[#1a0f00] font-[var(--font-playfair)]">
-                  <span className="text-4xl md:text-5xl lg:text-6xl font-extrabold tabular-nums">
-                    {stat.value}
-                  </span>
-                  <span className="text-3xl md:text-4xl lg:text-5xl font-extrabold">
-                    {stat.suffix}
-                  </span>
-                </div>
-
-                {/* Label */}
-                <p className="text-[#2D1B00] text-sm md:text-base font-semibold font-[var(--font-lato)]">
-                  {stat.label}
-                </p>
-              </div>
-            </motion.div>
+              stat={stat}
+              index={index}
+              isInView={isInView}
+            />
           ))}
         </div>
       </div>
