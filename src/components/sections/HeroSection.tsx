@@ -235,11 +235,18 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight font-[family-name:var(--font-playfair)] text-white"
-              style={{ textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
+              style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}
             >
               Your Celebration
               <br />
-              <span style={{ color: ROYAL_GOLD }}>Deserves Food</span>
+              <span
+                style={{
+                  color: '#FFD700',
+                  textShadow: '0 1px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.4)',
+                }}
+              >
+                Deserves Food
+              </span>
               <br />
               Worth Remembering
             </motion.h1>
