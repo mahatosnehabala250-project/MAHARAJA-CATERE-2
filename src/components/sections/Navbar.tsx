@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,7 +22,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const pathname = usePathname();
 
   // Handle scroll detection for shadow
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Navbar() {
 
   // Intersection Observer for active section highlighting (only on home page)
   useEffect(() => {
-    if (currentPath !== '/') return;
+    if (pathname !== '/') return;
     
     const hashLinks = navLinks.filter(l => l.href.startsWith('/#')).map(l => l.href.split('#')[1]);
     const observers: IntersectionObserver[] = [];
@@ -65,7 +66,7 @@ export default function Navbar() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, [currentPath]);
+  }, [pathname]);
 
   // Navigation handler — handles both page routes and hash links
   const handleNavClick = useCallback(
@@ -185,15 +186,15 @@ export default function Navbar() {
             {/* Center: Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => {
-                // Active detection: for page routes check pathname, for hash links check section
+                // Active detection using pathname (SSR-safe)
                 let isActive = false;
                 if (link.href.startsWith('/#')) {
                   const sectionId = link.href.split('#')[1];
-                  isActive = currentPath === '/' && activeSection === sectionId;
+                  isActive = pathname === '/' && activeSection === sectionId;
                 } else if (link.href === '/') {
-                  isActive = currentPath === '/' && !activeSection;
+                  isActive = pathname === '/' && !activeSection;
                 } else {
-                  isActive = currentPath === link.href;
+                  isActive = pathname === link.href;
                 }
                 return (
                   <a
@@ -312,11 +313,11 @@ export default function Navbar() {
                       let isActive = false;
                       if (link.href.startsWith('/#')) {
                         const sectionId = link.href.split('#')[1];
-                        isActive = currentPath === '/' && activeSection === sectionId;
+                        isActive = pathname === '/' && activeSection === sectionId;
                       } else if (link.href === '/') {
-                        isActive = currentPath === '/' && !activeSection;
+                        isActive = pathname === '/' && !activeSection;
                       } else {
-                        isActive = currentPath === link.href;
+                        isActive = pathname === link.href;
                       }
                       return (
                         <motion.a
