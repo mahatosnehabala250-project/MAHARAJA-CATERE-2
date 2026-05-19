@@ -2,23 +2,26 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Menu, X, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Menu', href: '#menu' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Menu', href: '/#menu' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Offers', href: '/offers' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('');
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
 
   // Handle scroll detection for shadow
   useEffect(() => {
@@ -30,12 +33,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Intersection Observer for active section highlighting
+  // Intersection Observer for active section highlighting (only on home page)
   useEffect(() => {
-    const sectionIds = navLinks.map((link) => link.href.replace('#', ''));
+    if (currentPath !== '/') return;
+    
+    const hashLinks = navLinks.filter(l => l.href.startsWith('/#')).map(l => l.href.split('#')[1]);
     const observers: IntersectionObserver[] = [];
 
-    sectionIds.forEach((id) => {
+    hashLinks.forEach((id) => {
       const element = document.getElementById(id);
       if (!element) return;
 
@@ -60,24 +65,38 @@ export default function Navbar() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, []);
+  }, [currentPath]);
 
-  // Smooth scroll handler
-  const scrollToSection = useCallback(
+  // Navigation handler — handles both page routes and hash links
+  const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
-      const targetId = href.replace('#', '');
-      const element = document.getElementById(targetId);
-      if (element) {
-        const navHeight = 64;
-        const elementPosition =
-          element.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({
-          top: elementPosition - navHeight,
-          behavior: 'smooth',
-        });
-      }
       setIsMobileMenuOpen(false);
+
+      // Check if it's a hash link on the same page
+      if (href.startsWith('/#') || href.startsWith('#')) {
+        const hash = href.includes('#') ? '#' + href.split('#')[1] : '';
+        const targetId = hash.replace('#', '');
+        
+        if (targetId) {
+          // If we're on the home page, scroll to section
+          if (window.location.pathname === '/') {
+            const element = document.getElementById(targetId);
+            if (element) {
+              const navHeight = 64;
+              const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({ top: elementPosition - navHeight, behavior: 'smooth' });
+              return;
+            }
+          }
+          // Otherwise navigate to home page with hash
+          window.location.href = href;
+          return;
+        }
+      }
+      
+      // Regular page navigation
+      window.location.href = href;
     },
     []
   );
@@ -144,8 +163,8 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             {/* Left: Logo + Brand Name */}
             <a
-              href="#hero"
-              onClick={(e) => scrollToSection(e, '#hero')}
+              href="/"
+              onClick={(e) => handleNavClick(e, '/')}
               className="flex items-center gap-2.5 flex-shrink-0"
             >
               <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-gray-200">
@@ -166,13 +185,21 @@ export default function Navbar() {
             {/* Center: Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => {
-                const sectionId = link.href.replace('#', '');
-                const isActive = activeSection === sectionId;
+                // Active detection: for page routes check pathname, for hash links check section
+                let isActive = false;
+                if (link.href.startsWith('/#')) {
+                  const sectionId = link.href.split('#')[1];
+                  isActive = currentPath === '/' && activeSection === sectionId;
+                } else if (link.href === '/') {
+                  isActive = currentPath === '/' && !activeSection;
+                } else {
+                  isActive = currentPath === link.href;
+                }
                 return (
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => scrollToSection(e, link.href)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`relative px-3.5 py-2 text-[0.82rem] font-[family-name:var(--font-lato)] font-medium tracking-wide transition-colors duration-200 ${
                       isActive
                         ? 'text-[#800020]'
@@ -204,7 +231,7 @@ export default function Navbar() {
               </a>
               <a
                 href="#contact"
-                onClick={(e) => scrollToSection(e, '#contact')}
+                onClick={(e) => handleNavClick(e, '#contact')}
                 className="inline-flex items-center px-5 py-2.5 text-sm font-[family-name:var(--font-lato)] font-semibold text-white bg-[#800020] rounded-lg hover:bg-[#6b001a] transition-colors duration-200 shadow-sm shadow-[#800020]/10"
               >
                 Book Event
@@ -282,13 +309,20 @@ export default function Navbar() {
                 <div className="flex-1 py-4 px-4 overflow-y-auto">
                   <nav className="flex flex-col gap-1">
                     {navLinks.map((link, i) => {
-                      const sectionId = link.href.replace('#', '');
-                      const isActive = activeSection === sectionId;
+                      let isActive = false;
+                      if (link.href.startsWith('/#')) {
+                        const sectionId = link.href.split('#')[1];
+                        isActive = currentPath === '/' && activeSection === sectionId;
+                      } else if (link.href === '/') {
+                        isActive = currentPath === '/' && !activeSection;
+                      } else {
+                        isActive = currentPath === link.href;
+                      }
                       return (
                         <motion.a
                           key={link.href}
                           href={link.href}
-                          onClick={(e) => scrollToSection(e, link.href)}
+                          onClick={(e) => handleNavClick(e, link.href)}
                           custom={i}
                           variants={menuItemVariants}
                           initial="closed"
@@ -316,7 +350,7 @@ export default function Navbar() {
                   {/* Book Your Event CTA */}
                   <a
                     href="#contact"
-                    onClick={(e) => scrollToSection(e, '#contact')}
+                    onClick={(e) => handleNavClick(e, '#contact')}
                     className="flex items-center justify-center w-full px-4 py-3 text-sm font-[family-name:var(--font-lato)] font-semibold text-white bg-[#800020] rounded-lg hover:bg-[#6b001a] transition-colors duration-200"
                   >
                     Book Your Event

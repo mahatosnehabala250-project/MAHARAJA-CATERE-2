@@ -4,13 +4,14 @@ import Image from 'next/image'
 import { Phone, Mail, MapPin, Clock, Crown } from 'lucide-react'
 
 const quickLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Menu', href: '#menu' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Menu', href: '/#menu' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Offers', href: '/offers' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Footer() {
